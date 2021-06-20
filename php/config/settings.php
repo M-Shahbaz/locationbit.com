@@ -13,7 +13,7 @@ if(!APP_DEBUG_MODE){
 date_default_timezone_set(TIME_ZONE);
 
 //. envoirement
-$dotenv = Dotenv::createUnsafeImmutable(__DIR__ .'/../../');
+$dotenv = Dotenv::createUnsafeImmutable(__DIR__ .'/../../', ['.env', '.env.local', '.env.production']);
 $dotenv->load();
 $dotenv->required('DB_NAME')->notEmpty();
 $dotenv->required('DB_USER')->notEmpty();

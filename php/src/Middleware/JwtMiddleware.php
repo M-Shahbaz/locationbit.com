@@ -2,8 +2,7 @@
 
 namespace App\Middleware;
 
-use App\Auth\JwtAuth;
-use App\Domain\User\Service\UserAuth;
+use App\Domain\Jwt\Service\JwtAuth;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -25,13 +24,10 @@ final class JwtMiddleware implements MiddlewareInterface
      */
     private $responseFactory;
 
-    private $userAuth;
-
-    public function __construct(JwtAuth $jwtAuth, ResponseFactoryInterface $responseFactory, UserAuth $userAuth)
+    public function __construct(JwtAuth $jwtAuth, ResponseFactoryInterface $responseFactory)
     {
         $this->jwtAuth = $jwtAuth;
         $this->responseFactory = $responseFactory;
-        $this->userAuth = $userAuth;
     }
 
     /**
@@ -44,8 +40,22 @@ final class JwtMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
+        // var_dump($request->getHeaderLine('Cookie'));
         $authorization = explode(' ', (string)$request->getHeaderLine('Authorization'));
+
         $token = $authorization[1] ?? '';
+
+        if (!$token) {
+
+            $headerCookies = explode('; ', (string)$request->getHeaderLine('Cookie'));
+
+            foreach ($headerCookies as $value) {
+                list($key, $val) = explode('=', $value, 2);
+                if ($key == 'next-auth.session-token') {
+                    $token = $val;
+                }
+            }
+        }
 
         if (!$token || !$this->jwtAuth->validateToken($token)) {
             return $this->responseFactory->createResponse()
@@ -59,14 +69,16 @@ final class JwtMiddleware implements MiddlewareInterface
         $request = $request->withAttribute('token', $parsedToken);
 
         // Append the user id as request attribute
-        $request = $request->withAttribute('jwtUserId', $parsedToken->getClaim('userId'));
+        // $request = $request->withAttribute('jwtUserId', $parsedToken->getClaim('userId'));
         // Append the user email as request attribute
-        $request = $request->withAttribute('email', $parsedToken->getClaim('sub'));
+        $request = $request->withAttribute('email', $parsedToken->getClaim('email'));
+
+        $request = $request->withAttribute('sub', $parsedToken->getClaim('sub'));
         // Append the user role (e.g: agent = 1, manager = 2 or admin = 3) as request attribute
-        $request = $request->withAttribute('role', $parsedToken->getClaim('role'));
-        
+        // $request = $request->withAttribute('role', $parsedToken->getClaim('role'));
+
         $request = $request->withAttribute('name', $parsedToken->getClaim('name'));
-        
+
         return $handler->handle($request);
     }
 }

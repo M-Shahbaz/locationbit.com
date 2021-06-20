@@ -28,6 +28,7 @@ return function (App $app) {
     });
 
     $app->add(new \Tuupola\Middleware\JwtAuthentication([
+        "cookie" => "next-auth.session-token",
         "secret" => getenv("JWT_PUBLIC_KEY"),
         "algorithm" => getenv("JWT_ALGORITHM"),
         "ignore" => APP_PASSTHROUGH_HOSTS,

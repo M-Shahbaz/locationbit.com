@@ -1,6 +1,5 @@
 <?php
 
-use App\Domain\Activity\Service\ActivityLogCreator;
 use App\Domain\Jwt\Service\JwtAuth;
 use Illuminate\Container\Container as IlluminateContainer;
 use Illuminate\Database\Connection;
@@ -13,7 +12,6 @@ use Psr\Log\LoggerInterface;
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
-use PubNub\PNConfiguration;
 use \Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
@@ -51,9 +49,6 @@ return [
         $handler = new StreamHandler($path, (int)$level);
         $logger->pushHandler($handler);
 
-        $activityLogCreator = $container->get(ActivityLogCreator::class);
-        $logger->pushHandler($activityLogCreator);
- 
         return $logger;
     },
 
@@ -98,6 +93,18 @@ return [
     // Add this entry
     ResponseFactoryInterface::class => function (ContainerInterface $container) {
         return $container->get(App::class)->getResponseFactory();
+    },
+    
+    // And add this entry
+    JwtAuth::class => function (ContainerInterface $container) {
+        $config = $container->get(Configuration::class);
+
+        $issuer = $config->getString('jwt.issuer');
+        $lifetime = $config->getInt('jwt.lifetime');
+        $privateKey = $config->getString('jwt.private_key');
+        $publicKey = $config->getString('jwt.public_key');
+        
+        return new JwtAuth($issuer, $lifetime, $privateKey, $publicKey);
     },
 
 ];

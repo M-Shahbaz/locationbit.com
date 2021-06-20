@@ -14,12 +14,13 @@ return function (App $app) {
         $app->map(['GET', 'POST'], '/test[/{id}]', \App\Action\TestAction::class);
     }
 
+    // $app->post('/jwt', \App\Action\Jwt\JwtTokenReCreateAction::class);
     /**
      * Protected Area only accessible with JWT
      */
     $app->group('', function (RouteCollectorProxy $group) use($app) {
        
-    
+        $app->post('/jwt', \App\Action\Jwt\JwtTokenReCreateAction::class);
         /**
          * Admin Or Manager
          */

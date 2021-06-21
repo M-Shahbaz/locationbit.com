@@ -96,7 +96,7 @@ export default NextAuth({
     // if you want to override the default behaviour.
     encode: async ({ secret, token, maxAge }) => {
       // console.log(token);
-      const jwtClaims = {...token}
+      const jwtClaims = { ...token }
 
       if (jwtClaims.iss === undefined) {
         jwtClaims.iss = "locationbit.com";
@@ -123,8 +123,8 @@ export default NextAuth({
         });
         const json = await res.json();
 
-        console.log(json);
-        console.log(json.userId);
+        // console.log(json);
+        // console.log(json.userId);
         jwtClaims.userId = json.userId;
         const encodedTokenWithUserId = jwt.sign(jwtClaims, secret, { algorithm: 'RS256' });
         return encodedTokenWithUserId;
@@ -178,15 +178,14 @@ export default NextAuth({
     //   }
     //   return Promise.resolve(token);
     // }
-    // session: async (session, token) => {
-    //   console.log('here2');
-    //   console.log(token);
-    //   console.log(session);
-
-    //   // session.accessToken = token.accessToken
-
-    //   return session
-    // }
+    session: async (session, token) => {
+      if (session.userId === undefined && token.userId !== undefined) {
+        session.userId = token.userId;
+      }else{
+        session = null;
+      }
+      return session
+    }
   },
 
   // Events are useful for logging

@@ -113,7 +113,7 @@ export default NextAuth({
 
       const encodedToken = jwt.sign(jwtClaims, secret, { algorithm: 'RS256' });
       // console.log(secret);
-      console.log(jwtClaims);
+      // console.log(jwtClaims);
       if (jwtClaims.userId === undefined) {
         const res = await fetch(process.env.NEXTAUTH_URL + '/api/jwt', {
           method: 'POST',

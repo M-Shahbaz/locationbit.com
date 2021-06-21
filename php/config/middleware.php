@@ -20,14 +20,8 @@ return function (App $app) {
     $container = $app->getContainer();
     $settings = $container->get(Configuration::class)->getArray('error_handler_middleware');
 
-    $app->add(function (ServerRequestInterface $request, RequestHandlerInterface $handler) {
-        // Convert array to object
-        $request = $request->withAttribute('token', (object)$request->getAttribute("token"));
-
-        return $handler->handle($request);
-    });
-
     $app->add(new \Tuupola\Middleware\JwtAuthentication([
+        "attribute" => "jwt",
         "cookie" => "next-auth.session-token",
         "secret" => getenv("JWT_PUBLIC_KEY"),
         "algorithm" => getenv("JWT_ALGORITHM"),

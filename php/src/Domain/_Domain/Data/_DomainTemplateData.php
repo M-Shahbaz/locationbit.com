@@ -2,8 +2,6 @@
 
 namespace App\Domain\_Domain\Data;
 
-use UnexpectedValueException;
-
 final class _DomainTemplateData
 {
     /** @var int */

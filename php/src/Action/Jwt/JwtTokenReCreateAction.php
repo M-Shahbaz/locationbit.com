@@ -3,6 +3,8 @@
 namespace App\Action\Jwt;
 
 use App\Domain\Jwt\Service\JwtTokenReCreator;
+use App\Domain\User\Service\UserReader;
+use App\Utility\CastService;
 use DomainException;
 use LogicException;
 use Psr\Http\Message\ResponseInterface;
@@ -14,29 +16,37 @@ final class JwtTokenReCreateAction
 {
     private $jwtTokenReCreator;
     private $loggerInterface;
+    private $userReader;
 
     public function __construct(
         JwtTokenReCreator $jwtTokenReCreator,
-        LoggerInterface $loggerInterface
+        LoggerInterface $loggerInterface,
+        UserReader $userReader
     ) {
         $this->jwtTokenReCreator = $jwtTokenReCreator;
         $this->loggerInterface = $loggerInterface;
+        $this->userReader = $userReader;
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args = []): ResponseInterface
     {
-        // $email = $request->getAttribute('email');
-        $email = "mr.shahbaz.aslam@gmail.com";
-
+        $jwtUserData = CastService::castJwtUserData($request->getAttribute('jwt'));
         try {
 
             // $newJwtToken = $this->jwtTokenReCreator->reCreateJwtToken($email);
 
-            $result = [
-                'userId' => 1,
-                'role' => 1,
-                // 'jwt' => $newJwtToken,
-            ];
+            if (empty($jwtUserData->userId)) {
+                $userData = $this->userReader->getUserByJwtUserDataEmail($jwtUserData);
+
+                $result = [
+                    'userId' => $userData->id,
+                    'role' => $userData->role,
+                    // 'jwt' => $newJwtToken,
+                ];
+            }else{
+                $result = $jwtUserData;
+            }
+
             $statusCode = 201;
         } catch (UnexpectedValueException $un) {
             $result = [

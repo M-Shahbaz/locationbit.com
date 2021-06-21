@@ -2,75 +2,28 @@
 
 namespace App\Domain\Jwt\Data;
 
-use UnexpectedValueException;
-
 final class JwtUserData
 {
     /** @var int */
-    public $uid;      
+    public $userId;      
     
     /** @var string */
-    public $uname;      
+    public $name;      
     
     /** @var string */
-    public $fname;      
+    public $email;      
     
     /** @var string */
-    public $lname;      
+    public $role;  
     
     /** @var string */
-    public $jobtitle;      
+    public $sub;      
     
     /** @var string */
-    public $type;      
+    public $iss;      
     
     /** @var string */
-    public $role;      
-    
-    /** @var string */
-    public $is_superadmin;      
-    
-    /** @var string */
-    public $phone_access;      
-    
-    /** @var string */
-    public $benefy_access;      
-    
-    /** @var string */
-    public $ssp_access;      
-    
-    /** @var string */
-    public $bco_access;      
-    
-    /** @var string */
-    public $subscribed_to_gsuite;      
-    
-    /** @var string */
-    public $subscribed_to_office365;      
-    
-    /** @var string */
-    public $office365_calendar_sync;      
-    
-    /** @var string */
-    public $gsuite_calendar_sync;      
-    
-    /** @var string */
-    public $color;      
-    
-    /** @var string */
-    public $group_chat;      
-    
-    /** @var string */
-    public $notifications;      
-    
-    /** @var string */
-    public $resource;      
-    
-    /** @var string */
-    public $sales_regions;      
-    
-    /** @var string */
-    public $mobile_active;      
+    public $jti;
     
     /** @var string */
     public $iat;      

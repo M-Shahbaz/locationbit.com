@@ -40,7 +40,7 @@ final class JwtMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        // var_dump($request->getHeaderLine('Cookie'));
+/*         // var_dump($request->getHeaderLine('Cookie'));
         $authorization = explode(' ', (string)$request->getHeaderLine('Authorization'));
 
         $token = $authorization[1] ?? '';
@@ -78,7 +78,7 @@ final class JwtMiddleware implements MiddlewareInterface
         // $request = $request->withAttribute('role', $parsedToken->getClaim('role'));
 
         $request = $request->withAttribute('name', $parsedToken->getClaim('name'));
-
+ */
         return $handler->handle($request);
     }
 }

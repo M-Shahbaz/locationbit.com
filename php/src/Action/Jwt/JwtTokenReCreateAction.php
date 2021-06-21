@@ -30,11 +30,12 @@ final class JwtTokenReCreateAction
 
         try {
 
-            $newJwtToken = $this->jwtTokenReCreator->reCreateJwtToken($email);
+            // $newJwtToken = $this->jwtTokenReCreator->reCreateJwtToken($email);
 
             $result = [
                 'userId' => 1,
-                'jwt' => $newJwtToken,
+                'role' => 1,
+                // 'jwt' => $newJwtToken,
             ];
             $statusCode = 201;
         } catch (UnexpectedValueException $un) {

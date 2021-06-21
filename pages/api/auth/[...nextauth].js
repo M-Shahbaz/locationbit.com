@@ -1,6 +1,7 @@
 import NextAuth from "next-auth"
 import Providers from "next-auth/providers"
 import jwt from "jsonwebtoken";
+import { uuid } from 'uuidv4';
 
 const maxAge = 30 * 24 * 60 * 60
 
@@ -103,7 +104,7 @@ export default NextAuth({
       }
 
       if (jwtClaims.jti === undefined) {
-        jwtClaims.jti = Math.random().toString(26).slice(2);
+        jwtClaims.jti = uuid();
       }
 
       if (jwtClaims.exp === undefined) {
@@ -126,6 +127,7 @@ export default NextAuth({
         // console.log(json);
         // console.log(json.userId);
         jwtClaims.userId = json.userId;
+        jwtClaims.role = json.role;
         const encodedTokenWithUserId = jwt.sign(jwtClaims, secret, { algorithm: 'RS256' });
         return encodedTokenWithUserId;
       } else {
@@ -181,6 +183,7 @@ export default NextAuth({
     session: async (session, token) => {
       if (session.userId === undefined && token.userId !== undefined) {
         session.userId = token.userId;
+        session.role = token.role;
       }else{
         session = null;
       }

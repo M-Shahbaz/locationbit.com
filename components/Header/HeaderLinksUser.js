@@ -1,3 +1,5 @@
+import { signIn, signOut, useSession } from 'next-auth/client';
+
 /*eslint-disable*/
 import React from "react";
 import Link from "next/link";
@@ -20,14 +22,17 @@ import CustomDropdown from "components/CustomDropdown/CustomDropdown.js";
 import Button from "components/CustomButtons/Button.js";
 
 import styles from "styles/jss/nextjs-material-kit/components/headerLinksStyle.js";
-
-import { signIn, signOut, useSession } from 'next-auth/client';
+import navbarsStyle from "styles/jss/nextjs-material-kit/pages/componentsSections/navbarsStyle.js";
 
 const useStyles = makeStyles(styles);
+const useNavbarsStyleStyles = makeStyles(navbarsStyle);
 
-export default function HeaderLinks(props) {
-  const [ session, loading ] = useSession();
+
+export default function HeaderLinksUser(props) {
+  const [session, loading] = useSession();
   const classes = useStyles();
+  const classesNavbars = useNavbarsStyleStyles();
+
   return (
     <List className={classes.list}>
       <ListItem className={classes.listItem}>
@@ -70,18 +75,44 @@ export default function HeaderLinks(props) {
         </Button>
       </ListItem>
       <ListItem className={classes.listItem}>
-        <Button
-          href={`/api/auth/signin`}
-          color="success"
-          target="_blank"
-          className={classes.navLink}
-          onClick={(e) => {
-            e.preventDefault()
-            signIn()
+        <CustomDropdown
+          noLiPadding
+          navDropdown
+          left
+          caret={false}
+          hoverColor="black"
+          dropdownHeader={session && session.user.name}
+          buttonText={
+            <img
+              src={session && session.user.image}
+              className={classesNavbars.img}
+              alt="profile"
+            />
+          }
+          buttonProps={{
+            className: classes.navLink + " " + classesNavbars.imageDropdownButton,
+            color: "transparent",
           }}
-        >
-          <ExitToAppIcon className={classes.icons} /> Sign in
-        </Button>
+          dropdownList={[
+            <Link href="/me">
+              <a className={classesNavbars.dropdownLink}>Me</a>
+            </Link>,
+            <Link href="/settings">
+              <a className={classesNavbars.dropdownLink}>Settings</a>
+            </Link>,
+            <Link href="/api/auth/signout">
+              <a
+                className={classesNavbars.dropdownLink}
+                onClick={(e) => {
+                  e.preventDefault()
+                  signOut()
+                }}
+              >
+                Sign out
+              </a>
+            </Link>
+          ]}
+        />
       </ListItem>
     </List>
   );

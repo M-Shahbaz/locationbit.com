@@ -24,7 +24,7 @@ _init*
 /php/logs/*
 !/php/logs/empty
 
-public/*
+#public/*
 !public/api
 !/public/.htaccess
 php/src/Action/Home/HomeRoutesAction.php

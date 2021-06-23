@@ -1,11 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 
 // @material-ui/icons
-import Chat from "@material-ui/icons/Chat";
 import VerifiedUser from "@material-ui/icons/VerifiedUser";
-import Fingerprint from "@material-ui/icons/Fingerprint";
 import AddLocationIcon from '@material-ui/icons/AddLocation';
 // core components
 import GridContainer from "components/Grid/GridContainer.js";
@@ -16,11 +14,38 @@ import Button from "components/CustomButtons/Button.js";
 
 import styles from "styles/jss/nextjs-material-kit/pages/landingPageSections/productStyle.js";
 import AutocompleteCountry from "../../components/Autocomplete/AutocompleteCountry";
+import AutocompleteState from "../../components/Autocomplete/AutocompleteState";
+import AutocompleteCity from "../../components/Autocomplete/AutocompleteCity";
 
 const useStyles = makeStyles(styles);
 
 export default function LocationAddSection() {
   const classes = useStyles();
+  const [selectedCountryCode, setSelectedCountryCode] = useState(null);
+  const [selectedStateCode, setSelectedStateCode] = useState(null);
+  const [selectedCity, setSelectedCity] = useState(null);
+  // useEffect(() => {
+
+  // }, selectedCountryCode);
+
+  const countryHandler = (countryCode) => {
+    console.log("786/92");
+    console.log(countryCode);
+    setSelectedCountryCode(countryCode);
+  };
+
+  const stateHandler = (stateCode) => {
+    console.log("state");
+    console.log(stateCode);
+    setSelectedStateCode(stateCode);
+  };
+
+  const cityHandler = (city) => {
+    console.log("city");
+    console.log(city);
+    setSelectedCity(city);
+  };
+
   return (
     <div className={classes.section}>
       <GridContainer justify="center">
@@ -67,10 +92,16 @@ export default function LocationAddSection() {
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={12}>
-                  <AutocompleteCountry />
+                  <AutocompleteCountry onChangeCountryHandler={countryHandler} />
                 </GridItem>
-                <GridItem xs={12} sm={12} md={4} className={classes.textCenter}>
-                  <Button color="success"><AddLocationIcon /> Submit</Button>
+                <GridItem xs={12} sm={12} md={12}>
+                  <AutocompleteState onChangeStateHandler={stateHandler} countryCode={selectedCountryCode}/>
+                </GridItem>
+                <GridItem xs={12} sm={12} md={12}>
+                  <AutocompleteCity onChangeCityHandler={cityHandler} countryCode={selectedCountryCode} stateCode={selectedStateCode}/>
+                </GridItem>
+                <GridItem xs={12} sm={12} md={12} className={classes.textCenter}>
+                  <Button color="success" fullWidth><AddLocationIcon /> Submit</Button>
                 </GridItem>
               </GridContainer>
             </form>

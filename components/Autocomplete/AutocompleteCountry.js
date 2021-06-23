@@ -2,6 +2,7 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { makeStyles } from '@material-ui/core/styles';
+import { Country, State, City } from 'country-state-city';
 
 // ISO 3166-1 alpha-2
 // ⚠️ No support for IE 11
@@ -49,22 +50,36 @@ const useStyles = makeStyles({
 
 const AutocompleteCountry = props => {
   const classes = useStyles();
+  const countries = Country.getAllCountries();
+
+  const countryChangeHandler = (event, value) => {
+    if(value){
+      console.log(value);
+      props.onChangeCountryHandler(value.isoCode);
+    }else{
+      props.onChangeCountryHandler(null);
+    }
+    
+    
+  };
+
 
   return (
     <Autocomplete
       id="country"
-      style={{ width: "100%" }}
+      style={{ width: "100%", marginBottom: "17px" }}
       options={countries}
+      getOptionSelected={(option) => option.isoCode === "PK"}
       classes={{
         option: classes.option,
         inputRoot: classes.inputRoot,
       }}
       autoHighlight
-      getOptionLabel={(option) => option.label}
+      getOptionLabel={(option) => option.name}
       renderOption={(option) => (
         <React.Fragment>
-          <span>{countryToFlag(option.code)}</span>
-          {option.label} ({option.code}) +{option.phone}
+          <span>{countryToFlag(option.isoCode)}</span>
+          {option.name} ({option.isoCode}) +{option.phonecode}
         </React.Fragment>
       )}
       renderInput={(params) => (
@@ -78,12 +93,13 @@ const AutocompleteCountry = props => {
           }}
         />
       )}
+      onChange={countryChangeHandler}
     />
   );
 };
 
 // From https://bitbucket.org/atlassian/atlaskit-mk-2/raw/4ad0e56649c3e6c973e226b7efaeb28cb240ccb0/packages/core/select/src/data/countries.js
-const countries = [
+/* const countries = [
   { code: 'AD', label: 'Andorra', phone: '376' },
   { code: 'AE', label: 'United Arab Emirates', phone: '971' },
   { code: 'AF', label: 'Afghanistan', phone: '93' },
@@ -332,6 +348,6 @@ const countries = [
   { code: 'ZA', label: 'South Africa', phone: '27' },
   { code: 'ZM', label: 'Zambia', phone: '260' },
   { code: 'ZW', label: 'Zimbabwe', phone: '263' },
-];
+]; */
 
 export default AutocompleteCountry;

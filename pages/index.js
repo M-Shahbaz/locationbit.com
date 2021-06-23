@@ -31,7 +31,7 @@ export default function LandingPage(props) {
   const classes = useStyles();
   const { ...rest } = props;
   return (
-    <div>
+    <>
       <HeaderLayout />
       <Parallax filter responsive image="/img/landing-bg.jpg">
         <div className={classes.container}>
@@ -67,6 +67,6 @@ export default function LandingPage(props) {
         </div>
       </div>
       <Footer />
-    </div>
+    </>
   );
 }

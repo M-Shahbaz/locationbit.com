@@ -41,13 +41,13 @@ export default function domain(props) {
   const HeadTitle = "786/92";
 
   // When rendering client side don't display anything until loading is complete
-  if (typeof window !== 'undefined' && loading) return null;
+  if (typeof window !== 'undefined' && loading) return <></>;
 
   return (
     <>
       <Head>
         <title>{HeadTitle}</title>
-        <meta property="og:title" content="HeadTitle" key="title" />
+        <meta property="og:title" content={HeadTitle} key="title" />
       </Head>
       <HeaderLayout/>
       <div className={classNames(classes.main)}>

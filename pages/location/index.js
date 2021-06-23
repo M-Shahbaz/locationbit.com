@@ -15,19 +15,17 @@ import Footer from "components/Footer/Footer.js";
 import styles from "styles/jss/nextjs-material-kit/pages/landingPage.js";
 
 // Sections for this page
-import ProductSection from "pages-sections/LandingPage-Sections/ProductSection.js";
+import LocationAddSection from "pages-sections/LocationAdd-Sections/LocationAddSection.js";
 import WorkSection from "pages-sections/LandingPage-Sections/WorkSection.js";
-import HeaderLayout from '../components/Header/HeaderLayout';
+import HeaderLayout from 'components/Header/HeaderLayout';
 
 const useStyles = makeStyles(styles);
 
-
-
-export default function domain(props) {
+export default function location(props) {
   const [session, loading] = useSession();
   const classes = useStyles();
   const { ...rest } = props;
-  const HeadTitle = "786/92";
+  const HeadTitle = "786/92, Add Location";
 
   // When rendering client side don't display anything until loading is complete
   if (typeof window !== 'undefined' && loading) return <></>;
@@ -41,7 +39,7 @@ export default function domain(props) {
       <HeaderLayout/>
       <div className={classNames(classes.main)}>
         <div className={classes.container}>
-          <ProductSection />
+          <LocationAddSection />
           <WorkSection />
         </div>
       </div>

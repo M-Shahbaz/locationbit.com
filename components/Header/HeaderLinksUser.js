@@ -10,6 +10,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Tooltip from "@material-ui/core/Tooltip";
 import Icon from "@material-ui/core/Icon";
+import AddLocationIcon from '@material-ui/icons/AddLocation';
 
 // @material-ui/icons
 import { Apps, CloudDownload } from "@material-ui/icons";
@@ -35,6 +36,11 @@ export default function HeaderLinksUser(props) {
 
   return (
     <List className={classes.list}>
+      <ListItem className={classes.listItem}>
+        <Link href="/location">
+          <a className={classes.navLink}><AddLocationIcon /> Add location</a>
+        </Link>
+      </ListItem>
       <ListItem className={classes.listItem}>
         <Link href="/domain">
           <a className={classes.navLink}>Domain</a>

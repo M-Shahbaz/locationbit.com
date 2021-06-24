@@ -39,6 +39,29 @@ export default NextAuth({
       clientId: process.env.TWITTER_ID,
       clientSecret: process.env.TWITTER_SECRET,
     }),
+    {
+      id: 'microsoft',
+      name: 'Microsoft',
+      type: 'oauth',
+      version: '2.0',
+      scope: 'https://graph.microsoft.com/user.read',
+      params: { grant_type: 'authorization_code' },
+      accessTokenUrl: 'https://login.microsoftonline.com/common/oauth2/v2.0/token',
+      authorizationUrl: 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize?response_type=code&response_mode=query',
+      profileUrl: 'https://graph.microsoft.com/v1.0/me/',
+      profile: profile => {
+        console.log(profile);
+        return {
+          id: profile.id,
+          name: profile.displayName,
+          last_name: profile.surname,
+          first_name: profile.givenName,
+          email: profile.mail ? profile.mail : profile.userPrincipalName,
+        };
+      },
+      clientId: process.env.MICROSOFT_ID,
+      clientSecret: process.env.MICROSOFT_SECRET,
+    },
     Providers.GitHub({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
@@ -113,7 +136,7 @@ export default NextAuth({
 
       const encodedToken = jwt.sign(jwtClaims, secret, { algorithm: 'RS256' });
       // console.log(secret);
-      // console.log(jwtClaims);
+      console.log(jwtClaims);
       if (jwtClaims.userId === undefined) {
         const res = await fetch(process.env.NEXTAUTH_URL + '/api/jwt', {
           method: 'POST',
@@ -124,10 +147,14 @@ export default NextAuth({
         });
         const json = await res.json();
 
-        // console.log(json);
+        console.log(json);
         // console.log(json.userId);
         jwtClaims.userId = json.userId;
         jwtClaims.role = json.role;
+        if (json.picture) {
+          jwtClaims.picture = json.picture;
+        }
+        
         const encodedTokenWithUserId = jwt.sign(jwtClaims, secret, { algorithm: 'RS256' });
         return encodedTokenWithUserId;
       } else {

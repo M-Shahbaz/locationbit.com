@@ -43,6 +43,10 @@ final class JwtTokenReCreateAction
                     'role' => $userData->role,
                     // 'jwt' => $newJwtToken,
                 ];
+
+                if(!isset($jwtUserData->picture)){
+                    $result['picture'] = '/img/user.svg';
+                }
             }else{
                 $result = $jwtUserData;
             }

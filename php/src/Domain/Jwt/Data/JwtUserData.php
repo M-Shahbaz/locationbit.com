@@ -11,6 +11,9 @@ final class JwtUserData
     public $name;      
     
     /** @var string */
+    public $picture;      
+    
+    /** @var string */
     public $email;      
     
     /** @var string */

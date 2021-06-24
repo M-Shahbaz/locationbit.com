@@ -44,8 +44,7 @@ const AutocompleteCity = props => {
 
   const cityChangeHandler = (event, value) => {
     if(value){
-      console.log(value);
-      props.onChangeCityHandler(value.name);
+      props.onChangeCityHandler(value);
     }else{
       props.onChangeCityHandler(null);
     }
@@ -79,6 +78,7 @@ const AutocompleteCity = props => {
             ...params.inputProps,
             autoComplete: 'new-password', // disable autocomplete and autofill
           }}
+          required
         />
       )}
       onChange={cityChangeHandler}

@@ -46,7 +46,7 @@ const AutocompleteState = props => {
   const stateChangeHandler = (event, value) => {
     if(value){
       console.log(value);
-      props.onChangeStateHandler(value.isoCode);
+      props.onChangeStateHandler(value);
     }else{
       props.onChangeStateHandler(null);
     }
@@ -80,6 +80,7 @@ const AutocompleteState = props => {
             ...params.inputProps,
             autoComplete: 'new-password', // disable autocomplete and autofill
           }}
+          required
         />
       )}
       onChange={stateChangeHandler}

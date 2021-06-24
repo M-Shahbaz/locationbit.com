@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -16,14 +16,19 @@ import styles from "styles/jss/nextjs-material-kit/pages/landingPageSections/pro
 import AutocompleteCountry from "../../components/Autocomplete/AutocompleteCountry";
 import AutocompleteState from "../../components/Autocomplete/AutocompleteState";
 import AutocompleteCity from "../../components/Autocomplete/AutocompleteCity";
+import axios from "axios";
 
 const useStyles = makeStyles(styles);
 
 export default function LocationAddSection() {
   const classes = useStyles();
   const [selectedCountryCode, setSelectedCountryCode] = useState(null);
-  const [selectedStateCode, setSelectedStateCode] = useState(null);
+  const [selectedState, setSelectedState] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
+
+  const nameRef = useRef('');
+  const addressRef = useRef('');
+  const zipcodeRef = useRef('');
   // useEffect(() => {
 
   // }, selectedCountryCode);
@@ -34,10 +39,10 @@ export default function LocationAddSection() {
     setSelectedCountryCode(countryCode);
   };
 
-  const stateHandler = (stateCode) => {
+  const stateHandler = (state) => {
     console.log("state");
-    console.log(stateCode);
-    setSelectedStateCode(stateCode);
+    console.log(state);
+    setSelectedState(state);
   };
 
   const cityHandler = (city) => {
@@ -45,6 +50,29 @@ export default function LocationAddSection() {
     console.log(city);
     setSelectedCity(city);
   };
+
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    
+    const locationCreateData = {
+      name: nameRef.current.value,
+      addressRef: addressRef.current.value,
+      zipcodeRef: zipcodeRef.current.value,
+      country: selectedCountryCode,
+      state: selectedState.name,
+      city: selectedCity.name,
+      cityObject: selectedCity,
+    };
+
+    console.log(locationCreateData);
+
+    axios.post(`/api/locations`, locationCreateData)
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      })
+  }
 
   return (
     <div className={classes.section}>
@@ -59,8 +87,17 @@ export default function LocationAddSection() {
       <div>
         <GridContainer>
           <GridItem xs={12} sm={12} md={6}>
-            <form>
+            <form onSubmit={handleSubmit}>
               <GridContainer>
+                <GridItem xs={12} sm={12} md={12}>
+                  <AutocompleteCountry onChangeCountryHandler={countryHandler} />
+                </GridItem>
+                <GridItem xs={12} sm={12} md={12}>
+                  <AutocompleteState onChangeStateHandler={stateHandler} countryCode={selectedCountryCode} />
+                </GridItem>
+                <GridItem xs={12} sm={12} md={12}>
+                  <AutocompleteCity onChangeCityHandler={cityHandler} countryCode={selectedCountryCode} stateCode={selectedState ? selectedState.isoCode : null } />
+                </GridItem>
                 <GridItem xs={12} sm={12} md={12}>
                   <CustomInput
                     labelText="Location name"
@@ -69,6 +106,10 @@ export default function LocationAddSection() {
                     formControlProps={{
                       fullWidth: true,
                     }}
+                    inputProps={{
+                      required: true,
+                    }}
+                    ref={nameRef}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={12}>
@@ -79,29 +120,28 @@ export default function LocationAddSection() {
                     formControlProps={{
                       fullWidth: true,
                     }}
+                    inputProps={{
+                      required: true,
+                    }}
+                    ref={addressRef}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={12}>
                   <CustomInput
-                    labelText="Location zip"
-                    id="zip"
+                    labelText="Location zipcode"
+                    id="zipcode"
                     success
                     formControlProps={{
                       fullWidth: true,
                     }}
+                    inputProps={{
+                      required: true,
+                    }}
+                    ref={zipcodeRef}
                   />
                 </GridItem>
-                <GridItem xs={12} sm={12} md={12}>
-                  <AutocompleteCountry onChangeCountryHandler={countryHandler} />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={12}>
-                  <AutocompleteState onChangeStateHandler={stateHandler} countryCode={selectedCountryCode}/>
-                </GridItem>
-                <GridItem xs={12} sm={12} md={12}>
-                  <AutocompleteCity onChangeCityHandler={cityHandler} countryCode={selectedCountryCode} stateCode={selectedStateCode}/>
-                </GridItem>
                 <GridItem xs={12} sm={12} md={12} className={classes.textCenter}>
-                  <Button color="success" fullWidth><AddLocationIcon /> Submit</Button>
+                  <Button color="success" type="submit" fullWidth><AddLocationIcon /> Submit</Button>
                 </GridItem>
               </GridContainer>
             </form>

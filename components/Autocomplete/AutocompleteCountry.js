@@ -91,6 +91,7 @@ const AutocompleteCountry = props => {
             ...params.inputProps,
             autoComplete: 'new-password', // disable autocomplete and autofill
           }}
+          required
         />
       )}
       onChange={countryChangeHandler}

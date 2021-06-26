@@ -35,7 +35,7 @@ final class _DomainTemplateConfirmAction
 
         $_domainTemplateConfirmData = new _DomainTemplateConfirmData();
         $_domainTemplateConfirmData->id = $_domainTemplateId;
-        $_domainTemplateConfirmData->uid = $jwtUserData->uid;
+        $_domainTemplateConfirmData->userId = $jwtUserData->userId;
 
 
         try {

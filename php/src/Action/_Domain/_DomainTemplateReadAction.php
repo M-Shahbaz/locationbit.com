@@ -34,7 +34,7 @@ final class _DomainTemplateReadAction
         $data = (array)$request->getParsedBody();
 
         $_domainTemplateReadRequestData = new _DomainTemplateReadRequestData();
-        $_domainTemplateReadRequestData->jwtUserId = $jwtUserData->uid;
+        $_domainTemplateReadRequestData->jwtUserId = $jwtUserData->userId;
         $_domainTemplateReadRequestData->_domainTemplateId = $_domainTemplateId;
 
         try {

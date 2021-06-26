@@ -43,7 +43,7 @@ final class _DomainTemplateCreateAction
         $_domainTemplateCreateData->customerId = $data['customerId'];
         $_domainTemplateCreateData->sourceId = $data['sourceId'];
         $_domainTemplateCreateData->feedbackId = $data['feedbackId'];
-        $_domainTemplateCreateData->createdBy = $jwtUserData->uid;
+        $_domainTemplateCreateData->createdBy = $jwtUserData->userId;
 
 
         try {
@@ -51,10 +51,10 @@ final class _DomainTemplateCreateAction
             //Throwing excemption
             $_domainTemplateCreateData->validate();
 
-            $new_DomainTemplate = $this->_domainTemplateCreator->create_DomainTemplate($_domainTemplateCreateData);
+            $new_DomainTemplateId = $this->_domainTemplateCreator->create_DomainTemplate($_domainTemplateCreateData);
 
             $result = [
-                '_domainTemplateId' => $new_DomainTemplate
+                '_domainTemplateId' => $new_DomainTemplateId
             ];
             $statusCode = 201;
         } catch (UnexpectedValueException $un) {

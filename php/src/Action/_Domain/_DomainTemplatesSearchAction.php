@@ -38,7 +38,7 @@ final class _DomainTemplatesSearchAction
         $_domainTemplatesSearchData = new _DomainTemplatesSearchData();
         $_domainTemplatesSearchData->from = isset($data['from']) ? date('Y-m-d H:i:s', strtotime($data['from'])) : NULL;
         $_domainTemplatesSearchData->to = isset($data['to']) ? date('Y-m-d H:i:s', strtotime($data['to'])) : NULL;
-        $_domainTemplatesSearchData->userIds[] = $jwtUserData->uid;
+        $_domainTemplatesSearchData->userIds[] = $jwtUserData->userId;
         $_domainTemplatesSearchData->limit = $limit;
         $_domainTemplatesSearchData->offset = $offset;
 

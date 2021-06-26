@@ -35,7 +35,7 @@ final class _DomainTemplateDeleteAction
 
         $_domainTemplateDeleteData = new _DomainTemplateDeleteData();
         $_domainTemplateDeleteData->id = $_domainTemplateId;
-        $_domainTemplateDeleteData->deletedBy = $jwtUserData->uid;
+        $_domainTemplateDeleteData->deletedBy = $jwtUserData->userId;
 
 
         try {

@@ -41,7 +41,7 @@ final class _DomainTemplateUpdateAction
         $_domainTemplateUpdateData->end = isset($data['end']) ? date('Y-m-d H:i:s', strtotime($data['end'])) : NULL;
         $_domainTemplateUpdateData->resheduledOn = $data['resheduledOn'] ?? NULL;
         $_domainTemplateUpdateData->resheduledBy = $data['resheduledBy'] ?? NULL;
-        $_domainTemplateUpdateData->updatedBy = $jwtUserData->uid;
+        $_domainTemplateUpdateData->updatedBy = $jwtUserData->userId;
 
 
         try {

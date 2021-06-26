@@ -57,7 +57,7 @@ const AutocompleteCity = props => {
     <Autocomplete
       id="state"
       style={{ width: "100%", marginBottom: "17px" }}
-      options={cities}
+      options={cities ? cities : []}
       classes={{
         option: classes.option,
         inputRoot: classes.inputRoot,

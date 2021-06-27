@@ -57,8 +57,8 @@ export default function LocationAddSection() {
     
     const locationCreateData = {
       name: nameRef.current.value,
-      addressRef: addressRef.current.value,
-      zipcodeRef: zipcodeRef.current.value,
+      address: addressRef.current.value,
+      zipcode: zipcodeRef.current.value,
       country: selectedCountryCode,
       state: selectedState.name,
       city: selectedCity.name,
@@ -67,11 +67,11 @@ export default function LocationAddSection() {
 
     console.log(locationCreateData);
 
-    axios.post(`/api/locations`, locationCreateData)
+    axios.post(`/api/location/add`, locationCreateData)
       .then(res => {
         console.log(res);
         console.log(res.data);
-      })
+      });
   }
 
   return (

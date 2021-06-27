@@ -20,11 +20,16 @@ return function (App $app) {
      */
     $app->group('', function (RouteCollectorProxy $group) use($app) {
        
-        $app->post('/jwt', \App\Action\Jwt\JwtTokenReCreateAction::class);
+        $group->post('/jwt', \App\Action\Jwt\JwtTokenReCreateAction::class);
+
+        $group->group('/location', function (RouteCollectorProxy $group) {
+            $group->post('/add', \App\Action\Location\LocationCreateAction::class);
+        });
+
         /**
          * Admin Or Manager
          */
-        $app->group('', function (RouteCollectorProxy $group) {
+        $group->group('', function (RouteCollectorProxy $group) {
             
         })    
         ->add(\App\Middleware\AdminOrManagerMiddleware::class);
@@ -32,7 +37,7 @@ return function (App $app) {
         /**
          *  Super Admin area
          */
-        $app->group('', function (RouteCollectorProxy $group) {
+        $group->group('', function (RouteCollectorProxy $group) {
                             
         })
         ->add(\App\Middleware\SuperAdminMiddleware::class);

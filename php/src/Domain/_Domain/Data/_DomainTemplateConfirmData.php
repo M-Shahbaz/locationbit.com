@@ -19,7 +19,7 @@ final class _DomainTemplateConfirmData
 			throw new UnexpectedValueException('id is required');
 		}
 
-		if(empty($this->uid)){
+		if(empty($this->userId)){
 			throw new UnexpectedValueException('uid is required');
 		}
 

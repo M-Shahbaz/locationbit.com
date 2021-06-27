@@ -26,7 +26,7 @@ final class _DomainTemplateReadAction
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args = []): ResponseInterface
     {
-        $jwtUserData = CastService::castJwtUserData($request->getAttribute('jwtUserData'));
+        $jwtUserData = CastService::castJwtUserData($request->getAttribute('jwt'));
 
         try {
 

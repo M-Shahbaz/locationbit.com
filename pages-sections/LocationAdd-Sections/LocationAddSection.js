@@ -60,7 +60,7 @@ export default function LocationAddSection() {
       address: addressRef.current.value,
       zipcode: zipcodeRef.current.value,
       country: selectedCountryCode,
-      state: selectedState.name,
+      state: selectedState.isoCode,
       city: selectedCity.name,
       cityObject: selectedCity,
     };

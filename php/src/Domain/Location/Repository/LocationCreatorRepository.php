@@ -30,6 +30,8 @@ class LocationCreatorRepository
             'country' => $locationCreateData->country,
             'state' => $locationCreateData->state,
             'city' => $locationCreateData->city,
+            'latitude' => $locationCreateData->latitude,
+            'longitude' => $locationCreateData->longitude,
             'createdBy' => $locationCreateData->createdBy,
         ];
 

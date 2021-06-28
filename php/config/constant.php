@@ -30,3 +30,4 @@ const UPLOAD_PATH = __DIR__ . '/../uploads/';
 const FILES_SECURE_FOLDER = "./../../php/assets/files";
 const TEMPLATES_FOLDER = __DIR__ . '/../templates/';
 const ENV_PATH = __DIR__ . '/../../.env';
+const BING_MAPS_API_URL = "https://dev.virtualearth.net/REST/v1/";

@@ -38,6 +38,7 @@ final class LocationCreateAction
         $locationCreateData->country = $data['country'] ?? null;
         $locationCreateData->state = $data['state'] ?? null;
         $locationCreateData->city = $data['city'] ?? null;
+        $locationCreateData->cityObject = $data['cityObject'] ?? null;
         $locationCreateData->createdBy = $jwtUserData->userId;
 
 

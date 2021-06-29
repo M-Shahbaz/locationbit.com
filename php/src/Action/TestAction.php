@@ -2,6 +2,7 @@
 
 namespace App\Action;
 
+use App\Domain\Bing\Service\BingMapsGeocodingReader;
 use DomainException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -11,14 +12,16 @@ final class TestAction
 {
     private $srv;
 
-    public function __construct()
+    public function __construct(BingMapsGeocodingReader $bingMapsGeocodingReader)
     {
-        $this->srv;
+        $this->srv = $bingMapsGeocodingReader;
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args = []): ResponseInterface
     {
         try {
+
+            $this->srv->getBingMapsGeocodingByAddress("Al Masjid an Nabawi, Al Haram, Medina 42311, Saudi Arabia");
             
             $result = "786/92";
         } catch (UnexpectedValueException $un) {

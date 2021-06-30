@@ -15,6 +15,11 @@ return function (App $app) {
     }
 
     // $app->post('/jwt', \App\Action\Jwt\JwtTokenReCreateAction::class);
+    
+    $app->group('/location', function (RouteCollectorProxy $group) {
+        $group->get('/{id:[0-9]+}', \App\Action\Location\LocationReadAction::class);
+    });
+
     /**
      * Protected Area only accessible with JWT
      */

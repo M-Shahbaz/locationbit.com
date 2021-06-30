@@ -42,8 +42,8 @@ export default function locationPage(props) {
   // When rendering client side don't display anything until loading is complete
   if (typeof window !== 'undefined' && loading) return <></>;
 
-  //<p>locationTitle: {locationId} {urlslug} {locationTitle}</p>
-
+  return <p>locationTitle: {locationId} {urlslug} {locationTitle} {props.locationId}</p>;
+/* 
   return (
     <>
       <Head>
@@ -59,6 +59,6 @@ export default function locationPage(props) {
       <Footer />
     </>
   );
-
+ */
 
 }

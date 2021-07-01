@@ -29,7 +29,7 @@ const useStyles = makeStyles(styles);
 
 
 
-export default function locationPage(props) {
+export default function locationTitle(props) {
   const router = useRouter()
   const { locationId, locationTitle } = router.query;
   const [session, loading] = useSession();

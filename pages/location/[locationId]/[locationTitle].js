@@ -1,9 +1,8 @@
 import React from "react";
 import { useRouter } from 'next/router';
-import { signIn, signOut, useSession } from 'next-auth/client';
+import { signIn, signOut, useSession, getSession } from 'next-auth/client';
+import { getLocationUrl } from 'utility/LocationService.js';
 
-
-import slugify from 'react-slugify';
 import NoSsr from '@material-ui/core/NoSsr';
 import Head from "next/head";
 
@@ -29,26 +28,28 @@ const useStyles = makeStyles(styles);
 
 
 
-export default function locationTitle(props) {
+const locationTitle = (props) => {
   const router = useRouter()
   const { locationId, locationTitle } = router.query;
   const [session, loading] = useSession();
-
-  const urlslug = slugify("786 92");
   const classes = useStyles();
-  const { ...rest } = props;
-  const HeadTitle = "786/92, Location page";
+  const { location } = props;
+
+  const HeadTitle = location.name + ", " + location.address + ", " + location.city + ", " + location.locationCountry.name;
 
   // When rendering client side don't display anything until loading is complete
   if (typeof window !== 'undefined' && loading) return <></>;
 
-  return <p>locationTitle: {locationId} {urlslug} {locationTitle} {props.locationId}</p>;
-/* 
+  // return <p>locationTitle: {locationId} {urlslug} {locationTitle} {props.locationId}</p>;
+
   return (
     <>
       <Head>
         <title>{HeadTitle}</title>
         <meta property="og:title" content={HeadTitle} key="title" />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+          crossOrigin="" />
       </Head>
       <HeaderLayout />
       <div className={classNames(classes.main)}>
@@ -59,6 +60,24 @@ export default function locationTitle(props) {
       <Footer />
     </>
   );
- */
+
+
+};
+
+
+export async function getServerSideProps(context) {
+  const req = context.req;
+  const res = context.res;
+  const { params } = context;
+  const locationId = params.locationId;
+  const locationTitle = params.locationTitle;
+  // fetch data from an api
+  // fetch data from an api
+  return await getLocationUrl('/api/server/location/' + locationId, locationId, locationTitle).then( response => {
+    return response;
+  }); 
 
 }
+
+
+export default locationTitle;

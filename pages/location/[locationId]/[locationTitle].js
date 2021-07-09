@@ -2,6 +2,7 @@ import React from "react";
 import { useRouter } from 'next/router';
 import { signIn, signOut, useSession, getSession } from 'next-auth/client';
 import { getLocationUrl } from 'utility/LocationService.js';
+import { leafletLibrary } from 'utility/Libraries.js';
 
 import NoSsr from '@material-ui/core/NoSsr';
 import Head from "next/head";
@@ -47,8 +48,7 @@ const locationTitle = (props) => {
       <Head>
         <title>{HeadTitle}</title>
         <meta property="og:title" content={HeadTitle} key="title" />
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        <link rel="stylesheet" href={leafletLibrary}
           crossOrigin="" />
       </Head>
       <HeaderLayout />

@@ -1,6 +1,8 @@
 <?php
 
 use App\Domain\Jwt\Service\JwtAuth;
+use Elasticsearch\Client;
+use Elasticsearch\ClientBuilder;
 use Illuminate\Container\Container as IlluminateContainer;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Connectors\ConnectionFactory;
@@ -18,6 +20,7 @@ use Twig\Loader\FilesystemLoader;
 use Selective\Config\Configuration;
 use Slim\App;
 use Slim\Factory\AppFactory;
+
 return [
     Configuration::class => function () {
         return new Configuration(require __DIR__ . '/settings.php');
@@ -44,7 +47,7 @@ return [
         $name = $config->getString('logger.name');
         $path = $config->getString('logger.path');
         $level = $config->getString('logger.level');
-        
+
         $logger = new Logger($name);
         $handler = new StreamHandler($path, (int)$level);
         $logger->pushHandler($handler);
@@ -89,12 +92,12 @@ return [
         return $twig;
     },
 
-    
+
     // Add this entry
     ResponseFactoryInterface::class => function (ContainerInterface $container) {
         return $container->get(App::class)->getResponseFactory();
     },
-    
+
     // And add this entry
     JwtAuth::class => function (ContainerInterface $container) {
         $config = $container->get(Configuration::class);
@@ -103,8 +106,19 @@ return [
         $lifetime = $config->getInt('jwt.lifetime');
         $privateKey = $config->getString('jwt.private_key');
         $publicKey = $config->getString('jwt.public_key');
-        
+
         return new JwtAuth($issuer, $lifetime, $privateKey, $publicKey);
+    },
+
+
+    // Elasticsearch connection
+    Client::class => function (ContainerInterface $container) {
+
+        $client = ClientBuilder::create()
+            ->setBasicAuthentication($_ENV['ES_USER'], $_ENV['ES_PASS'])
+            ->build();
+
+        return $client;
     },
 
 ];

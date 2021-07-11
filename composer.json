@@ -2,6 +2,7 @@
     "require": {
         "cakephp/chronos": "^2.0",
         "dg/mysql-dump": "^1.5",
+        "elasticsearch/elasticsearch": "^7.13",
         "endroid/qr-code": "^3.9",
         "giggsey/libphonenumber-for-php": "^8.12",
         "google/apiclient": "^2.7",

@@ -3,24 +3,22 @@
 namespace App\Domain\User\Repository;
 
 use App\Domain\User\Data\UserCreateData;
-use Illuminate\Database\Connection;
+use Elasticsearch\Client;
 
 /**
  * Repository.
  */
 class UserCreatorRepository
 {
-    /**
-     * @var connection Eloquent The database connection
-     */
-    private $connection;
 
-    public function __construct(Connection $connection)
+    private $client;
+
+    public function __construct(Client $client)
     {
-        $this->connection = $connection;
+        $this->client = $client;
     }
 
-    public function insertUser(UserCreateData $userCreateData): Int
+    public function insertUser(UserCreateData $userCreateData): ?string
     {
 
         $row = [
@@ -31,8 +29,12 @@ class UserCreatorRepository
             'createdBy' => $userCreateData->createdBy,
         ];
 
-        $insId = (int)$this->connection->table('users')->insertGetId($row);
-        return $insId;
+        $params = [
+            'index' => 'users',
+            'body'  => $row
+        ];
+        
+        $response = $this->client->index($params);
+        return $response['_id'];
     }
-
 }

@@ -25,7 +25,7 @@ final class LocationReadAction
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args = []): ResponseInterface
     {
-        $locationId = (int)$args['id'];
+        $locationId = (string)$args['id'];
 
         try {
 
@@ -33,14 +33,23 @@ final class LocationReadAction
 
             $result = [
                 'id' => $locationData->id,
-                'name' => $locationData->name,
-                'address' => $locationData->address,
-                'zipcode' => $locationData->zipcode,
+                'osm_id' => $locationData->osm_id,
                 'country' => $locationData->country,
-                'state' => $locationData->state,
+                'countryDefault' => $locationData->countryDefault,
+                'lat' => $locationData->lat,
+                'lon' => $locationData->lon,
+                'object_type' => $locationData->object_type,
                 'city' => $locationData->city,
-                'latitude' => $locationData->latitude,
-                'longitude' => $locationData->longitude,
+                'cityDefault' => $locationData->cityDefault,
+                'importance' => $locationData->importance,
+                'countrycode' => $locationData->countrycode,
+                'postcode' => $locationData->postcode,
+                'osm_type' => $locationData->osm_type,
+                'osm_key' => $locationData->osm_key,
+                'name' => $locationData->name,
+                'state' => $locationData->state,
+                'stateDefault' => $locationData->stateDefault,
+                'address' => $locationData->address,
                 'createdBy' => $locationData->createdBy,
                 'createdOn' => $locationData->createdOn,
                 'updatedBy' => $locationData->updatedBy,

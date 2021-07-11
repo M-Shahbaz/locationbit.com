@@ -22,7 +22,6 @@ export const getLocationUrl = (url, locationId, locationTitle) => {
     .then(res => {
       // console.log(res);
       // console.log(res.data);
-      res.data.locationCountry = Country.getCountryByCode(res.data.country);
 
       const urlslug = slugify(
         res.data.name
@@ -31,7 +30,9 @@ export const getLocationUrl = (url, locationId, locationTitle) => {
         + " " +
         res.data.city
         + " " +
-        res.data.locationCountry.name
+        res.data.state
+        + " " +
+        res.data.country
       );
       // console.log(locationId);
       if (locationId == res.data.id && ((locationTitle == null) || (locationTitle != null && locationTitle != urlslug))) {

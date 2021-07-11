@@ -20,7 +20,7 @@ const Map = dynamic(
 
 const useStyles = makeStyles(styles);
 
-export default function LocationMapSection() {
+export default function LocationMapSection( props ) {
   const classes = useStyles();
 
   return (
@@ -31,7 +31,11 @@ export default function LocationMapSection() {
           <h5 className={classes.description}>
             Add a location to get tickets and shares to get a chance to earn money and prizes.
           </h5>
-          <Map />
+          <Map 
+            lat={props.lat} 
+            lon={props.lon}
+            popup={props.headTitle}
+          />
         </GridItem>
       </GridContainer>
     </div>

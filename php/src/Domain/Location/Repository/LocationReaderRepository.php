@@ -3,53 +3,70 @@
 namespace App\Domain\Location\Repository;
 
 use App\Domain\Location\Data\LocationData;
-use App\Domain\Location\Data\LocationReadRequestData;
 use DomainException;
-use Illuminate\Database\Connection;
+use Elasticsearch\Client;
 
 /**
  * Repository.
  */
 class LocationReaderRepository
 {
-    /**
-     * @var connection Eloquent The database connection
-     */
-    private $connection;
+    private $client;
 
-    public function __construct(Connection $connection)
+    public function __construct(Client $client)
     {
-        $this->connection = $connection;
+        $this->client = $client;
     }
 
-    public function getLocationById(int $id): LocationData
+    public function getLocationById(string $id): LocationData
     {
 
-        $row = $this->connection
-            ->table('locations')
-            ->where('id', $id)
-            ->first();
+        $params = [
+            'index' => 'locations',
+            'id'    => $id
+        ];
 
-        if (!$row) {
+        try {
+            $row = (object)$this->client->getSource($params);
+            $row->id = $id;
+        } catch (\Throwable $th) {
             throw new DomainException(sprintf('Location not found by id: %s', $id));
         }
 
+
         $locationData = new LocationData();
-        $locationData->id = $row->id ? (int)$row->id : null;
-        $locationData->name = $row->name ? (string)$row->name : null;
-        $locationData->address = $row->address ? (string)$row->address : null;
-        $locationData->zipcode = $row->zipcode ? (string)$row->zipcode : null;
-        $locationData->country = $row->country ? (string)$row->country : null;
-        $locationData->state = $row->state ? (string)$row->state : null;
-        $locationData->city = $row->city ? (string)$row->city : null;
-        $locationData->latitude = $row->latitude ? (float)$row->latitude : null;
-        $locationData->longitude = $row->longitude ? (float)$row->longitude : null;
-        $locationData->createdBy = $row->createdBy ? (int)$row->createdBy : null;
-        $locationData->createdOn = $row->createdOn ? (string)$row->createdOn : null;
-        $locationData->deletedBy = $row->deletedBy ? (int)$row->deletedBy : null;
-        $locationData->deletedOn = $row->deletedOn ? (string)$row->deletedOn : null;
-        $locationData->updatedBy = $row->updatedBy ? (int)$row->updatedBy : null;
-        $locationData->updatedOn = $row->updatedOn ? (string)$row->updatedOn : null;
+        $locationData->id = isset($row->id) ? (int)$row->id : null;
+        $locationData->osm_id = isset($row->osm_id) ? $row->osm_id : null;
+        $locationData->country = isset($row->country['en']) ? (string)$row->country['en'] : null;
+        $locationData->countryDefault = isset($row->country['default']) ? (string)$row->country['default'] : null;
+        $locationData->lat = isset($row->coordinate['lat']) ? (float)$row->coordinate['lat'] : null;
+        $locationData->lon = isset($row->coordinate['lon']) ? (float)$row->coordinate['lon'] : null;
+        $locationData->object_type = isset($row->object_type) ? $row->object_type : null;
+        $locationData->city = isset($row->city['en']) ? $row->city['en'] : null;
+        $locationData->cityDefault = isset($row->city['default']) ? $row->city['default'] : null;
+        $locationData->importance = isset($row->importance) ? $row->importance : null;
+        $locationData->countrycode = isset($row->countrycode) ? $row->countrycode : null;
+        $locationData->postcode = isset($row->postcode) ? $row->postcode : null;
+        $locationData->osm_type = isset($row->osm_type) ? $row->osm_type : null;
+        $locationData->osm_key = isset($row->osm_key) ? $row->osm_key : null;
+
+        $locationData->name = isset($row->name['default']) ? (string)$row->name['default'] : null;
+        $locationData->state = isset($row->state['en']) ? (string)$row->state['en'] : null;
+        $locationData->stateDefault = isset($row->state['default']) ? (string)$row->state['default'] : null;
+
+        $address = [
+            isset($row->street['en']) ? $row->street['en'] : ($row->street['default'] ?? null),
+            isset($row->district['en']) ? $row->district['en'] : ($row->district['default'] ?? null),
+            isset($row->county) ? $row->county : null
+        ];
+        $locationData->address = implode(", ", array_filter($address));
+
+        // $locationData->createdBy = $row->createdBy ? (int)$row->createdBy : null;
+        // $locationData->createdOn = $row->createdOn ? (string)$row->createdOn : null;
+        // $locationData->deletedBy = $row->deletedBy ? (int)$row->deletedBy : null;
+        // $locationData->deletedOn = $row->deletedOn ? (string)$row->deletedOn : null;
+        // $locationData->updatedBy = $row->updatedBy ? (int)$row->updatedBy : null;
+        // $locationData->updatedOn = $row->updatedOn ? (string)$row->updatedOn : null;
 
         return $locationData;
     }

@@ -18,7 +18,7 @@ return function (App $app) {
     
     $app->group('/server', function (RouteCollectorProxy $group) {
         $group->group('/location', function (RouteCollectorProxy $group) {
-            $group->get('/{id:[0-9]+}', \App\Action\Location\LocationReadAction::class);
+            $group->get('/{id}', \App\Action\Location\LocationReadAction::class);
         });
     })->add(\App\Middleware\ServerMiddleware::class);
     
@@ -35,7 +35,7 @@ return function (App $app) {
 
         $group->group('/location', function (RouteCollectorProxy $group) {
             $group->post('/add', \App\Action\Location\LocationCreateAction::class);
-            $group->get('/{id:[0-9]+}', \App\Action\Location\LocationReadAction::class);
+            $group->get('/{id}', \App\Action\Location\LocationReadAction::class);
         });
 
         /**

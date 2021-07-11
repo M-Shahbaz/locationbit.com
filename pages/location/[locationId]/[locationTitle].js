@@ -36,7 +36,7 @@ const locationTitle = (props) => {
   const classes = useStyles();
   const { location } = props;
 
-  const HeadTitle = location.name + ", " + location.address + ", " + location.city + ", " + location.locationCountry.name;
+  const headTitle = location.name + ", " + location.address + ", " + location.city + ", " + location.state + ", " + location.country;
 
   // When rendering client side don't display anything until loading is complete
   if (typeof window !== 'undefined' && loading) return <></>;
@@ -46,15 +46,18 @@ const locationTitle = (props) => {
   return (
     <>
       <Head>
-        <title>{HeadTitle}</title>
-        <meta property="og:title" content={HeadTitle} key="title" />
+        <title>{headTitle}</title>
+        <meta property="og:title" content={headTitle} key="title" />
         <link rel="stylesheet" href={leafletLibrary}
           crossOrigin="" />
       </Head>
       <HeaderLayout />
       <div className={classNames(classes.main)}>
         <div className={classes.container}>
-          <LocationMapSection />
+          <LocationMapSection 
+           lat={location.lat} lon={location.lon}
+           headTitle={headTitle}
+           />
         </div>
       </div>
       <Footer />

@@ -3,7 +3,6 @@
 namespace App\Domain\Location\Service;
 
 use App\Domain\Location\Data\LocationData;
-use App\Domain\Location\Data\LocationReadRequestData;
 use App\Domain\Location\Repository\LocationReaderRepository;
 
 /**
@@ -18,7 +17,7 @@ final class LocationReader
         $this->repository = $repository;
     }
 
-    public function getLocationById(int $id): LocationData
+    public function getLocationById(string $id): LocationData
     {
         
         $locationData = $this->repository->getLocationById($id);

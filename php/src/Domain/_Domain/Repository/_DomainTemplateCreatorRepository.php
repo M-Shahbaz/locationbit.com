@@ -34,7 +34,7 @@ class _DomainTemplateCreatorRepository
 
 
         $params = [
-            'index' => '_domain_table',
+            'index' => '_domain_index',
             'body'  => $row
         ];
 

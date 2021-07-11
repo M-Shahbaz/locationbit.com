@@ -23,7 +23,7 @@ class _DomainTemplateReaderRepository
     {
 
         $params = [
-            'index' => 'users',
+            'index' => '_domain_index',
             'id'    => 'id'
         ];
 

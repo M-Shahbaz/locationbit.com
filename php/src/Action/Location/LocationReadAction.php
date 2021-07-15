@@ -46,6 +46,7 @@ final class LocationReadAction
                 'postcode' => $locationData->postcode,
                 'osm_type' => $locationData->osm_type,
                 'osm_key' => $locationData->osm_key,
+                'osm_value' => $locationData->osm_value,
                 'name' => $locationData->name,
                 'state' => $locationData->state,
                 'stateDefault' => $locationData->stateDefault,

@@ -15,6 +15,9 @@ const productStyle = {
   description: {
     color: "#999",
   },
+  textLeft: {
+    textAlign: "left",
+  },
 };
 
 export default productStyle;

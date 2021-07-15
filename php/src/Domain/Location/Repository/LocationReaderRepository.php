@@ -49,6 +49,7 @@ class LocationReaderRepository
         $locationData->postcode = isset($row->postcode) ? $row->postcode : null;
         $locationData->osm_type = isset($row->osm_type) ? $row->osm_type : null;
         $locationData->osm_key = isset($row->osm_key) ? $row->osm_key : null;
+        $locationData->osm_value = isset($row->osm_value) ? $row->osm_value : null;
 
         $locationData->name = isset($row->name['default']) ? (string)$row->name['default'] : null;
         $locationData->state = isset($row->state['en']) ? (string)$row->state['en'] : null;

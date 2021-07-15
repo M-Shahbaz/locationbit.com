@@ -21,7 +21,7 @@ import Footer from "components/Footer/Footer.js";
 import styles from "styles/jss/nextjs-material-kit/pages/landingPage.js";
 
 // Sections for this page
-import LocationMapSection from "pages-sections/Location-Sections/LocationMapSection.js";
+import LocationAndMapSection from "pages-sections/Location-Sections/LocationAndMapSection.js";
 import WorkSection from "pages-sections/LandingPage-Sections/WorkSection.js";
 import HeaderLayout from 'components/Header/HeaderLayout';
 
@@ -54,9 +54,9 @@ const locationTitle = (props) => {
       <HeaderLayout />
       <div className={classNames(classes.main)}>
         <div className={classes.container}>
-          <LocationMapSection 
-           lat={location.lat} lon={location.lon}
+          <LocationAndMapSection 
            headTitle={headTitle}
+           location={location}
            />
         </div>
       </div>

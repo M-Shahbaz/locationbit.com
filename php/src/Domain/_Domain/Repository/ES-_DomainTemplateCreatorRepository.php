@@ -3,21 +3,18 @@
 namespace App\Domain\_Domain\Repository;
 
 use App\Domain\_Domain\Data\_DomainTemplateCreateData;
-use Illuminate\Database\Connection;
+use Elasticsearch\Client;
 
 /**
  * Repository.
  */
 class _DomainTemplateCreatorRepository
 {
-    /**
-     * @var connection Eloquent The database connection
-     */
-    private $connection;
+    private $client;
 
-    public function __construct(Connection $connection)
+    public function __construct(Client $client)
     {
-        $this->connection = $connection;
+        $this->client = $client;
     }
 
     public function insert_DomainTemplate(_DomainTemplateCreateData $_domainTemplateCreateData): Int
@@ -35,8 +32,13 @@ class _DomainTemplateCreatorRepository
             'createdBy' => $_domainTemplateCreateData->createdBy,
         ];
 
-        $insId = (int)$this->connection->table('_domain_table')->insertGetId($row);
-        return $insId;
-    }
 
+        $params = [
+            'index' => '_domain_index',
+            'body'  => $row
+        ];
+
+        $response = $this->client->index($params);
+        return $response['_id'];
+    }
 }

@@ -4,7 +4,7 @@ namespace App\Domain\User\Data;
 
 final class UserData
 {
-    /** @var string */
+    /** @var int */
     public $id;      
     
     /** @var string (varchar)*/

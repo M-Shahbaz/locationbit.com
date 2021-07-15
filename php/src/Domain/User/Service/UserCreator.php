@@ -17,7 +17,7 @@ final class UserCreator
         $this->repository = $repository;
     }
 
-    public function createUser(UserCreateData $userCreateData): string
+    public function createUser(UserCreateData $userCreateData): int
     {
         $newUserId = $this->repository->insertUser($userCreateData);
         return $newUserId;

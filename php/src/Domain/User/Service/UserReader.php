@@ -24,7 +24,7 @@ final class UserReader
     }
 
 
-    public function getUserById(string $id): UserData
+    public function getUserById(int $id): UserData
     {
 
         $userData = $this->repository->getUserById($id);

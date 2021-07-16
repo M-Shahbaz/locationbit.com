@@ -15,6 +15,7 @@ import styles from "styles/jss/nextjs-material-kit/pages/landingPageSections/pro
 import InfoArea from "components/InfoArea/InfoArea.js";
 import Chat from "@material-ui/icons/Chat";
 import LocationGridItem from "../../components/Location/LocationGridItem";
+import LocationGridItemWebsite from "../../components/Location/LocationGridItemWebsite";
 
 const Map = dynamic(
   () => import('../../components/Map/Map'),
@@ -68,6 +69,16 @@ export default function LocationAndMapSection(props) {
               classes={classes}
               gridItemName="Postcode"
               gridItemValue={location.postcode}
+            />
+            <LocationGridItemWebsite
+              topClasses={classes}
+              gridItemName="Website"
+              gridItemValue={location.website}
+            />
+            <LocationGridItemWebsite
+              topClasses={classes}
+              gridItemName="Phone"
+              gridItemValue={location.phone}
             />
           </GridItem>
           <GridItem xs={12} sm={12} md={6}>

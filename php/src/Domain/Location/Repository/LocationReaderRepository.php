@@ -35,7 +35,7 @@ class LocationReaderRepository
 
 
         $locationData = new LocationData();
-        $locationData->id = isset($row->id) ? (int)$row->id : null;
+        $locationData->id = isset($row->id) ? (string)$row->id : null;
         $locationData->osm_id = isset($row->osm_id) ? $row->osm_id : null;
         $locationData->country = isset($row->country['en']) ? (string)$row->country['en'] : null;
         $locationData->countryDefault = isset($row->country['default']) ? (string)$row->country['default'] : null;

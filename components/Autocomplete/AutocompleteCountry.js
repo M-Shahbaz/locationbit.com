@@ -55,7 +55,7 @@ const AutocompleteCountry = props => {
   const countryChangeHandler = (event, value) => {
     if(value){
       console.log(value);
-      props.onChangeCountryHandler(value.isoCode);
+      props.onChangeCountryHandler(value);
     }else{
       props.onChangeCountryHandler(null);
     }

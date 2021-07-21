@@ -13,22 +13,28 @@ final class LocationCreateData
 	public $address;
 
 	/** @var string (varchar)*/
-	public $zipcode;
+	public $postcode;
 
 	/** @var string (char)*/
 	public $country;
+
+	/** @var string (char)*/
+	public $countrycode;
 
 	/** @var string (varchar)*/
 	public $state;
 
 	/** @var string (varchar)*/
+	public $statecode;
+
+	/** @var string (varchar)*/
 	public $city;
 
 	/** @var float */
-	public $latitude;
+	public $lat;
 
 	/** @var float */
-	public $longitude;
+	public $lon;
 
 	/** @var array */
 	public $cityObject;
@@ -46,8 +52,8 @@ final class LocationCreateData
 			throw new UnexpectedValueException('address is required');
 		}
 
-		if (!isset($this->zipcode)) {
-			throw new UnexpectedValueException('zipcode is required');
+		if (!isset($this->postcode)) {
+			throw new UnexpectedValueException('postcode is required');
 		}
 
 		if (empty($this->country)) {

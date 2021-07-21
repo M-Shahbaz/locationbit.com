@@ -39,8 +39,12 @@ const LocationGridItemWebsite = props => {
               setInputClass(classes.show);
             }}>
             {props.gridItemValue && props.gridItemValue}
-            {!props.gridItemValue && <a href="javascript:void(0);">Add {props.gridItemName}</a>}
-            <a href="javascript:void(0);" className={editIconClass} ><EditLocationIcon fontSize="inherit" /></a>
+            {!props.gridItemValue && <a href="#" onClick={e => {
+                e.preventDefault();
+              }}>Add {props.gridItemName}</a>}
+            <a href="#" onClick={e => {
+                e.preventDefault();
+              }} className={editIconClass} ><EditLocationIcon fontSize="inherit" /></a>
           </p>}
           <div className={inputClass}>
             <CustomInput
@@ -49,9 +53,12 @@ const LocationGridItemWebsite = props => {
               }}
               id={props.gridItemName}
             />
-            <a href="javascript:void(0);" ><CheckCircleIcon fontSize="default" /></a>
-            <a href="javascript:void(0);"
+            <a href="#" onClick={e => {
+                e.preventDefault();
+              }}><CheckCircleIcon fontSize="default" /></a>
+            <a href="#"
               onClick={e => {
+                e.preventDefault();
                 setValueClass(classes.show);
                 setInputClass(classes.hide);
               }}

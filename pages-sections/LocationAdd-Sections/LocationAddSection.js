@@ -17,26 +17,29 @@ import AutocompleteCountry from "../../components/Autocomplete/AutocompleteCount
 import AutocompleteState from "../../components/Autocomplete/AutocompleteState";
 import AutocompleteCity from "../../components/Autocomplete/AutocompleteCity";
 import axios from "axios";
+import { useRouter } from 'next/router';
+import { getLocationSlugUrl } from "../../utility/LocationService";
 
 const useStyles = makeStyles(styles);
 
 export default function LocationAddSection() {
+  const router = useRouter();
   const classes = useStyles();
-  const [selectedCountryCode, setSelectedCountryCode] = useState(null);
+  const [selectedCountry, setSelectedCountry] = useState(null);
   const [selectedState, setSelectedState] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
 
   const nameRef = useRef('');
   const addressRef = useRef('');
-  const zipcodeRef = useRef('');
+  const postcodeRef = useRef('');
   // useEffect(() => {
 
-  // }, selectedCountryCode);
+  // }, selectedCountry);
 
-  const countryHandler = (countryCode) => {
+  const countryHandler = (country) => {
     console.log("786/92");
-    console.log(countryCode);
-    setSelectedCountryCode(countryCode);
+    console.log(country);
+    setSelectedCountry(country);
   };
 
   const stateHandler = (state) => {
@@ -58,9 +61,11 @@ export default function LocationAddSection() {
     const locationCreateData = {
       name: nameRef.current.value,
       address: addressRef.current.value,
-      zipcode: zipcodeRef.current.value,
-      country: selectedCountryCode,
-      state: selectedState.isoCode,
+      postcode: postcodeRef.current.value,
+      country: selectedCountry.name,
+      countrycode: selectedCountry.isoCode,
+      state: selectedState.name,
+      statecode: selectedState.isoCode,
       city: selectedCity.name,
       cityObject: selectedCity,
     };
@@ -69,8 +74,9 @@ export default function LocationAddSection() {
 
     axios.post(`/api/location/add`, locationCreateData)
       .then(res => {
-        console.log(res);
-        console.log(res.data);
+        // console.log(res);
+        // console.log(res.data);
+        router.push(getLocationSlugUrl(res.data.locationId, locationCreateData));
       });
   }
 
@@ -93,10 +99,10 @@ export default function LocationAddSection() {
                   <AutocompleteCountry onChangeCountryHandler={countryHandler} />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={12}>
-                  <AutocompleteState onChangeStateHandler={stateHandler} countryCode={selectedCountryCode} />
+                  <AutocompleteState onChangeStateHandler={stateHandler} countryCode={selectedCountry ? selectedCountry.isoCode : null} />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={12}>
-                  <AutocompleteCity onChangeCityHandler={cityHandler} countryCode={selectedCountryCode} stateCode={selectedState ? selectedState.isoCode : null } />
+                  <AutocompleteCity onChangeCityHandler={cityHandler} countryCode={selectedCountry ? selectedCountry.isoCode : null} stateCode={selectedState ? selectedState.isoCode : null } />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={12}>
                   <CustomInput
@@ -128,8 +134,8 @@ export default function LocationAddSection() {
                 </GridItem>
                 <GridItem xs={12} sm={12} md={12}>
                   <CustomInput
-                    labelText="Location zipcode"
-                    id="zipcode"
+                    labelText="Location postcode"
+                    id="postcode"
                     success
                     formControlProps={{
                       fullWidth: true,
@@ -137,7 +143,7 @@ export default function LocationAddSection() {
                     inputProps={{
                       required: true,
                     }}
-                    ref={zipcodeRef}
+                    ref={postcodeRef}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={12} className={classes.textCenter}>

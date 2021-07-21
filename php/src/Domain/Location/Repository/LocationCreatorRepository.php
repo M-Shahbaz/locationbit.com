@@ -3,40 +3,56 @@
 namespace App\Domain\Location\Repository;
 
 use App\Domain\Location\Data\LocationCreateData;
-use Illuminate\Database\Connection;
+use Elasticsearch\Client;
 
 /**
  * Repository.
  */
 class LocationCreatorRepository
 {
-    /**
-     * @var connection Eloquent The database connection
-     */
-    private $connection;
+    private $client;
 
-    public function __construct(Connection $connection)
+    public function __construct(Client $client)
     {
-        $this->connection = $connection;
+        $this->client = $client;
     }
 
-    public function insertLocation(LocationCreateData $locationCreateData): Int
+    public function insertLocation(LocationCreateData $locationCreateData): string
     {
 
         $row = [
-            'name' => $locationCreateData->name,
-            'address' => $locationCreateData->address,
-            'zipcode' => $locationCreateData->zipcode,
-            'country' => $locationCreateData->country,
-            'state' => $locationCreateData->state,
-            'city' => $locationCreateData->city,
-            'latitude' => $locationCreateData->latitude,
-            'longitude' => $locationCreateData->longitude,
-            'createdBy' => $locationCreateData->createdBy,
+            'name' => [
+                'default' => $locationCreateData->name
+            ],
+            'street' => [
+                'en' => $locationCreateData->address
+            ],
+            'postcode' => $locationCreateData->postcode,
+            'country' => [
+                'en' => $locationCreateData->country
+            ],
+            'countrycode' => $locationCreateData->countrycode,
+            'statecode' => $locationCreateData->statecode,
+            'state' => [
+                'en' => $locationCreateData->state
+            ],
+            'city' => [
+                'en' => $locationCreateData->city
+            ],
+            'coordinate' => [
+                'lat' => $locationCreateData->lat,
+                'lon' => $locationCreateData->lon
+            ],
         ];
 
-        $insId = (int)$this->connection->table('locations')->insertGetId($row);
-        return $insId;
+        $params = [
+            'index' => 'locations',
+            'body'  => $row
+        ];
+
+        $response = $this->client->index($params);
+        return $response['_id'];
+
     }
 
 }

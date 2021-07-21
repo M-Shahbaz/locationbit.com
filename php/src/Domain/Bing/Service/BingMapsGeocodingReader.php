@@ -46,8 +46,8 @@ final class BingMapsGeocodingReader
             $result = json_decode($response->getBody(), true);
             $geocodePoints = $result['resourceSets'][0]['resources'][0]['geocodePoints'][0]['coordinates'] ?? null;
 
-            $bingMapsGeocodingData->latitude = $geocodePoints[0] ?? null;
-            $bingMapsGeocodingData->longitude = $geocodePoints[1] ?? null;
+            $bingMapsGeocodingData->lat = $geocodePoints[0] ?? null;
+            $bingMapsGeocodingData->lon = $geocodePoints[1] ?? null;
             
         } catch (\Throwable $th) {
             if (APP_DEBUG_MODE) {

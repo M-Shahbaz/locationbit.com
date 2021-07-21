@@ -34,8 +34,10 @@ final class LocationCreateAction
         $locationCreateData = new LocationCreateData();
         $locationCreateData->name = $data['name'] ?? null;
         $locationCreateData->address = $data['address'] ?? null;
-        $locationCreateData->zipcode = $data['zipcode'] ?? null;
+        $locationCreateData->postcode = $data['postcode'] ?? null;
         $locationCreateData->country = $data['country'] ?? null;
+        $locationCreateData->countrycode = $data['countrycode'] ?? null;
+        $locationCreateData->statecode = $data['statecode'] ?? null;
         $locationCreateData->state = $data['state'] ?? null;
         $locationCreateData->city = $data['city'] ?? null;
         $locationCreateData->cityObject = $data['cityObject'] ?? null;

@@ -64,3 +64,22 @@ export const getLocationUrl = (url, locationId, locationTitle) => {
       }
     });
 }
+
+export const getLocationSlugUrl = (locationId, location) => {
+
+  const urlslug = slugify(
+    location.name
+    + " " +
+    location.address
+    + " " +
+    location.city
+    + " " +
+    location.state
+    + " " +
+    location.country
+  );
+  
+  const url = "/location/" + locationId + "/" + urlslug;
+  // console.log(url);
+  return url;
+}

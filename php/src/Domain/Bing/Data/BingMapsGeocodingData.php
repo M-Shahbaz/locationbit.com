@@ -5,8 +5,8 @@ namespace App\Domain\Bing\Data;
 final class BingMapsGeocodingData
 {
     /** @var string */
-    public $latitude;      
+    public $lat;      
     
     /** @var string */
-    public $longitude;
+    public $lon;
 }

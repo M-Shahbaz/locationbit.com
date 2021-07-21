@@ -22,17 +22,17 @@ final class LocationCreator
         $this->bingMapsGeocodingReader = $bingMapsGeocodingReader;
     }
 
-    public function createLocation(LocationCreateData $locationCreateData): Int
+    public function createLocation(LocationCreateData $locationCreateData): string
     {
         $bingQueryAddress = $locationCreateData->name . ", " . $locationCreateData->address . ", " . $locationCreateData->city . ", " . $locationCreateData->country;
         $bingMapsGeocodingData = $this->bingMapsGeocodingReader->getBingMapsGeocodingByAddress($bingQueryAddress);
 
-        if(!empty($bingMapsGeocodingData->latitude)){
-            $locationCreateData->latitude = $bingMapsGeocodingData->latitude;
-            $locationCreateData->longitude = $bingMapsGeocodingData->longitude;
+        if(!empty($bingMapsGeocodingData->lat)){
+            $locationCreateData->lat = $bingMapsGeocodingData->lat;
+            $locationCreateData->lon = $bingMapsGeocodingData->lon;
         }elseif(isset($locationCreateData->cityObject) && isset($locationCreateData->cityObject['latitude']) && isset($locationCreateData->cityObject['longitude'])){
-            $locationCreateData->latitude = $locationCreateData->cityObject['latitude'] ?? null;
-            $locationCreateData->longitude = $locationCreateData->cityObject['longitude'] ?? null;
+            $locationCreateData->lat = $locationCreateData->cityObject['latitude'] ?? null;
+            $locationCreateData->lon = $locationCreateData->cityObject['longitude'] ?? null;
         }
         $newLocationId = $this->repository->insertLocation($locationCreateData);
         return $newLocationId;

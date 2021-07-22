@@ -3,6 +3,13 @@ import dynamic from 'next/dynamic';
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 // @material-ui/icons
 import LocationOnIcon from '@material-ui/icons/LocationOn';
@@ -16,6 +23,8 @@ import InfoArea from "components/InfoArea/InfoArea.js";
 import Chat from "@material-ui/icons/Chat";
 import LocationGridItem from "../../components/Location/LocationGridItem";
 import LocationGridItemWebsite from "../../components/Location/LocationGridItemWebsite";
+import LocationTableRow from "../../components/Location/LocationTableRow";
+
 
 const Map = dynamic(
   () => import('../../components/Map/Map'),
@@ -23,7 +32,15 @@ const Map = dynamic(
 );
 
 const useStyles = makeStyles(styles);
+function createData(name, calories, fat, carbs, protein) {
+  return { name, calories, fat, carbs, protein };
+}
 
+const rows = [
+  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+  createData('Eclair', 262, 16.0, 24, 6.0),
+];
 export default function LocationAndMapSection(props) {
   const classes = useStyles();
   const { location } = props;
@@ -40,46 +57,48 @@ export default function LocationAndMapSection(props) {
       <div>
         <GridContainer>
           <GridItem xs={12} sm={12} md={6}>
-            <LocationGridItem
-              classes={classes}
-              gridItemName="Name"
-              gridItemValue={location.name}
-            />
-            <LocationGridItem
-              classes={classes}
-              gridItemName="Address"
-              gridItemValue={location.address}
-            />
-            <LocationGridItem
-              classes={classes}
-              gridItemName="City"
-              gridItemValue={location.city}
-            />
-            <LocationGridItem
-              classes={classes}
-              gridItemName="State"
-              gridItemValue={location.state}
-            />
-            <LocationGridItem
-              classes={classes}
-              gridItemName="Country"
-              gridItemValue={location.country}
-            />
-            <LocationGridItem
-              classes={classes}
-              gridItemName="Postcode"
-              gridItemValue={location.postcode}
-            />
-            <LocationGridItemWebsite
-              topClasses={classes}
-              gridItemName="Website"
-              gridItemValue={location.website}
-            />
-            <LocationGridItemWebsite
-              topClasses={classes}
-              gridItemName="Phone"
-              gridItemValue={location.phone}
-            />
+            <TableContainer component={Paper}>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Name:</TableCell>
+                    <TableCell>{location.name}</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  <LocationTableRow
+                    tableRowName="Address"
+                    tableRowValue={location.address}
+                  />
+                  <LocationTableRow
+                    tableRowName="City"
+                    tableRowValue={location.city}
+                  />
+                  <LocationTableRow
+                    tableRowName="State"
+                    tableRowValue={location.state}
+                  />
+                  <LocationTableRow
+                    tableRowName="Country"
+                    tableRowValue={location.country}
+                  />
+                  <LocationTableRow
+                    tableRowName="Postcode"
+                    tableRowValue={location.postcode}
+                  />
+                  <LocationTableRow
+                    tableRowName="Website"
+                    tableRowValue={location.website}
+                    edit={true}
+                  />
+                  <LocationTableRow
+                    tableRowName="Phone"
+                    tableRowValue={location.phone}
+                    edit={true}
+                  />
+                </TableBody>
+              </Table>
+            </TableContainer>
           </GridItem>
           <GridItem xs={12} sm={12} md={6}>
             <Map

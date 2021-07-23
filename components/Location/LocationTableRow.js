@@ -7,20 +7,28 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
-import { withStyles } from "@material-ui/core/styles";
+//import { withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import CustomInput from "components/CustomInput/CustomInput.js";
 import styles from './../../styles/jss/Location/LocationTableRowStyle';
+import LocationModal from './LocationModal';
 
 
-// const useStyles = makeStyles(styles);
+const useStyles = makeStyles(styles);
 
 
 const LocationTableRow = props => {
-  // const classes = useStyles();
-  const { classes } = props;
+  const classes = useStyles();
+  // const { classes } = props;
   const [inputClass, setInputClass] = useState(classes.hide);
   const [valueClass, setValueClass] = useState(classes.showInlineBlock);
   const [editIconClass, setEditIconClass] = useState(classes.hide);
+  const [classicModal, setClassicModal] = useState(false);
+
+  const classicModalHandler = (value) => {
+    console.log(value);
+    setClassicModal(value);
+  }
 
   return (
     <TableRow>
@@ -37,8 +45,7 @@ const LocationTableRow = props => {
           }}
           onClick={e => {
             if (props.edit) {
-              setValueClass(classes.hide);
-              setInputClass(classes.showInlineBlock);
+              setClassicModal(true);
             }
           }}>
           {props.tableRowValue && props.tableRowValue}
@@ -49,27 +56,17 @@ const LocationTableRow = props => {
             e.preventDefault();
           }} className={editIconClass} >{props.edit && <EditLocationIcon fontSize="inherit" />}</a>
         </div>}
-        {props.edit && <div className={inputClass}>
-          <CustomInput
-            formControlProps={{
-              className: classes.paddingTopZero,
-            }}
-            id={props.tableRowName}
-          />
-          <a href="#" onClick={e => {
-            e.preventDefault();
-          }}><CheckCircleIcon fontSize="default" /></a>
-          <a href="#"
-            onClick={e => {
-              e.preventDefault();
-              setValueClass(classes.showInlineBlock);
-              setInputClass(classes.hide);
-            }}
-          ><CancelIcon fontSize="default" /></a>
-        </div>}
+        {props.edit && <LocationModal 
+                          classicModal={classicModal} 
+                          classicModalHandler={classicModalHandler.bind(this)}
+                          modalTitle={props.tableRowName}
+                          modalValue={props.tableRowValue}
+                          />
+        }
       </TableCell>
     </TableRow>
   );
 };
 
-export default withStyles(styles)(LocationTableRow)
+// export default withStyles(styles)(LocationTableRow)
+export default LocationTableRow

@@ -85,6 +85,7 @@ export default function LocationAndMapSection(props) {
                   <LocationTableRow
                     tableRowName="Postcode"
                     tableRowValue={location.postcode}
+                    edit={true}
                   />
                   <LocationTableRow
                     tableRowName="Website"

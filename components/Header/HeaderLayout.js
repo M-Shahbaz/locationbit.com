@@ -34,7 +34,7 @@ export default function HeaderLayout(props) {
 
   return (
     <Header
-      brand="Locationbit"
+      brand="locationbit"
       color={router.pathname === "/" ? "transparent" : "dark"}
       routes={dashboardRoutes}
       rightLinks={session ? <HeaderLinksUser /> : <HeaderLinks />}

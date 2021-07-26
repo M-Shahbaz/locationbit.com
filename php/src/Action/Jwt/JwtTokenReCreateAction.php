@@ -33,7 +33,7 @@ final class JwtTokenReCreateAction
         $jwtUserData = CastService::castJwtUserData($request->getAttribute('jwt'));
         try {
 
-            // $newJwtToken = $this->jwtTokenReCreator->reCreateJwtToken($email);
+            // $newJwtToken = $this->jwtTokenReCreator->reCreateJwtToken($jwtUserData);
 
             if (empty($jwtUserData->userId)) {
                 $userData = $this->userReader->getUserByJwtUserDataEmail($jwtUserData);

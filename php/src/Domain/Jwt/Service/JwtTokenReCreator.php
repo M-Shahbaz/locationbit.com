@@ -4,6 +4,7 @@ namespace App\Domain\Jwt\Service;
 
 use App\Domain\Jwt\Data\JwtCreateData;
 use App\Domain\Jwt\Data\JwtTokenReCreateData;
+use App\Domain\Jwt\Data\JwtUserData;
 use App\Domain\Jwt\Repository\JwtTokenReCreatorRepository;
 
 /**
@@ -18,7 +19,7 @@ final class JwtTokenReCreator
         $this->jwtCreator = $jwtCreator;
     }
 
-    public function reCreateJwtToken(string $email): string
+    public function reCreateJwtToken(JwtUserData $jwtUserData): string
     {
         $now = new \DateTime();
         $future = new \DateTime("+30 days");
@@ -27,9 +28,13 @@ final class JwtTokenReCreator
         $jwtCreateData->iat = $now->getTimeStamp();
         $jwtCreateData->nbf = $now->getTimeStamp();
         $jwtCreateData->exp = $future->getTimeStamp();
+        $jwtCreateData->userId = $jwtUserData->userId;
+        $jwtCreateData->name = $jwtUserData->name;
+        $jwtCreateData->role = $jwtUserData->role;
+        $jwtCreateData->email = $jwtUserData->email;
 
 
-        $jwt = $this->jwtCreator->createJwt($email, $jwtCreateData);
+        $jwt = $this->jwtCreator->createJwt($jwtCreateData);
         return $jwt;
     }
 }

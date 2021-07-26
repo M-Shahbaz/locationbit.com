@@ -20,15 +20,15 @@ final class JwtCreator
         $this->jwtAuth = $jwtAuth;
     }
 
-    public function createJwt(string $email, JwtCreateData $jwtCreateData): ?String
+    public function createJwt(JwtCreateData $jwtCreateData): ?String
     {
 
         $jwtAuthData = new JwtAuthData();
 
-        $jwtAuthData->userId = 1;
-        $jwtAuthData->name = "Muhammad Shahbaz";
-        $jwtAuthData->role = 3;
-        $jwtAuthData->email = $email;
+        $jwtAuthData->userId = $jwtCreateData->userId;
+        $jwtAuthData->name = $jwtCreateData->name;
+        $jwtAuthData->role = $jwtCreateData->role;
+        $jwtAuthData->email = $jwtCreateData->email;
         $jwtAuthData->iat = $jwtCreateData->iat;
         $jwtAuthData->nbf = $jwtCreateData->nbf;
         $jwtAuthData->exp = $jwtCreateData->exp;

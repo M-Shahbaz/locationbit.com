@@ -1,7 +1,7 @@
 import NextAuth from "next-auth"
 import Providers from "next-auth/providers"
 import jwt from "jsonwebtoken";
-import { uuid } from 'uuidv4';
+import { v4 as uuidv4 } from 'uuid';
 
 const maxAge = 30 * 24 * 60 * 60
 
@@ -127,14 +127,14 @@ export default NextAuth({
       }
 
       if (jwtClaims.jti === undefined) {
-        jwtClaims.jti = uuid();
+        jwtClaims.jti = uuidv4();
       }
 
       if (jwtClaims.exp === undefined) {
         jwtClaims.exp = Math.floor(Date.now() / 1000) + (maxAge)
       }
 
-      const encodedToken = jwt.sign(jwtClaims, secret, { algorithm: 'RS256' });
+      const encodedToken = jwt.sign(jwtClaims, secret, { algorithm: 'ES256' });
       // console.log(secret);
       // console.log(jwtClaims);
       if (jwtClaims.userId === undefined) {
@@ -155,7 +155,7 @@ export default NextAuth({
           jwtClaims.picture = json.picture;
         }
         
-        const encodedTokenWithUserId = jwt.sign(jwtClaims, secret, { algorithm: 'RS256' });
+        const encodedTokenWithUserId = jwt.sign(jwtClaims, secret, { algorithm: 'ES256' });
         return encodedTokenWithUserId;
       } else {
         return encodedToken;
@@ -164,7 +164,7 @@ export default NextAuth({
     },
     decode: async ({ secret, token, maxAge }) => {
       // console.log(token);
-      const decodedToken = jwt.verify(token, secret, { algorithms: ['RS256'] });
+      const decodedToken = jwt.verify(token, secret, { algorithms: ['ES256'] });
       // decodedToken.accessToken = token;
       // console.log(decodedToken);
       return decodedToken;
@@ -193,7 +193,7 @@ export default NextAuth({
     // async session(session, user) { return session },
     // async jwt(token, user, account, profile, isNewUser) {  return token  }
     // async session(session, token) {
-    //   const encodedToken = jwt.sign(token, process.env.JWT_PRIVATE_KEY, { algorithm: 'RS256' });
+    //   const encodedToken = jwt.sign(token, process.env.JWT_PRIVATE_KEY, { algorithm: 'ES256' });
     //   session.id = token.id;
     //   session.token = encodedToken;
     //   return Promise.resolve(session);

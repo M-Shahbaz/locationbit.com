@@ -31,7 +31,7 @@ export default function domain(props) {
   const [session, loading] = useSession();
   const classes = useStyles();
   const { ...rest } = props;
-  const HeadTitle = "786/92";
+  const HeadTitle = "Location profiles in one place.";
 
   // When rendering client side don't display anything until loading is complete
   if (typeof window !== 'undefined' && loading) return <></>;
@@ -49,21 +49,24 @@ export default function domain(props) {
             <GridItem xs={12} sm={12} md={6}>
               <h1 className={classes.title}>Location profiles in one place.</h1>
               <h4>
-                Every landing page needs a small description after the big bold
-                title, that{"'"}s why we added this text here. Add here all the
-                information that can make you or your product create the first
-                impression.
+                Locationbit is to build the "global ENCYCLOPEDIA for location data"
+                e.g: Wikipedia for locations. 
+                With a chance of earning money
               </h4>
               <br />
               <Button
-                color="danger"
+                color="success"
                 size="lg"
-                href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ref=creativetim"
+                href={`/api/auth/signin`}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={(e) => {
+                  e.preventDefault()
+                  signIn()
+                }}
               >
-                <i className="fas fa-play" />
-                Watch video
+                <i className="fas fa-sign-in-alt" />
+                Get started!
               </Button>
             </GridItem>
           </GridContainer>

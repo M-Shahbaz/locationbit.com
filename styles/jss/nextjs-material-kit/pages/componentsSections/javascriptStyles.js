@@ -32,6 +32,9 @@ const javascriptStyles = {
     paddingLeft: "0",
     letterSpacing: "normal",
   },
+  width100Percent: {
+    width: "100%",
+  },
   ...tooltipsStyle,
   ...popoverStyles,
 };

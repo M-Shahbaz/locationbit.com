@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from 'next/router';
 import { signIn, signOut, useSession, getSession } from 'next-auth/client';
 import { getLocationUrl } from 'utility/LocationService.js';
@@ -34,7 +34,7 @@ const locationTitle = (props) => {
   const { locationId, locationTitle } = router.query;
   const [session, loading] = useSession();
   const classes = useStyles();
-  const { location } = props;
+  const [location, setLocation] = useState(props.location);
 
   const headTitle = location.name + ", " + location.address + ", " + location.city + ", " + location.state + ", " + location.country;
 
@@ -74,7 +74,6 @@ export async function getServerSideProps(context) {
   const { params } = context;
   const locationId = params.locationId;
   const locationTitle = params.locationTitle;
-  // fetch data from an api
   // fetch data from an api
   return await getLocationUrl('/api/server/location/' + locationId, locationId, locationTitle).then( response => {
     return response;

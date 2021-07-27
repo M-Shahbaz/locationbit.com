@@ -61,6 +61,15 @@ final class LocationData
     /** @var string */
     public $osm_value;
 
+    /** @var string (varchar)*/
+    public $website;      
+    
+    /** @var string (varchar)*/
+    public $email;      
+    
+    /** @var string (varchar)*/
+    public $phone;  
+    
     /** @var int */
     public $createdBy;
 

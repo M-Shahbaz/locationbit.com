@@ -36,6 +36,7 @@ return function (App $app) {
         $group->group('/location', function (RouteCollectorProxy $group) {
             $group->post('/add', \App\Action\Location\LocationCreateAction::class);
             $group->get('/{id}', \App\Action\Location\LocationReadAction::class);
+            $group->post('/{id}/update', \App\Action\Location\LocationUpdateAction::class);
         });
 
         /**

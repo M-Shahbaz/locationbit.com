@@ -2,7 +2,9 @@
 
 namespace App\Action\Location;
 
-use App\Domain\Location\Service\LocationReader;
+use App\Domain\Location\Data\LocationUpdateData;
+use App\Domain\Location\Service\LocationUpdate;
+use App\Utility\CastService;
 use DomainException;
 use LogicException;
 use Psr\Http\Message\ResponseInterface;
@@ -10,57 +12,48 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LoggerInterface;
 use UnexpectedValueException;
 
-final class LocationReadAction
+final class LocationUpdateAction
 {
-    private $locationReader;
+    private $locationUpdate;
     private $loggerInterface;
 
     public function __construct(
-        LocationReader $locationReader,
+        LocationUpdate $locationUpdate,
         LoggerInterface $loggerInterface
     ) {
-        $this->locationReader = $locationReader;
+        $this->locationUpdate = $locationUpdate;
         $this->loggerInterface = $loggerInterface;
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args = []): ResponseInterface
     {
+        $jwtUserData = CastService::castJwtUserData($request->getAttribute('jwt'));
+
         $locationId = (string)$args['id'];
+
+        $data = (array)$request->getParsedBody();
+
+        $locationUpdateData = new LocationUpdateData();
+        $locationUpdateData->id = $locationId;
+        $locationUpdateData->postcode = $data['postcode'] ?? null;
+        $locationUpdateData->lat = $data['lat'] ?? null;
+        $locationUpdateData->lon = $data['lon'] ?? null;
+        $locationUpdateData->website = $data['website'] ?? null;
+        $locationUpdateData->email = $data['email'] ?? null;
+        $locationUpdateData->phone = $data['phone'] ?? null;
+        $locationUpdateData->updatedBy = $jwtUserData->userId;
+
 
         try {
 
-            $locationData = $this->locationReader->getLocationById($locationId);
+            //Throwing excemption
+            $locationUpdateData->validate();
+
+            $locationUpdated = $this->locationUpdate->updateLocation($locationUpdateData);
 
             $result = [
-                'id' => $locationData->id,
-                'osm_id' => $locationData->osm_id,
-                'country' => $locationData->country,
-                'countryDefault' => $locationData->countryDefault,
-                'lat' => $locationData->lat,
-                'lon' => $locationData->lon,
-                'object_type' => $locationData->object_type,
-                'city' => $locationData->city,
-                'cityDefault' => $locationData->cityDefault,
-                'importance' => $locationData->importance,
-                'countrycode' => $locationData->countrycode,
-                'postcode' => $locationData->postcode,
-                'osm_type' => $locationData->osm_type,
-                'osm_key' => $locationData->osm_key,
-                'osm_value' => $locationData->osm_value,
-                'name' => $locationData->name,
-                'state' => $locationData->state,
-                'stateDefault' => $locationData->stateDefault,
-                'address' => $locationData->address,
-                'createdBy' => $locationData->createdBy,
-                'createdOn' => $locationData->createdOn,
-                'updatedBy' => $locationData->updatedBy,
-                'updatedOn' => $locationData->updatedOn,
-
-                'website' => $locationData->website,
-                'email' => $locationData->email,
-                'phone' => $locationData->phone,
+                'success' => $locationUpdated
             ];
-
             $statusCode = 200;
         } catch (UnexpectedValueException $un) {
             $result = [

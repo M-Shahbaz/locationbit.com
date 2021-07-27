@@ -49,9 +49,10 @@ const useStyles = makeStyles({
   }
 });
 
-const AutocompleteCountry = props => {
+const AutocompleteCountryPhone = props => {
   const classes = useStyles();
-  const countries = Country.getAllCountries();
+  const countriesPhones = Country.getAllCountries();
+  const countries =countriesPhones.map((c) => ({ ...c, phonecode: plusfirst(c.phonecode)}) );
 
   const countryChangeHandler = (event, value) => {
     if(value){
@@ -63,18 +64,18 @@ const AutocompleteCountry = props => {
     
     
   };
-  
+
   let defaultCountryIndex;
   if(props.defaultCountry){
     defaultCountryIndex = countries.findIndex(c => c.isoCode == props.defaultCountry);
     console.log(defaultCountryIndex);
-    // props.onChangeCountryHandler(countries[defaultCountryIndex]);
+    props.onChangeCountryHandler(countries[defaultCountryIndex]);
   }
 
 
   return (
     <Autocomplete
-      id="country"
+      id="country-phonecode"
       style={{ width: "100%", marginBottom: "17px" }}
       options={countries}
       defaultValue={countries[props.defaultCountry && defaultCountryIndex]}
@@ -83,18 +84,18 @@ const AutocompleteCountry = props => {
         inputRoot: classes.inputRoot,
       }}
       autoHighlight
-      getOptionLabel={(option) => option.name}
+      getOptionLabel={(option) => option.phonecode}
       renderOption={(option) => (
         <React.Fragment>
-          <span>{countryToFlag(option.isoCode)}</span>
-          {option.name} ({option.isoCode}) {plusfirst(option.phonecode)}
+          <span>{plusfirst(option.phonecode)}</span>
+          {option.name} ({option.isoCode}) 
         </React.Fragment>
       )}
       renderInput={(params) => (
         <TextField
           {...params}
           InputLabelProps={{ className: classes.inputLabel }}
-          label="Location country"
+          label="Location country phonecode"
           inputProps={{
             ...params.inputProps,
             autoComplete: 'new-password', // disable autocomplete and autofill
@@ -359,4 +360,4 @@ const AutocompleteCountry = props => {
   { code: 'ZW', label: 'Zimbabwe', phone: '263' },
 ]; */
 
-export default AutocompleteCountry;
+export default AutocompleteCountryPhone;

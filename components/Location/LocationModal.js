@@ -1,4 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import Router from 'next/router'
+import validator from 'validator';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Slide from "@material-ui/core/Slide";
@@ -24,6 +29,9 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
 
 import styles from "styles/jss/nextjs-material-kit/pages/componentsSections/javascriptStyles.js";
+import { ucfirst } from './../../utility/FunctionsService';
+import axios from 'axios';
+import AutocompleteCountryPhone from './../Autocomplete/AutocompleteCountryPhone';
 
 const useStyles = makeStyles(styles);
 
@@ -36,6 +44,7 @@ Transition.displayName = "Transition";
 const LocationModal = props => {
   const classes = useStyles();
   const [classicModal, setClassicModal] = React.useState(false);
+  const [selectedCountry, setSelectedCountry] = useState(null);
   const inputRef = useRef('');
 
   const title = props.modalTitle;
@@ -50,7 +59,47 @@ const LocationModal = props => {
   const classicModalHandler = (value) => {
     setClassicModal(value);
     props.classicModalHandler(value);
+  };
+  
+  const countryHandler = (country) => {
+    console.log("786/92");
+    console.log(country);
+    setSelectedCountry(country);
+  };
+
+
+  const handleSubmit = event => {
+    event.preventDefault();
+
+    console.log("called!");
+
+    const locationUpdateData = {
+      [title]: inputRef.current.value,
+    };
+
+    console.log(locationUpdateData);
+
+    axios.post(`/api/location/${props.locationId}/update`, locationUpdateData)
+      .then(res => {
+        // console.log(res);
+        // console.log(res.data);
+        if (res.data.success === "updated") {
+          toast.success(ucfirst(title)+" updated!", {
+            position: "bottom-center",
+          });
+          Router.reload();
+        }else{
+          toast.error("Oops! something went wrong... error message: "+res.data.success, {
+            position: "bottom-center",
+          });
+        }
+      }).catch(error => {
+        toast.error("Oops! something went wrong...", {
+          position: "bottom-center",
+        });
+      });
   }
+
 
   return (
     <GridContainer>
@@ -58,7 +107,7 @@ const LocationModal = props => {
         <Dialog
           classes={{
             root: classes.center,
-            paper: classes.modal,
+            paper: `${classes.modal} ${classes.width100Percent}`,
           }}
           open={classicModal}
           TransitionComponent={Transition}
@@ -81,24 +130,24 @@ const LocationModal = props => {
             >
               <Close className={classes.modalClose} />
             </IconButton>
-            <h4 className={classes.modalTitle}>{title}</h4>
+            <h4 className={classes.modalTitle}>{ucfirst(title)}</h4>
           </DialogTitle>
           <DialogContent
             id={`${title}"-classic-modal-slide-description"`}
             className={classes.modalBody}
           >
             <div>
+              { title == "phone" && <AutocompleteCountryPhone onChangeCountryHandler={countryHandler} />}
               <CustomInput
                 labelText={title}
                 variant="outlined"
-                id={`"customInput-"${title.toLowerCase()}`}
+                id={`"customInput-"${title}`}
                 formControlProps={{
                   fullWidth: true,
-                  style: { minWidth: "500px" }
                 }}
                 inputProps={{
-                  name: title.toLowerCase(),
-                  id: title.toLowerCase(),
+                  name: title,
+                  id: title,
                   defaultValue: props.modalValue,
                   required: true,
                 }}
@@ -108,7 +157,7 @@ const LocationModal = props => {
           </DialogContent>
           <DialogActions className={classes.modalFooter}>
             <Button variant="outlined" color="success" simple
-              onClick={() => console.log(inputRef.current.value)}
+              onClick={handleSubmit}
             >
               Save
             </Button>
@@ -121,6 +170,7 @@ const LocationModal = props => {
               Close
             </Button>
           </DialogActions>
+          <ToastContainer />
         </Dialog>
       </GridItem>
     </GridContainer>

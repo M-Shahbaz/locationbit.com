@@ -12,6 +12,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import CustomInput from "components/CustomInput/CustomInput.js";
 import styles from './../../styles/jss/Location/LocationTableRowStyle';
 import LocationModal from './LocationModal';
+import { ucfirst } from './../../utility/FunctionsService';
 
 
 const useStyles = makeStyles(styles);
@@ -32,7 +33,7 @@ const LocationTableRow = props => {
 
   return (
     <TableRow>
-      <TableCell>{props.tableRowName}:</TableCell>
+      <TableCell>{ucfirst(props.tableRowName)}:</TableCell>
       <TableCell>
         {<div className={`${props.edit && classes.cursorPointer} ${valueClass}`}
           onMouseEnter={e => {
@@ -57,6 +58,7 @@ const LocationTableRow = props => {
           }} className={editIconClass} >{props.edit && <EditLocationIcon fontSize="inherit" />}</a>
         </div>}
         {props.edit && <LocationModal 
+                          locationId={props.locationId}
                           classicModal={classicModal} 
                           classicModalHandler={classicModalHandler.bind(this)}
                           modalTitle={props.tableRowName}

@@ -67,33 +67,46 @@ export default function LocationAndMapSection(props) {
                 </TableHead>
                 <TableBody>
                   <LocationTableRow
-                    tableRowName="Address"
+                    locationId={location.id}
+                    tableRowName="address"
                     tableRowValue={location.address}
                   />
                   <LocationTableRow
-                    tableRowName="City"
+                    locationId={location.id}
+                    tableRowName="city"
                     tableRowValue={location.city}
                   />
                   <LocationTableRow
-                    tableRowName="State"
+                    locationId={location.id}
+                    tableRowName="state"
                     tableRowValue={location.state}
                   />
                   <LocationTableRow
-                    tableRowName="Country"
+                    locationId={location.id}
+                    tableRowName="country"
                     tableRowValue={location.country}
                   />
                   <LocationTableRow
-                    tableRowName="Postcode"
+                    locationId={location.id}
+                    tableRowName="postcode"
                     tableRowValue={location.postcode}
                     edit={true}
                   />
                   <LocationTableRow
-                    tableRowName="Website"
+                    locationId={location.id}
+                    tableRowName="website"
                     tableRowValue={location.website}
                     edit={true}
                   />
                   <LocationTableRow
-                    tableRowName="Phone"
+                    locationId={location.id}
+                    tableRowName="email"
+                    tableRowValue={location.email}
+                    edit={true}
+                  />
+                  <LocationTableRow
+                    locationId={location.id}
+                    tableRowName="phone"
                     tableRowValue={location.phone}
                     edit={true}
                   />

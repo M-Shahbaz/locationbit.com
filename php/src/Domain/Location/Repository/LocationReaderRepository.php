@@ -69,6 +69,10 @@ class LocationReaderRepository
         // $locationData->updatedBy = $row->updatedBy ? (int)$row->updatedBy : null;
         // $locationData->updatedOn = $row->updatedOn ? (string)$row->updatedOn : null;
 
+        $locationData->website = isset($row->website) ? $row->website : null;
+        $locationData->email = isset($row->email) ? $row->email : null;
+        $locationData->phone = isset($row->phone) ? $row->phone : null;
+
         return $locationData;
     }
 }

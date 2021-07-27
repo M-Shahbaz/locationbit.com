@@ -45,6 +45,7 @@
     "node-sass": "^4.14.1",
     "nouislider": "15.1.0",
     "path": "0.12.7",
+    "phone": "^3.1.2",
     "prop-types": "15.7.2",
     "react": "^17.0.2",
     "react-datetime": "3.0.4",
@@ -52,8 +53,10 @@
     "react-leaflet": "^3.2.0",
     "react-slick": "0.28.1",
     "react-slugify": "^2.0.3",
+    "react-toastify": "^7.0.4",
     "styled-components": "5.3.0",
     "uuid": "^8.3.2",
+    "validator": "^13.6.0",
     "webpack": "^5.0.0"
   },
   "devDependencies": {

@@ -59,6 +59,7 @@ final class LocationReadAction
                 'website' => $locationData->website,
                 'email' => $locationData->email,
                 'phone' => $locationData->phone,
+                'description' => $locationData->description,
             ];
 
             $statusCode = 200;

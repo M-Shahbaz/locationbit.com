@@ -3,6 +3,12 @@ import Router from 'next/router'
 import validator from 'validator';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import dynamic from 'next/dynamic';
+
+const CKEditorLocation = dynamic(
+  () => import('../CKEditor/CKEditorLocation'),
+  { ssr: false }
+);
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -33,6 +39,7 @@ import { ucfirst } from './../../utility/FunctionsService';
 import axios from 'axios';
 import AutocompleteCountryPhone from './../Autocomplete/AutocompleteCountryPhone';
 
+
 const useStyles = makeStyles(styles);
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -42,9 +49,11 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 Transition.displayName = "Transition";
 
 const LocationModal = props => {
+
   const classes = useStyles();
   const [classicModal, setClassicModal] = React.useState(false);
   const [selectedCountry, setSelectedCountry] = useState(null);
+  const [locationDescription, setLocationDescription] = useState(null);
   const inputRef = useRef('');
 
   const title = props.modalTitle;
@@ -60,11 +69,20 @@ const LocationModal = props => {
     setClassicModal(value);
     props.classicModalHandler(value);
   };
-  
+
   const countryHandler = (country) => {
     console.log("786/92");
     console.log(country);
     setSelectedCountry(country);
+  };
+
+  if (title == 'description') {
+    // setLocationDescription(props.modalValue);
+  }
+  const onChangeCkeditorHandler = (description) => {
+    console.log("786/92");
+    console.log(description);
+    setLocationDescription(description);
   };
 
 
@@ -73,9 +91,18 @@ const LocationModal = props => {
 
     console.log("called!");
 
-    const locationUpdateData = {
-      [title]: inputRef.current.value,
-    };
+    let locationUpdateData;
+
+    if (title == 'description') {
+      locationUpdateData = {
+        [title]: locationDescription,
+      }
+    } else {
+      locationUpdateData = {
+        [title]: inputRef.current.value,
+      };
+    }
+
 
     console.log(locationUpdateData);
 
@@ -84,12 +111,12 @@ const LocationModal = props => {
         // console.log(res);
         // console.log(res.data);
         if (res.data.success === "updated") {
-          toast.success(ucfirst(title)+" updated!", {
+          toast.success(ucfirst(title) + " updated!", {
             position: "bottom-center",
           });
           Router.reload();
-        }else{
-          toast.error("Oops! something went wrong... error message: "+res.data.success, {
+        } else {
+          toast.error("Oops! something went wrong... error message: " + res.data.success, {
             position: "bottom-center",
           });
         }
@@ -137,8 +164,9 @@ const LocationModal = props => {
             className={classes.modalBody}
           >
             <div>
-              { title == "phone" && <AutocompleteCountryPhone onChangeCountryHandler={countryHandler} />}
-              <CustomInput
+              {title == "phone" && <AutocompleteCountryPhone onChangeCountryHandler={countryHandler} />}
+              {title == "description" && <CKEditorLocation onChange={onChangeCkeditorHandler} value={props.modalValue} />}
+              {title != "description" && <CustomInput
                 labelText={title}
                 variant="outlined"
                 id={`"customInput-"${title}`}
@@ -152,7 +180,7 @@ const LocationModal = props => {
                   required: true,
                 }}
                 ref={inputRef}
-              />
+              />}
             </div>
           </DialogContent>
           <DialogActions className={classes.modalFooter}>

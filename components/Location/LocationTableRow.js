@@ -13,6 +13,7 @@ import CustomInput from "components/CustomInput/CustomInput.js";
 import styles from './../../styles/jss/Location/LocationTableRowStyle';
 import LocationModal from './LocationModal';
 import { ucfirst } from './../../utility/FunctionsService';
+import classesModule from './LocationTableRow.module.css';
 
 
 const useStyles = makeStyles(styles);
@@ -35,7 +36,7 @@ const LocationTableRow = props => {
     <TableRow>
       <TableCell>{ucfirst(props.tableRowName)}:</TableCell>
       <TableCell>
-        {<div className={`${props.edit && classes.cursorPointer} ${valueClass}`}
+        {<div className={`${props.edit && classes.cursorPointer} ${valueClass} ${classesModule.width100}`}
           onMouseEnter={e => {
             if (props.edit)
               setEditIconClass(classes.showInlineBlock);
@@ -49,7 +50,8 @@ const LocationTableRow = props => {
               setClassicModal(true);
             }
           }}>
-          {props.tableRowValue && props.tableRowValue}
+          {props.tableRowName == 'description' && props.tableRowValue ? <div dangerouslySetInnerHTML={{ __html: props.tableRowValue.replace(/(<? *script)/gi, 'illegalscript') }} >
+            </div> : props.tableRowValue}
           {!props.tableRowValue && <a href="#" onClick={e => {
             e.preventDefault();
           }}>Add {props.tableRowName}</a>}
@@ -57,13 +59,13 @@ const LocationTableRow = props => {
             e.preventDefault();
           }} className={editIconClass} >{props.edit && <EditLocationIcon fontSize="inherit" />}</a>
         </div>}
-        {props.edit && <LocationModal 
-                          locationId={props.locationId}
-                          classicModal={classicModal} 
-                          classicModalHandler={classicModalHandler.bind(this)}
-                          modalTitle={props.tableRowName}
-                          modalValue={props.tableRowValue}
-                          />
+        {props.edit && <LocationModal
+          locationId={props.locationId}
+          classicModal={classicModal}
+          classicModalHandler={classicModalHandler.bind(this)}
+          modalTitle={props.tableRowName}
+          modalValue={props.tableRowValue}
+        />
         }
       </TableCell>
     </TableRow>

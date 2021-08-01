@@ -72,6 +72,7 @@ class LocationReaderRepository
         $locationData->website = isset($row->website) ? $row->website : null;
         $locationData->email = isset($row->email) ? $row->email : null;
         $locationData->phone = isset($row->phone) ? $row->phone : null;
+        $locationData->description = isset($row->description) ? $row->description : null;
 
         return $locationData;
     }

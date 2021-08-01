@@ -27,6 +27,9 @@ final class LocationUpdateData
     /** @var string (varchar)*/
     public $phone;      
     
+    /** @var string (varchar)*/
+    public $description;
+    
     /** @var int */
 	public $updatedBy;      
 	

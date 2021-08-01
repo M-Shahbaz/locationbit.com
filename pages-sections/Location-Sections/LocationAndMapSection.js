@@ -68,6 +68,12 @@ export default function LocationAndMapSection(props) {
                 <TableBody>
                   <LocationTableRow
                     locationId={location.id}
+                    tableRowName="description"
+                    tableRowValue={location.description}
+                    edit={true}
+                  />
+                  <LocationTableRow
+                    locationId={location.id}
                     tableRowName="address"
                     tableRowValue={location.address}
                   />

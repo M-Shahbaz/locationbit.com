@@ -14,6 +14,9 @@ final class LocationData
     public $name;
 
     /** @var string (varchar)*/
+    public $description;
+
+    /** @var string (varchar)*/
     public $address;
 
     /** @var string (varchar)*/

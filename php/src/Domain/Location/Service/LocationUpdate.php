@@ -46,6 +46,10 @@ final class LocationUpdate
             $locationUpdateArray['phone'] = !empty($locationUpdateData->phone) ? $locationUpdateData->phone : null;
         }
 
+        if (isset($locationUpdateData->description)) {
+            $locationUpdateArray['description'] = !empty($locationUpdateData->description) ? $locationUpdateData->description : null;
+        }
+
         if (!empty($locationUpdateArray)) {
             $locationUpdated = $this->repository->updateLocation($locationUpdateArray, $locationUpdateData);
             return $locationUpdated;

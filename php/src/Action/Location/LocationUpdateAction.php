@@ -41,6 +41,7 @@ final class LocationUpdateAction
         $locationUpdateData->website = $data['website'] ?? null;
         $locationUpdateData->email = $data['email'] ?? null;
         $locationUpdateData->phone = $data['phone'] ?? null;
+        $locationUpdateData->description = $data['description'] ?? null;
         $locationUpdateData->updatedBy = $jwtUserData->userId;
 
 

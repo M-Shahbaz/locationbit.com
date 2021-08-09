@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo, useCallback } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { makeStyles } from '@material-ui/core/styles';
@@ -49,27 +49,20 @@ const useStyles = makeStyles({
   }
 });
 
-const AutocompleteCountryPhone = props => {
+const AutocompleteCountryPhone = React.forwardRef((props, ref) => {
   const classes = useStyles();
   const countriesPhones = Country.getAllCountries();
   const countries =countriesPhones.map((c) => ({ ...c, phonecode: plusfirst(c.phonecode)}) );
 
-  const countryChangeHandler = (event, value) => {
-    if(value){
-      console.log(value);
-      props.onChangeCountryHandler(value);
-    }else{
-      props.onChangeCountryHandler(null);
-    }
-    
-    
-  };
-
   let defaultCountryIndex;
+  const findCountry = useCallback((code) => {
+    defaultCountryIndex = countries.findIndex(c => c.isoCode == code);
+    console.log("Memo: "+ defaultCountryIndex);
+    return defaultCountryIndex;
+  }, []);
   if(props.defaultCountry){
-    defaultCountryIndex = countries.findIndex(c => c.isoCode == props.defaultCountry);
-    console.log(defaultCountryIndex);
-    props.onChangeCountryHandler(countries[defaultCountryIndex]);
+    console.log("props.defaultCountry"+props.defaultCountry);
+    defaultCountryIndex = useMemo(() => findCountry(props.defaultCountry), [props.defaultCountry])
   }
 
 
@@ -78,7 +71,7 @@ const AutocompleteCountryPhone = props => {
       id="country-phonecode"
       style={{ width: "100%", marginBottom: "17px" }}
       options={countries}
-      defaultValue={countries[props.defaultCountry && defaultCountryIndex]}
+      defaultValue={countries[defaultCountryIndex]}
       classes={{
         option: classes.option,
         inputRoot: classes.inputRoot,
@@ -101,12 +94,14 @@ const AutocompleteCountryPhone = props => {
             autoComplete: 'new-password', // disable autocomplete and autofill
           }}
           required
+          inputRef={ref}
         />
       )}
-      onChange={countryChangeHandler}
+      //onChange={countryChangeHandler}
+      
     />
   );
-};
+});
 
 // From https://bitbucket.org/atlassian/atlaskit-mk-2/raw/4ad0e56649c3e6c973e226b7efaeb28cb240ccb0/packages/core/select/src/data/countries.js
 /* const countries = [
@@ -360,4 +355,4 @@ const AutocompleteCountryPhone = props => {
   { code: 'ZW', label: 'Zimbabwe', phone: '263' },
 ]; */
 
-export default AutocompleteCountryPhone;
+export default React.memo(AutocompleteCountryPhone);

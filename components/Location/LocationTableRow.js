@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import EditLocationIcon from '@material-ui/icons/EditLocation';
@@ -27,37 +27,43 @@ const LocationTableRow = props => {
   const [editIconClass, setEditIconClass] = useState(classes.hide);
   const [classicModal, setClassicModal] = useState(false);
 
-  const classicModalHandler = (value) => {
+  const classicModalHandler = useCallback((value) => {
     console.log(value);
     setClassicModal(value);
-  }
+  }, [])
+
+  const preventDefault = useCallback((e) => {
+    e.preventDefault();
+  }, [])
+
+  const onMouseEnterHandler = useCallback((e) => {
+    if (props.edit)
+      setEditIconClass(classes.showInlineBlock);
+  }, [])
+
+  const onMouseLeaveHandler = useCallback((e) => {
+    if (props.edit)
+    setEditIconClass(classes.hide);
+  }, [])
+
+  const onClickHandler = useCallback((e) => {
+    if (props.edit) {
+      setClassicModal(true);
+    }
+  }, [])
 
   return (
     <TableRow>
       <TableCell>{ucfirst(props.tableRowName)}:</TableCell>
       <TableCell>
         {<div className={`${props.edit && classes.cursorPointer} ${valueClass} ${classesModule.width100}`}
-          onMouseEnter={e => {
-            if (props.edit)
-              setEditIconClass(classes.showInlineBlock);
-          }}
-          onMouseLeave={e => {
-            if (props.edit)
-              setEditIconClass(classes.hide)
-          }}
-          onClick={e => {
-            if (props.edit) {
-              setClassicModal(true);
-            }
-          }}>
+          onMouseEnter={onMouseEnterHandler}
+          onMouseLeave={onMouseLeaveHandler}
+          onClick={onClickHandler}>
           {props.tableRowName == 'description' && props.tableRowValue ? <div dangerouslySetInnerHTML={{ __html: props.tableRowValue.replace(/(<? *script)/gi, 'illegalscript') }} >
-            </div> : props.tableRowValue}
-          {!props.tableRowValue && <a href="#" onClick={e => {
-            e.preventDefault();
-          }}>Add {props.tableRowName}</a>}
-          <a href="#" onClick={e => {
-            e.preventDefault();
-          }} className={editIconClass} >{props.edit && <EditLocationIcon fontSize="inherit" />}</a>
+          </div> : props.tableRowValue}
+          {!props.tableRowValue && <a href="#" onClick={preventDefault}>Add {props.tableRowName}</a>}
+          <a href="#" onClick={preventDefault} className={editIconClass} >{props.edit && <EditLocationIcon fontSize="inherit" />}</a>
         </div>}
         {props.edit && <LocationModal
           locationId={props.locationId}
@@ -70,7 +76,7 @@ const LocationTableRow = props => {
       </TableCell>
     </TableRow>
   );
-};
+}
 
 // export default withStyles(styles)(LocationTableRow)
-export default LocationTableRow
+export default React.memo(LocationTableRow);

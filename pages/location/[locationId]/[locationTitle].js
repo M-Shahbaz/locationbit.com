@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from 'react-redux'
 import { useRouter } from 'next/router';
 import { signIn, signOut, useSession, getSession } from 'next-auth/client';
 import { getLocationUrl } from 'utility/LocationService.js';
@@ -35,6 +36,12 @@ const locationTitle = (props) => {
   const [session, loading] = useSession();
   const classes = useStyles();
   const [location, setLocation] = useState(props.location);
+  const dispatch = useDispatch();
+  const locationDispatch = () =>
+    dispatch({
+      type: 'LOCATION', location: location
+    });
+  locationDispatch();
 
   const headTitle = location.name + ", " + location.address + ", " + location.city + ", " + location.state + ", " + location.country;
 

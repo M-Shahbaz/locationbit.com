@@ -1,6 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
 import Router from 'next/router'
 import validator from 'validator';
+import { phone } from 'phone';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import dynamic from 'next/dynamic';
@@ -35,9 +37,11 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
 
 import styles from "styles/jss/nextjs-material-kit/pages/componentsSections/javascriptStyles.js";
-import { ucfirst } from './../../utility/FunctionsService';
+import { ucfirst, getPhoneWithoutCountryCode, getPhoneCountryIso2Code } from './../../utility/FunctionsService';
 import axios from 'axios';
 import AutocompleteCountryPhone from './../Autocomplete/AutocompleteCountryPhone';
+
+import { validatePhoneE164 } from '../../utility/LocationValidationService';
 
 
 const useStyles = makeStyles(styles);
@@ -52,11 +56,15 @@ const LocationModal = props => {
 
   const classes = useStyles();
   const [classicModal, setClassicModal] = React.useState(false);
-  const [selectedCountry, setSelectedCountry] = useState(null);
   const [locationDescription, setLocationDescription] = useState(null);
   const inputRef = useRef('');
+  const inputRefAutocomplete = useRef('');
+  const location = useSelector((state) => state.location)
+  // console.log(location);
 
   const title = props.modalTitle;
+  let modalValue = props.modalValue;
+  let defaultCountry = location.countrycode;
 
   useEffect(
     () => {
@@ -65,25 +73,26 @@ const LocationModal = props => {
     [props.classicModal],
   );
 
-  const classicModalHandler = (value) => {
+  const classicModalHandler = useCallback((value) => {
     setClassicModal(value);
     props.classicModalHandler(value);
-  };
-
-  const countryHandler = (country) => {
-    console.log("786/92");
-    console.log(country);
-    setSelectedCountry(country);
-  };
+  }, []);
 
   if (title == 'description') {
     // setLocationDescription(props.modalValue);
   }
+  if (title == 'phone' && props.modalValue) {
+    modalValue = getPhoneWithoutCountryCode(props.modalValue);
+    defaultCountry = getPhoneCountryIso2Code(props.modalValue);
+    console.log(defaultCountry);
+  }
+
   const onChangeCkeditorHandler = (description) => {
     console.log("786/92");
     console.log(description);
     setLocationDescription(description);
-  };
+    console.log("locationDescription" + locationDescription);
+  }
 
 
   const handleSubmit = event => {
@@ -94,13 +103,27 @@ const LocationModal = props => {
     let locationUpdateData;
 
     if (title == 'description') {
+      console.log("locationDescription2" + locationDescription);
       locationUpdateData = {
         [title]: locationDescription,
       }
     } else {
-      locationUpdateData = {
-        [title]: inputRef.current.value,
-      };
+      if (title == 'phone') {
+        const phoneValidated = validatePhoneE164(inputRefAutocomplete.current.value + inputRef.current.value)
+        if (phoneValidated) {
+          locationUpdateData = {
+            [title]: phoneValidated,
+          };
+        } else {
+          locationUpdateData = {
+            [title]: "",
+          };
+        }
+      } else {
+        locationUpdateData = {
+          [title]: inputRef.current.value,
+        };
+      }
     }
 
 
@@ -126,7 +149,6 @@ const LocationModal = props => {
         });
       });
   }
-
 
   return (
     <GridContainer>
@@ -164,8 +186,8 @@ const LocationModal = props => {
             className={classes.modalBody}
           >
             <div>
-              {title == "phone" && <AutocompleteCountryPhone onChangeCountryHandler={countryHandler} />}
-              {title == "description" && <CKEditorLocation onChange={onChangeCkeditorHandler} value={props.modalValue} />}
+              {title == "phone" && <AutocompleteCountryPhone defaultCountry={defaultCountry} ref={inputRefAutocomplete} />}
+              {title == "description" && <CKEditorLocation onChange={onChangeCkeditorHandler.bind(this)} value={props.modalValue} />}
               {title != "description" && <CustomInput
                 labelText={title}
                 variant="outlined"
@@ -176,7 +198,7 @@ const LocationModal = props => {
                 inputProps={{
                   name: title,
                   id: title,
-                  defaultValue: props.modalValue,
+                  defaultValue: modalValue,
                   required: true,
                 }}
                 ref={inputRef}
@@ -203,6 +225,6 @@ const LocationModal = props => {
       </GridItem>
     </GridContainer>
   );
-};
+}
 
-export default LocationModal;
+export default React.memo(LocationModal);;

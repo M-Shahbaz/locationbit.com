@@ -14,6 +14,7 @@ import styles from './../../styles/jss/Location/LocationTableRowStyle';
 import LocationModal from './LocationModal';
 import { ucfirst } from './../../utility/FunctionsService';
 import classesModule from './LocationTableRow.module.css';
+import sanitizeHtml from 'sanitize-html';
 
 
 const useStyles = makeStyles(styles);
@@ -60,7 +61,7 @@ const LocationTableRow = props => {
           onMouseEnter={onMouseEnterHandler}
           onMouseLeave={onMouseLeaveHandler}
           onClick={onClickHandler}>
-          {props.tableRowName == 'description' && props.tableRowValue ? <div dangerouslySetInnerHTML={{ __html: props.tableRowValue.replace(/(<? *script)/gi, 'illegalscript') }} >
+          {props.tableRowName == 'description' && props.tableRowValue ? <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(props.tableRowValue).replace(/(<? *script)/gi, 'illegalscript') }} >
           </div> : props.tableRowValue}
           {!props.tableRowValue && <a href="#" onClick={preventDefault}>Add {props.tableRowName}</a>}
           <a href="#" onClick={preventDefault} className={editIconClass} >{props.edit && <EditLocationIcon fontSize="inherit" />}</a>

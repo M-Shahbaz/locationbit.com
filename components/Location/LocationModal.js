@@ -42,7 +42,8 @@ import axios from 'axios';
 import AutocompleteCountryPhone from './../Autocomplete/AutocompleteCountryPhone';
 
 import { validatePhoneE164 } from '../../utility/LocationValidationService';
-
+import sanitizeHtml from 'sanitize-html';
+import Loading from '../Loading/Loading';
 
 const useStyles = makeStyles(styles);
 
@@ -56,6 +57,7 @@ const LocationModal = props => {
 
   const classes = useStyles();
   const [classicModal, setClassicModal] = React.useState(false);
+  const [loadingModal, setLoadingModal] = React.useState(false);
   const [locationDescription, setLocationDescription] = useState(null);
   const inputRef = useRef('');
   const inputRefAutocomplete = useRef('');
@@ -105,7 +107,7 @@ const LocationModal = props => {
     if (title == 'description') {
       console.log("locationDescription2" + locationDescription);
       locationUpdateData = {
-        [title]: locationDescription,
+        [title]: sanitizeHtml(locationDescription),
       }
     } else {
       if (title == 'phone') {
@@ -128,7 +130,7 @@ const LocationModal = props => {
 
 
     console.log(locationUpdateData);
-
+    setLoadingModal(true);
     axios.post(`/api/location/${props.locationId}/update`, locationUpdateData)
       .then(res => {
         // console.log(res);
@@ -142,88 +144,93 @@ const LocationModal = props => {
           toast.error("Oops! something went wrong... error message: " + res.data.success, {
             position: "bottom-center",
           });
+          setLoadingModal(false);
         }
       }).catch(error => {
         toast.error("Oops! something went wrong...", {
           position: "bottom-center",
         });
+        setLoadingModal(false);
       });
   }
 
   return (
-    <GridContainer>
-      <GridItem xs={12} sm={12} md={6} lg={4}>
-        <Dialog
-          classes={{
-            root: classes.center,
-            paper: `${classes.modal} ${classes.width100Percent}`,
-          }}
-          open={classicModal}
-          TransitionComponent={Transition}
-          keepMounted
-          onClose={() => classicModalHandler(false)}
-          aria-labelledby={`${title}"-classic-modal-slide-title"`}
-          aria-describedby={`${title}"-classic-modal-slide-description"`}
-        >
-          <DialogTitle
-            id={`${title}"-classic-modal-slide-title"`}
-            disableTypography
-            className={classes.modalHeader}
+    <>
+      <GridContainer>
+        <GridItem xs={12} sm={12} md={6} lg={4}>
+          <Dialog
+            classes={{
+              root: classes.center,
+              paper: `${classes.modal} ${classes.width100Percent}`,
+            }}
+            open={classicModal}
+            TransitionComponent={Transition}
+            keepMounted
+            onClose={() => classicModalHandler(false)}
+            aria-labelledby={`${title}"-classic-modal-slide-title"`}
+            aria-describedby={`${title}"-classic-modal-slide-description"`}
           >
-            <IconButton
-              className={classes.modalCloseButton}
-              key="close"
-              aria-label="Close"
-              color="inherit"
-              onClick={() => classicModalHandler(false)}
+            <DialogTitle
+              id={`${title}"-classic-modal-slide-title"`}
+              disableTypography
+              className={classes.modalHeader}
             >
-              <Close className={classes.modalClose} />
-            </IconButton>
-            <h4 className={classes.modalTitle}>{ucfirst(title)}</h4>
-          </DialogTitle>
-          <DialogContent
-            id={`${title}"-classic-modal-slide-description"`}
-            className={classes.modalBody}
-          >
-            <div>
-              {title == "phone" && <AutocompleteCountryPhone defaultCountry={defaultCountry} ref={inputRefAutocomplete} />}
-              {title == "description" && <CKEditorLocation onChange={onChangeCkeditorHandler.bind(this)} value={props.modalValue} />}
-              {title != "description" && <CustomInput
-                labelText={title}
+              <IconButton
+                className={classes.modalCloseButton}
+                key="close"
+                aria-label="Close"
+                color="inherit"
+                onClick={() => classicModalHandler(false)}
+              >
+                <Close className={classes.modalClose} />
+              </IconButton>
+              <h4 className={classes.modalTitle}>{ucfirst(title)}</h4>
+            </DialogTitle>
+            <DialogContent
+              id={`${title}"-classic-modal-slide-description"`}
+              className={classes.modalBody}
+            >
+              <div>
+                {title == "phone" && <AutocompleteCountryPhone defaultCountry={defaultCountry} ref={inputRefAutocomplete} />}
+                {title == "description" && <CKEditorLocation onChange={onChangeCkeditorHandler.bind(this)} value={props.modalValue} />}
+                {title != "description" && <CustomInput
+                  labelText={title}
+                  variant="outlined"
+                  id={`"customInput-"${title}`}
+                  formControlProps={{
+                    fullWidth: true,
+                  }}
+                  inputProps={{
+                    name: title,
+                    id: title,
+                    defaultValue: modalValue,
+                    required: true,
+                  }}
+                  ref={inputRef}
+                />}
+              </div>
+            </DialogContent>
+            <DialogActions className={classes.modalFooter}>
+              <Button variant="outlined" color="success" simple
+                onClick={handleSubmit}
+              >
+                Save
+              </Button>
+              <Button
                 variant="outlined"
-                id={`"customInput-"${title}`}
-                formControlProps={{
-                  fullWidth: true,
-                }}
-                inputProps={{
-                  name: title,
-                  id: title,
-                  defaultValue: modalValue,
-                  required: true,
-                }}
-                ref={inputRef}
-              />}
-            </div>
-          </DialogContent>
-          <DialogActions className={classes.modalFooter}>
-            <Button variant="outlined" color="success" simple
-              onClick={handleSubmit}
-            >
-              Save
-            </Button>
-            <Button
-              variant="outlined"
-              onClick={() => classicModalHandler(false)}
-              color="danger"
-              simple
-            >
-              Close
-            </Button>
-          </DialogActions>
-          <ToastContainer />
-        </Dialog>
-      </GridItem>
-    </GridContainer>
+                onClick={() => classicModalHandler(false)}
+                color="danger"
+                simple
+              >
+                Close
+              </Button>
+            </DialogActions>
+            <ToastContainer />
+          </Dialog>
+        </GridItem>
+      </GridContainer>
+      <Loading loadingModal={loadingModal} />
+    </>
   );
 }
 

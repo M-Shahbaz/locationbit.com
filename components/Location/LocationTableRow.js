@@ -5,6 +5,7 @@ import GridContainer from "components/Grid/GridContainer.js";
 import EditLocationIcon from '@material-ui/icons/EditLocation';
 import EditIcon from '@material-ui/icons/Edit';
 import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
@@ -55,7 +56,7 @@ const LocationTableRow = props => {
 
   const onMouseLeaveHandler = useCallback((e) => {
     if (props.edit)
-    setEditIconClass(classes.hide);
+      setEditIconClass(classes.hide);
   }, [])
 
   const onClickHandler = useCallback((e) => {
@@ -72,30 +73,47 @@ const LocationTableRow = props => {
           onMouseEnter={onMouseEnterHandler}
           onMouseLeave={onMouseLeaveHandler}
           onClick={onClickHandler}>
-          { (props.tableRowName == 'description' && props.tableRowValue) && <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(props.tableRowValue).replace(/(<? *script)/gi, 'illegalscript') }} ></div>}
-          { (props.tableRowName == 'classification' && props.tableRowValue) && 
-          <Table>
-            <TableRow>
-              {sectorIndustry && "Sector: "}
-              {sectorIndustry && sectorIndustry.title}
-            </TableRow>
-            <TableRow>
-              {subSectorIndustry && "Subsector: "}
-              {subSectorIndustry && subSectorIndustry.title}
-            </TableRow>
-            <TableRow>
-              {industryGroupIndustry && "Industry group: "}
-              {industryGroupIndustry && industryGroupIndustry.title}
-            </TableRow>
-            <TableRow>
-              {naicsIndustryIndustry && "Naics industry: "}
-              {naicsIndustryIndustry && naicsIndustryIndustry.title}
-            </TableRow>
-            <TableRow>
-              {nationalIndustryIndustry && "National industry: "}
-              {nationalIndustryIndustry && nationalIndustryIndustry.title}
-            </TableRow>
-          </Table>}
+          {(props.tableRowName == 'description' && props.tableRowValue) && <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(props.tableRowValue).replace(/(<? *script)/gi, 'illegalscript') }} ></div>}
+          {(props.tableRowName == 'classification' && props.tableRowValue) &&
+            <Table>
+              <TableBody>
+                {sectorIndustry &&
+                  <TableRow>
+                    <TableCell>
+                      {sectorIndustry && "Sector: "}{sectorIndustry && sectorIndustry.title}
+                    </TableCell>
+                  </TableRow>
+                }
+                {subSectorIndustry &&
+                  <TableRow>
+                    <TableCell>
+                      {subSectorIndustry && "Subsector: "}{subSectorIndustry && subSectorIndustry.title}
+                    </TableCell>
+                  </TableRow>
+                }
+                {industryGroupIndustry &&
+                  <TableRow>
+                    <TableCell>
+                      {industryGroupIndustry && "Industry group: "}{industryGroupIndustry && industryGroupIndustry.title}
+                    </TableCell>
+                  </TableRow>
+                }
+                {naicsIndustryIndustry &&
+                  <TableRow>
+                    <TableCell>
+                      {naicsIndustryIndustry && "Naics industry: "}{naicsIndustryIndustry && naicsIndustryIndustry.title}
+                    </TableCell>
+                  </TableRow>
+                }
+                {nationalIndustryIndustry &&
+                  <TableRow>
+                    <TableCell>
+                      {nationalIndustryIndustry && "National industry: "}{nationalIndustryIndustry && nationalIndustryIndustry.title}
+                    </TableCell>
+                  </TableRow>
+                }
+              </TableBody>
+            </Table>}
           {(props.tableRowName == 'description' || props.tableRowName == 'classification') ? null : props.tableRowValue}
           {!props.tableRowValue && <a href="#" onClick={preventDefault}>Add {props.tableRowName}</a>}
           <a href="#" onClick={preventDefault} className={editIconClass} >{props.edit && <EditLocationIcon fontSize="inherit" />}</a>

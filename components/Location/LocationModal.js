@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState, useCallback, useReducer } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import Router from 'next/router'
 import validator from 'validator';
@@ -44,6 +44,8 @@ import AutocompleteCountryPhone from './../Autocomplete/AutocompleteCountryPhone
 import { validatePhoneE164 } from '../../utility/LocationValidationService';
 import sanitizeHtml from 'sanitize-html';
 import Loading from '../Loading/Loading';
+import LocationClassificationSector from './LocationClassification/LocationClassificationSector';
+import LocationModalContext from './../../store/LocationModalContext';
 
 const useStyles = makeStyles(styles);
 
@@ -53,6 +55,71 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 Transition.displayName = "Transition";
 
+const naicsReducer = (state, action) => {
+  switch (action.type) {
+    case 'SECTOR':
+      return {
+        sector: action.value,
+        subSector: null,
+        industryGroup: null,
+        naicsIndustry: null,
+        nationalIndustry: null
+      }      
+      break;
+      
+    case 'SUBSECTOR':
+      return {
+        sector: state.sector,
+        subSector: action.value,
+        industryGroup: null,
+        naicsIndustry: null,
+        nationalIndustry: null
+      }      
+      break;
+
+    case 'INDUSTRYGROUP':
+      return {
+        sector: state.sector,
+        subSector: state.subSector,
+        industryGroup: action.value,
+        naicsIndustry: null,
+        nationalIndustry: null
+      }      
+      break;
+
+    case 'NAICSINDUSTRY':
+      return {
+        sector: state.sector,
+        subSector: state.subSector,
+        industryGroup: state.industryGroup,
+        naicsIndustry: action.value,
+        nationalIndustry: null
+      }      
+      break;
+
+    case 'NATIONALINDUSTRY':
+      return {
+        sector: state.sector,
+        subSector: state.subSector,
+        industryGroup: state.industryGroup,
+        naicsIndustry: state.naicsIndustry,
+        nationalIndustry: action.value
+      }      
+      break;
+  
+    default:
+      break;
+  }
+
+  return {
+    sector: null,
+    subSector: null,
+    industryGroup: null,
+    naicsIndustry: null,
+    nationalIndustry: null
+  };
+};
+
 const LocationModal = props => {
 
   const classes = useStyles();
@@ -61,7 +128,14 @@ const LocationModal = props => {
   const [locationDescription, setLocationDescription] = useState(null);
   const inputRef = useRef('');
   const inputRefAutocomplete = useRef('');
-  const location = useSelector((state) => state.location)
+  const location = useSelector((state) => state.location);
+  const [naicsState, dispatchNaics] = useReducer(naicsReducer, {
+    sector: location.sector,
+    subSector: location.subSector,
+    industryGroup: location.industryGroup,
+    naicsIndustry: location.naicsIndustry,
+    nationalIndustry: location.nationalIndustry
+  });
   // console.log(location);
 
   const title = props.modalTitle;
@@ -74,6 +148,11 @@ const LocationModal = props => {
     },
     [props.classicModal],
   );
+
+  const onNaicsChangeHandler = (obj) =>{
+    // dispatchNaics({type: "SECTOR", value: 786});
+    dispatchNaics(obj);
+  }
 
   const classicModalHandler = useCallback((value) => {
     setClassicModal(value);
@@ -107,7 +186,7 @@ const LocationModal = props => {
     if (title == 'description') {
       console.log("locationDescription2" + locationDescription);
       locationUpdateData = {
-        [title]: sanitizeHtml(locationDescription),
+        [title]: locationDescription ? sanitizeHtml(locationDescription) : locationDescription,
       }
     } else {
       if (title == 'phone') {
@@ -193,7 +272,7 @@ const LocationModal = props => {
               <div>
                 {title == "phone" && <AutocompleteCountryPhone defaultCountry={defaultCountry} ref={inputRefAutocomplete} />}
                 {title == "description" && <CKEditorLocation onChange={onChangeCkeditorHandler.bind(this)} value={props.modalValue} />}
-                {title != "description" && <CustomInput
+                {(title != "description" && title != "classification") && <CustomInput
                   labelText={title}
                   variant="outlined"
                   id={`"customInput-"${title}`}
@@ -208,6 +287,16 @@ const LocationModal = props => {
                   }}
                   ref={inputRef}
                 />}
+                <LocationModalContext.Provider value={{
+                  sector: naicsState.sector,
+                  subSector: naicsState.subSector,
+                  industryGroup: naicsState.industryGroup,
+                  naicsIndustry: naicsState.naicsIndustry,
+                  nationalIndustry: naicsState.nationalIndustry,
+                  onNaicsChange: onNaicsChangeHandler
+                }}>
+                  {title == "classification" && <LocationClassificationSector sector={props.sector} />}
+                </LocationModalContext.Provider>
               </div>
             </DialogContent>
             <DialogActions className={classes.modalFooter}>

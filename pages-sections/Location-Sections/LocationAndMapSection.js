@@ -116,6 +116,12 @@ export default function LocationAndMapSection(props) {
                     tableRowValue={location.phone}
                     edit={true}
                   />
+                  <LocationTableRow
+                    locationId={location.id}
+                    tableRowName="classification"
+                    tableRowValue={location.classification}
+                    edit={true}
+                  />
                 </TableBody>
               </Table>
             </TableContainer>

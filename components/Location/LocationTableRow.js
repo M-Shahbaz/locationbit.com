@@ -1,8 +1,10 @@
 import React, { useState, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import EditLocationIcon from '@material-ui/icons/EditLocation';
 import EditIcon from '@material-ui/icons/Edit';
+import Table from '@material-ui/core/Table';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
@@ -15,6 +17,8 @@ import LocationModal from './LocationModal';
 import { ucfirst } from './../../utility/FunctionsService';
 import classesModule from './LocationTableRow.module.css';
 import sanitizeHtml from 'sanitize-html';
+// @ts-ignore
+import naics from "naics";
 
 
 const useStyles = makeStyles(styles);
@@ -27,6 +31,13 @@ const LocationTableRow = props => {
   const [valueClass, setValueClass] = useState(classes.showInlineBlock);
   const [editIconClass, setEditIconClass] = useState(classes.hide);
   const [classicModal, setClassicModal] = useState(false);
+  const location = useSelector((state) => state.location);
+
+  const sectorIndustry = naics.Industry.from(location.sector);
+  const subSectorIndustry = naics.Industry.from(location.subSector);
+  const industryGroupIndustry = naics.Industry.from(location.industryGroup);
+  const naicsIndustryIndustry = naics.Industry.from(location.naicsIndustry);
+  const nationalIndustryIndustry = naics.Industry.from(location.nationalIndustry);
 
   const classicModalHandler = useCallback((value) => {
     console.log(value);
@@ -61,8 +72,31 @@ const LocationTableRow = props => {
           onMouseEnter={onMouseEnterHandler}
           onMouseLeave={onMouseLeaveHandler}
           onClick={onClickHandler}>
-          {props.tableRowName == 'description' && props.tableRowValue ? <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(props.tableRowValue).replace(/(<? *script)/gi, 'illegalscript') }} >
-          </div> : props.tableRowValue}
+          { (props.tableRowName == 'description' && props.tableRowValue) && <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(props.tableRowValue).replace(/(<? *script)/gi, 'illegalscript') }} ></div>}
+          { (props.tableRowName == 'classification' && props.tableRowValue) && 
+          <Table>
+            <TableRow>
+              {sectorIndustry && "Sector: "}
+              {sectorIndustry && sectorIndustry.title}
+            </TableRow>
+            <TableRow>
+              {subSectorIndustry && "Subsector: "}
+              {subSectorIndustry && subSectorIndustry.title}
+            </TableRow>
+            <TableRow>
+              {industryGroupIndustry && "Industry group: "}
+              {industryGroupIndustry && industryGroupIndustry.title}
+            </TableRow>
+            <TableRow>
+              {naicsIndustryIndustry && "Naics industry: "}
+              {naicsIndustryIndustry && naicsIndustryIndustry.title}
+            </TableRow>
+            <TableRow>
+              {nationalIndustryIndustry && "National industry: "}
+              {nationalIndustryIndustry && nationalIndustryIndustry.title}
+            </TableRow>
+          </Table>}
+          {(props.tableRowName == 'description' || props.tableRowName == 'classification') ? null : props.tableRowValue}
           {!props.tableRowValue && <a href="#" onClick={preventDefault}>Add {props.tableRowName}</a>}
           <a href="#" onClick={preventDefault} className={editIconClass} >{props.edit && <EditLocationIcon fontSize="inherit" />}</a>
         </div>}

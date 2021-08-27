@@ -22,8 +22,8 @@ const LocationClassificationNationalIndustry = props => {
   const NationalIndustries = industryDesc.children();
 
   useEffect( ()=> {
-    setSelectedEnabled(props.NationalIndustry);
-  }, [props.NationalIndustry]);
+    setSelectedEnabled(ctx.nationalIndustry);
+  }, [ctx.nationalIndustry]);
 
   if(!props.naicsIndustry){
     return <></>;
@@ -51,9 +51,9 @@ const LocationClassificationNationalIndustry = props => {
               control={
                 <Radio
                   checked={selectedEnabled === value._code}
-                  onChange={() => setSelectedEnabled(value._code)}
+                  onChange={() => ctx.onNaicsChange({type:'NATIONALINDUSTRY', value: value._code})}
                   value={value._code}
-                  name="sector"
+                  name="NATIONALINDUSTRY"
                   aria-label={industry.title}
                   icon={
                     <FiberManualRecord className={classes.radioUnchecked} />

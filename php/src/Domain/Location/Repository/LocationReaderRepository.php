@@ -73,6 +73,11 @@ class LocationReaderRepository
         $locationData->email = isset($row->email) ? $row->email : null;
         $locationData->phone = isset($row->phone) ? $row->phone : null;
         $locationData->description = isset($row->description) ? $row->description : null;
+        $locationData->sector = isset($row->sector) ? $row->sector : null;
+        $locationData->subSector = isset($row->subSector) ? $row->subSector : null;
+        $locationData->industryGroup = isset($row->industryGroup) ? $row->industryGroup : null;
+        $locationData->naicsIndustry = isset($row->naicsIndustry) ? $row->naicsIndustry : null;
+        $locationData->nationalIndustry = isset($row->nationalIndustry) ? $row->nationalIndustry : null;
 
         return $locationData;
     }

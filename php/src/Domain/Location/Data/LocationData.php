@@ -72,6 +72,21 @@ final class LocationData
     
     /** @var string (varchar)*/
     public $phone;  
+        
+    /** @var int */
+	public $sector;      
+    
+    /** @var int */
+	public $subSector;      
+    
+    /** @var int */
+	public $industryGroup;      
+    
+    /** @var int */
+	public $naicsIndustry;      
+    
+    /** @var int */
+	public $nationalIndustry;  
     
     /** @var int */
     public $createdBy;

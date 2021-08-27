@@ -60,6 +60,11 @@ final class LocationReadAction
                 'email' => $locationData->email,
                 'phone' => $locationData->phone,
                 'description' => $locationData->description,
+                'sector' => (string)$locationData->sector,
+                'subSector' => (string)$locationData->subSector,
+                'industryGroup' => (string)$locationData->industryGroup,
+                'naicsIndustry' => (string)$locationData->naicsIndustry,
+                'nationalIndustry' => (string)$locationData->nationalIndustry,
             ];
 
             $statusCode = 200;

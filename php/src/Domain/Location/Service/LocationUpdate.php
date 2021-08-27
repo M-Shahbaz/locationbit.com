@@ -50,6 +50,26 @@ final class LocationUpdate
             $locationUpdateArray['description'] = !empty($locationUpdateData->description) ? $locationUpdateData->description : null;
         }
 
+        if (isset($locationUpdateData->sector)) {
+            $locationUpdateArray['sector'] = !empty($locationUpdateData->sector) ? (int)$locationUpdateData->sector : null;
+        }
+
+        if (isset($locationUpdateData->subSector)) {
+            $locationUpdateArray['subSector'] = !empty($locationUpdateData->subSector) ? (int)$locationUpdateData->subSector : null;
+        }
+
+        if (isset($locationUpdateData->industryGroup)) {
+            $locationUpdateArray['industryGroup'] = !empty($locationUpdateData->industryGroup) ? (int)$locationUpdateData->industryGroup : null;
+        }
+
+        if (isset($locationUpdateData->naicsIndustry)) {
+            $locationUpdateArray['naicsIndustry'] = !empty($locationUpdateData->naicsIndustry) ? (int)$locationUpdateData->naicsIndustry : null;
+        }
+
+        if (isset($locationUpdateData->nationalIndustry)) {
+            $locationUpdateArray['nationalIndustry'] = !empty($locationUpdateData->nationalIndustry) ? (int)$locationUpdateData->nationalIndustry : null;
+        }
+
         if (!empty($locationUpdateArray)) {
             $locationUpdated = $this->repository->updateLocation($locationUpdateArray, $locationUpdateData);
             return $locationUpdated;

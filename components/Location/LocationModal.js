@@ -60,10 +60,10 @@ const naicsReducer = (state, action) => {
     case 'SECTOR':
       return {
         sector: action.value,
-        subSector: null,
-        industryGroup: null,
-        naicsIndustry: null,
-        nationalIndustry: null
+        subSector: '',
+        industryGroup: '',
+        naicsIndustry: '',
+        nationalIndustry: ''
       }      
       break;
       
@@ -71,9 +71,9 @@ const naicsReducer = (state, action) => {
       return {
         sector: state.sector,
         subSector: action.value,
-        industryGroup: null,
-        naicsIndustry: null,
-        nationalIndustry: null
+        industryGroup: '',
+        naicsIndustry: '',
+        nationalIndustry: ''
       }      
       break;
 
@@ -82,8 +82,8 @@ const naicsReducer = (state, action) => {
         sector: state.sector,
         subSector: state.subSector,
         industryGroup: action.value,
-        naicsIndustry: null,
-        nationalIndustry: null
+        naicsIndustry: '',
+        nationalIndustry: ''
       }      
       break;
 
@@ -93,7 +93,7 @@ const naicsReducer = (state, action) => {
         subSector: state.subSector,
         industryGroup: state.industryGroup,
         naicsIndustry: action.value,
-        nationalIndustry: null
+        nationalIndustry: ''
       }      
       break;
 
@@ -112,11 +112,11 @@ const naicsReducer = (state, action) => {
   }
 
   return {
-    sector: null,
-    subSector: null,
-    industryGroup: null,
-    naicsIndustry: null,
-    nationalIndustry: null
+    sector: '',
+    subSector: '',
+    industryGroup: '',
+    naicsIndustry: '',
+    nationalIndustry: ''
   };
 };
 
@@ -136,7 +136,7 @@ const LocationModal = props => {
     naicsIndustry: location.naicsIndustry,
     nationalIndustry: location.nationalIndustry
   });
-  // console.log(location);
+  console.log(location);
 
   const title = props.modalTitle;
   let modalValue = props.modalValue;
@@ -151,7 +151,9 @@ const LocationModal = props => {
 
   const onNaicsChangeHandler = (obj) =>{
     // dispatchNaics({type: "SECTOR", value: 786});
+    console.log(naicsState);
     dispatchNaics(obj);
+    console.log(naicsState);
   }
 
   const classicModalHandler = useCallback((value) => {
@@ -188,6 +190,15 @@ const LocationModal = props => {
       locationUpdateData = {
         [title]: locationDescription ? sanitizeHtml(locationDescription) : locationDescription,
       }
+    } else if (title == 'classification') {
+      console.log("submit classification" + naicsState);
+      locationUpdateData = {
+        sector: naicsState.sector,
+        subSector: naicsState.subSector,
+        industryGroup: naicsState.industryGroup,
+        naicsIndustry: naicsState.naicsIndustry,
+        nationalIndustry: naicsState.nationalIndustry
+      };
     } else {
       if (title == 'phone') {
         const phoneValidated = validatePhoneE164(inputRefAutocomplete.current.value + inputRef.current.value)

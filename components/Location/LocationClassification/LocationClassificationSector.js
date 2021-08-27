@@ -23,8 +23,8 @@ const LocationClassificationSector = props => {
   const sectorsArray = [...sectors];
 
   useEffect( ()=> {
-    setSelectedEnabled(props.sector);
-  }, [props.sector]);
+    setSelectedEnabled(ctx.sector);
+  }, [ctx.sector]);
 
   return (
     <>    
@@ -49,7 +49,7 @@ const LocationClassificationSector = props => {
               control={
                 <Radio
                   checked={selectedEnabled === value._code}
-                  onChange={() => setSelectedEnabled(value._code)}
+                  onChange={() => ctx.onNaicsChange({type:'SECTOR', value: value._code})}
                   value={value._code}
                   name="sector"
                   aria-label={industry.title}

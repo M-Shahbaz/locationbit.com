@@ -23,8 +23,8 @@ const LocationClassificationSubSector = props => {
   const subSectors = industryDesc.children();
 
   useEffect( ()=> {
-    setSelectedEnabled(props.subSector);
-  }, [props.subSector]);
+    setSelectedEnabled(ctx.subSector);
+  }, [ctx.subSector]);
 
   if(!props.sector){
     return <></>;
@@ -52,9 +52,9 @@ const LocationClassificationSubSector = props => {
               control={
                 <Radio
                   checked={selectedEnabled === value._code}
-                  onChange={() => setSelectedEnabled(value._code)}
+                  onChange={() => ctx.onNaicsChange({type:'SUBSECTOR', value: value._code})}
                   value={value._code}
-                  name="sector"
+                  name="SUBSECTOR"
                   aria-label={industry.title}
                   icon={
                     <FiberManualRecord className={classes.radioUnchecked} />

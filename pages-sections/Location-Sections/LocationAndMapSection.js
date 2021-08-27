@@ -119,7 +119,7 @@ export default function LocationAndMapSection(props) {
                   <LocationTableRow
                     locationId={location.id}
                     tableRowName="classification"
-                    tableRowValue={location.classification}
+                    tableRowValue={location.sector}
                     edit={true}
                   />
                 </TableBody>

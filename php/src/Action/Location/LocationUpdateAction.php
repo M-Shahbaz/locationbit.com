@@ -42,6 +42,11 @@ final class LocationUpdateAction
         $locationUpdateData->email = $data['email'] ?? null;
         $locationUpdateData->phone = $data['phone'] ?? null;
         $locationUpdateData->description = $data['description'] ?? null;
+        $locationUpdateData->sector = $data['sector'] ?? null;
+        $locationUpdateData->subSector = $data['subSector'] ?? null;
+        $locationUpdateData->industryGroup = $data['industryGroup'] ?? null;
+        $locationUpdateData->naicsIndustry = $data['naicsIndustry'] ?? null;
+        $locationUpdateData->nationalIndustry = $data['nationalIndustry'] ?? null;
         $locationUpdateData->updatedBy = $jwtUserData->userId;
 
 

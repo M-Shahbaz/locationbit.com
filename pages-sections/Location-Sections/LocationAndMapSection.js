@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useSelector, useDispatch } from 'react-redux';
 import dynamic from 'next/dynamic';
 
 // @material-ui/core components
@@ -43,7 +44,8 @@ const rows = [
 ];
 export default function LocationAndMapSection(props) {
   const classes = useStyles();
-  const { location } = props;
+  // const { location } = props;
+  const location = useSelector((state) => state.location);
 
   return (
     <div className={classes.section}>

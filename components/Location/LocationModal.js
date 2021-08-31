@@ -284,13 +284,13 @@ const hoursReducer = (state, action) => {
   }
 
   return {
-    monday: { from: '', to: '' },
-    tuesday: { from: '', to: '' },
-    wednesday: { from: '', to: '' },
-    thursday: { from: '', to: '' },
-    friday: { from: '', to: '' },
-    saturday: { from: '', to: '' },
-    sunday: { from: '', to: '' },
+    monday: { from: null, to: null },
+    tuesday: { from: null, to: null },
+    wednesday: { from: null, to: null },
+    thursday: { from: null, to: null },
+    friday: { from: null, to: null },
+    saturday: { from: null, to: null },
+    sunday: { from: null, to: null },
   };
 };
 
@@ -312,7 +312,7 @@ const LocationModal = props => {
   });
 
   const [hoursState, dispatchHours] = useReducer(hoursReducer, {
-    monday: location.hours && location.hours.monday ? location.hours.monday : { from: '10:00', to: '18:40' },
+    monday: location.hours && location.hours.monday ? location.hours.monday : { from: null, to: null },
     tuesday: location.hours && location.hours.tuesday ? location.hours.tuesday : { from: null, to: null },
     wednesday: location.hours && location.hours.wednesday ? location.hours.wednesday : { from: null, to: null },
     thursday: location.hours && location.hours.thursday ? location.hours.thursday : { from: null, to: null },

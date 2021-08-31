@@ -63,7 +63,6 @@ const locationTitle = (props) => {
         <div className={classes.container}>
           <LocationAndMapSection 
            headTitle={headTitle}
-           location={location}
            />
         </div>
       </div>

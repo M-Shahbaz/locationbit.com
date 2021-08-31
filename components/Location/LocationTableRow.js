@@ -20,6 +20,7 @@ import LocationModal from './LocationModal';
 import { ucfirst } from './../../utility/FunctionsService';
 import classesModule from './LocationTableRow.module.css';
 import sanitizeHtml from 'sanitize-html';
+import { time24to12Convert } from './../../utility/FunctionsService';
 // @ts-ignore
 import naics from "naics";
 
@@ -118,7 +119,106 @@ const LocationTableRow = props => {
                 </TableBody>
               </Table>
             </TableContainer>}
-          {(props.tableRowName == 'description' || props.tableRowName == 'classification') ? null : props.tableRowValue}
+          {(props.tableRowName == 'hours' && props.tableRowValue) &&
+            <TableContainer component={Paper}>
+              <Table>
+                <TableBody>
+                  {location.hours.monday && location.hours.monday.from &&
+                    <TableRow>
+                      <TableCell>
+                        {location.hours.monday.from && "Monday: "}
+                      </TableCell>
+                      <TableCell>
+                        {location.hours.monday.from && time24to12Convert(location.hours.monday.from)}
+                      </TableCell>
+                      <TableCell>
+                        {location.hours.monday.to && time24to12Convert(location.hours.monday.to)}
+                      </TableCell>
+                    </TableRow>
+                  }
+                  {location.hours.tuesday && location.hours.tuesday.from &&
+                    <TableRow>
+                      <TableCell>
+                        {location.hours.tuesday.from && "Tuesday: "}
+                      </TableCell>
+                      <TableCell>
+                        {location.hours.tuesday.from && time24to12Convert(location.hours.tuesday.from)}
+                      </TableCell>
+                      <TableCell>
+                        {location.hours.tuesday.to && time24to12Convert(location.hours.tuesday.to)}
+                      </TableCell>
+                    </TableRow>
+                  }
+                  {location.hours.wednesday && location.hours.wednesday.from &&
+                    <TableRow>
+                      <TableCell>
+                        {location.hours.wednesday.from && "Wednesday: "}
+                      </TableCell>
+                      <TableCell>
+                        {location.hours.wednesday.from && time24to12Convert(location.hours.wednesday.from)}
+                      </TableCell>
+                      <TableCell>
+                        {location.hours.wednesday.to && time24to12Convert(location.hours.wednesday.to)}
+                      </TableCell>
+                    </TableRow>
+                  }
+                  {location.hours.thursday && location.hours.thursday.from &&
+                    <TableRow>
+                      <TableCell>
+                        {location.hours.thursday.from && "Thursday: "}
+                      </TableCell>
+                      <TableCell>
+                        {location.hours.thursday.from && time24to12Convert(location.hours.thursday.from)}
+                      </TableCell>
+                      <TableCell>
+                        {location.hours.thursday.to && time24to12Convert(location.hours.thursday.to)}
+                      </TableCell>
+                    </TableRow>
+                  }
+                  {location.hours.friday && location.hours.friday.from &&
+                    <TableRow>
+                      <TableCell>
+                        {location.hours.friday.from && "Friday: "}
+                      </TableCell>
+                      <TableCell>
+                        {location.hours.friday.from && time24to12Convert(location.hours.friday.from)}
+                      </TableCell>
+                      <TableCell>
+                        {location.hours.friday.to && time24to12Convert(location.hours.friday.to)}
+                      </TableCell>
+                    </TableRow>
+                  }
+                  {location.hours.saturday && location.hours.saturday.from &&
+                    <TableRow>
+                      <TableCell>
+                        {location.hours.saturday.from && "Saturday: "}
+                      </TableCell>
+                      <TableCell>
+                        {location.hours.saturday.from && time24to12Convert(location.hours.saturday.from)}
+                      </TableCell>
+                      <TableCell>
+                        {location.hours.saturday.to && time24to12Convert(location.hours.saturday.to)}
+                      </TableCell>
+                    </TableRow>
+                  }
+                  {location.hours.sunday && location.hours.sunday.from &&
+                    <TableRow>
+                      <TableCell>
+                        {location.hours.sunday.from && "Sunday: "}
+                      </TableCell>
+                      <TableCell>
+                        {location.hours.sunday.from && time24to12Convert(location.hours.sunday.from)}
+                      </TableCell>
+                      <TableCell>
+                        {location.hours.sunday.to && time24to12Convert(location.hours.sunday.to)}
+                      </TableCell>
+                    </TableRow>
+                  }
+
+                </TableBody>
+              </Table>
+            </TableContainer>}
+          {(props.tableRowName == 'description' || props.tableRowName == 'classification' || props.tableRowName == 'hours') ? null : props.tableRowValue}
           {!props.tableRowValue && <a href="#" onClick={preventDefault}>Add {props.tableRowName}</a>}
           <a href="#" onClick={preventDefault} className={editIconClass} >{props.edit && <EditLocationIcon fontSize="inherit" />}</a>
         </div>}

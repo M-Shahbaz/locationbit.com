@@ -23,8 +23,9 @@ const LocationHoursPicker = props => {
   const ctx = useContext(LocationModalHoursContext);
   console.log(ctx);
   const getTimeDateFormat = (t) => {
+    const time = t;
     const d = new Date();
-    var arr = t.split(":");
+    var arr = time.split(":");
     d.setHours(arr[0]);
     d.setMinutes(arr[1]);
     return d;

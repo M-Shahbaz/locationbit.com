@@ -65,6 +65,7 @@ final class LocationReadAction
                 'industryGroup' => (string)$locationData->industryGroup,
                 'naicsIndustry' => (string)$locationData->naicsIndustry,
                 'nationalIndustry' => (string)$locationData->nationalIndustry,
+                'hours' => (array)$locationData->hours,
             ];
 
             $statusCode = 200;

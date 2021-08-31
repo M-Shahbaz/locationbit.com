@@ -44,6 +44,9 @@ final class LocationUpdateData
     
     /** @var int */
 	public $nationalIndustry;      
+        
+    /** @var array */
+	public $hours;
     
     /** @var int */
 	public $updatedBy;      

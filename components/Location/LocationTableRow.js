@@ -4,10 +4,12 @@ import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import EditLocationIcon from '@material-ui/icons/EditLocation';
 import EditIcon from '@material-ui/icons/Edit';
+import TableContainer from '@material-ui/core/TableContainer';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
 //import { withStyles } from "@material-ui/core/styles";
@@ -75,45 +77,47 @@ const LocationTableRow = props => {
           onClick={onClickHandler}>
           {(props.tableRowName == 'description' && props.tableRowValue) && <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(props.tableRowValue).replace(/(<? *script)/gi, 'illegalscript') }} ></div>}
           {(props.tableRowName == 'classification' && props.tableRowValue) &&
-            <Table>
-              <TableBody>
-                {sectorIndustry &&
-                  <TableRow>
-                    <TableCell>
-                      {sectorIndustry && "Sector: "}{sectorIndustry && sectorIndustry.title}
-                    </TableCell>
-                  </TableRow>
-                }
-                {subSectorIndustry &&
-                  <TableRow>
-                    <TableCell>
-                      {subSectorIndustry && "Subsector: "}{subSectorIndustry && subSectorIndustry.title}
-                    </TableCell>
-                  </TableRow>
-                }
-                {industryGroupIndustry &&
-                  <TableRow>
-                    <TableCell>
-                      {industryGroupIndustry && "Industry group: "}{industryGroupIndustry && industryGroupIndustry.title}
-                    </TableCell>
-                  </TableRow>
-                }
-                {naicsIndustryIndustry &&
-                  <TableRow>
-                    <TableCell>
-                      {naicsIndustryIndustry && "Naics industry: "}{naicsIndustryIndustry && naicsIndustryIndustry.title}
-                    </TableCell>
-                  </TableRow>
-                }
-                {nationalIndustryIndustry &&
-                  <TableRow>
-                    <TableCell>
-                      {nationalIndustryIndustry && "National industry: "}{nationalIndustryIndustry && nationalIndustryIndustry.title}
-                    </TableCell>
-                  </TableRow>
-                }
-              </TableBody>
-            </Table>}
+            <TableContainer component={Paper}>
+              <Table>
+                <TableBody>
+                  {sectorIndustry &&
+                    <TableRow>
+                      <TableCell>
+                        {sectorIndustry && "Sector: "}{sectorIndustry && sectorIndustry.title}
+                      </TableCell>
+                    </TableRow>
+                  }
+                  {subSectorIndustry &&
+                    <TableRow>
+                      <TableCell>
+                        {subSectorIndustry && "Subsector: "}{subSectorIndustry && subSectorIndustry.title}
+                      </TableCell>
+                    </TableRow>
+                  }
+                  {industryGroupIndustry &&
+                    <TableRow>
+                      <TableCell>
+                        {industryGroupIndustry && "Industry group: "}{industryGroupIndustry && industryGroupIndustry.title}
+                      </TableCell>
+                    </TableRow>
+                  }
+                  {naicsIndustryIndustry &&
+                    <TableRow>
+                      <TableCell>
+                        {naicsIndustryIndustry && "Naics industry: "}{naicsIndustryIndustry && naicsIndustryIndustry.title}
+                      </TableCell>
+                    </TableRow>
+                  }
+                  {nationalIndustryIndustry &&
+                    <TableRow>
+                      <TableCell>
+                        {nationalIndustryIndustry && "National industry: "}{nationalIndustryIndustry && nationalIndustryIndustry.title}
+                      </TableCell>
+                    </TableRow>
+                  }
+                </TableBody>
+              </Table>
+            </TableContainer>}
           {(props.tableRowName == 'description' || props.tableRowName == 'classification') ? null : props.tableRowValue}
           {!props.tableRowValue && <a href="#" onClick={preventDefault}>Add {props.tableRowName}</a>}
           <a href="#" onClick={preventDefault} className={editIconClass} >{props.edit && <EditLocationIcon fontSize="inherit" />}</a>

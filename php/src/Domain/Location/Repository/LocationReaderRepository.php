@@ -78,6 +78,7 @@ class LocationReaderRepository
         $locationData->industryGroup = isset($row->industryGroup) ? $row->industryGroup : null;
         $locationData->naicsIndustry = isset($row->naicsIndustry) ? $row->naicsIndustry : null;
         $locationData->nationalIndustry = isset($row->nationalIndustry) ? $row->nationalIndustry : null;
+        $locationData->hours = isset($row->hours) ? $row->hours : null;
 
         return $locationData;
     }

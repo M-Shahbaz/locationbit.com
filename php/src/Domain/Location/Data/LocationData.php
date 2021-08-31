@@ -88,6 +88,9 @@ final class LocationData
     /** @var int */
 	public $nationalIndustry;  
     
+    /** @var array */
+	public $hours;  
+    
     /** @var int */
     public $createdBy;
 

@@ -70,6 +70,10 @@ final class LocationUpdate
             $locationUpdateArray['nationalIndustry'] = !empty($locationUpdateData->nationalIndustry) ? (int)$locationUpdateData->nationalIndustry : null;
         }
 
+        if (isset($locationUpdateData->hours)) {
+            $locationUpdateArray['hours'] = !empty($locationUpdateData->hours) ? (array)$locationUpdateData->hours : null;
+        }
+
         if (!empty($locationUpdateArray)) {
             $locationUpdated = $this->repository->updateLocation($locationUpdateArray, $locationUpdateData);
             return $locationUpdated;

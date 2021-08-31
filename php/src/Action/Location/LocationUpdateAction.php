@@ -47,8 +47,8 @@ final class LocationUpdateAction
         $locationUpdateData->industryGroup = $data['industryGroup'] ?? null;
         $locationUpdateData->naicsIndustry = $data['naicsIndustry'] ?? null;
         $locationUpdateData->nationalIndustry = $data['nationalIndustry'] ?? null;
+        $locationUpdateData->hours = isset($data['hours']) && !empty($data['hours']) ? (array)$data['hours']: null;
         $locationUpdateData->updatedBy = $jwtUserData->userId;
-
 
         try {
 

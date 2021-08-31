@@ -46,6 +46,8 @@ import sanitizeHtml from 'sanitize-html';
 import Loading from '../Loading/Loading';
 import LocationClassificationSector from './LocationClassification/LocationClassificationSector';
 import LocationModalContext from './../../store/LocationModalContext';
+import LocationHoursPicker from './LocationHoursPicker';
+import LocationModalHoursContext from './../../store/LocationModalHoursContext';
 
 const useStyles = makeStyles(styles);
 
@@ -64,9 +66,9 @@ const naicsReducer = (state, action) => {
         industryGroup: '',
         naicsIndustry: '',
         nationalIndustry: ''
-      }      
+      }
       break;
-      
+
     case 'SUBSECTOR':
       return {
         sector: state.sector,
@@ -74,7 +76,7 @@ const naicsReducer = (state, action) => {
         industryGroup: '',
         naicsIndustry: '',
         nationalIndustry: ''
-      }      
+      }
       break;
 
     case 'INDUSTRYGROUP':
@@ -84,7 +86,7 @@ const naicsReducer = (state, action) => {
         industryGroup: action.value,
         naicsIndustry: '',
         nationalIndustry: ''
-      }      
+      }
       break;
 
     case 'NAICSINDUSTRY':
@@ -94,7 +96,7 @@ const naicsReducer = (state, action) => {
         industryGroup: state.industryGroup,
         naicsIndustry: action.value,
         nationalIndustry: ''
-      }      
+      }
       break;
 
     case 'NATIONALINDUSTRY':
@@ -104,9 +106,9 @@ const naicsReducer = (state, action) => {
         industryGroup: state.industryGroup,
         naicsIndustry: state.naicsIndustry,
         nationalIndustry: action.value
-      }      
+      }
       break;
-  
+
     default:
       break;
   }
@@ -117,6 +119,178 @@ const naicsReducer = (state, action) => {
     industryGroup: '',
     naicsIndustry: '',
     nationalIndustry: ''
+  };
+};
+
+const hoursReducer = (state, action) => {
+  switch (action.type) {
+    case 'MONDAY_FROM':
+      return {
+        monday: { from: action.value, to: state.monday.to },
+        tuesday: { from: state.tuesday.from, to: state.tuesday.to },
+        wednesday: { from: state.wednesday.from, to: state.wednesday.to },
+        thursday: { from: state.thursday.from, to: state.thursday.to },
+        friday: { from: state.friday.from, to: state.friday.to },
+        saturday: { from: state.saturday.from, to: state.saturday.to },
+        sunday: { from: state.sunday.from, to: state.sunday.to },
+      }
+      break;
+    case 'MONDAY_TO':
+      return {
+        monday: { from: state.monday.from, to: action.value },
+        tuesday: { from: state.tuesday.from, to: state.tuesday.to },
+        wednesday: { from: state.wednesday.from, to: state.wednesday.to },
+        thursday: { from: state.thursday.from, to: state.thursday.to },
+        friday: { from: state.friday.from, to: state.friday.to },
+        saturday: { from: state.saturday.from, to: state.saturday.to },
+        sunday: { from: state.sunday.from, to: state.sunday.to },
+      }
+      break;
+    case 'TUESDAY_FROM':
+      return {
+        monday: { from: state.monday.from, to: state.monday.to },
+        tuesday: { from: action.value, to: state.tuesday.to },
+        wednesday: { from: state.wednesday.from, to: state.wednesday.to },
+        thursday: { from: state.thursday.from, to: state.thursday.to },
+        friday: { from: state.friday.from, to: state.friday.to },
+        saturday: { from: state.saturday.from, to: state.saturday.to },
+        sunday: { from: state.sunday.from, to: state.sunday.to },
+      }
+      break;
+    case 'TUESDAY_TO':
+      return {
+        monday: { from: state.monday.from, to: state.monday.to },
+        tuesday: { from: state.tuesday.from, to: action.value },
+        wednesday: { from: state.wednesday.from, to: state.wednesday.to },
+        thursday: { from: state.thursday.from, to: state.thursday.to },
+        friday: { from: state.friday.from, to: state.friday.to },
+        saturday: { from: state.saturday.from, to: state.saturday.to },
+        sunday: { from: state.sunday.from, to: state.sunday.to },
+      }
+      break;
+    case 'WEDNESDAY_FROM':
+      return {
+        monday: { from: state.monday.from, to: state.monday.to },
+        tuesday: { from: state.tuesday.from, to: state.tuesday.to },
+        wednesday: { from: action.value, to: state.wednesday.to },
+        thursday: { from: state.thursday.from, to: state.thursday.to },
+        friday: { from: state.friday.from, to: state.friday.to },
+        saturday: { from: state.saturday.from, to: state.saturday.to },
+        sunday: { from: state.sunday.from, to: state.sunday.to },
+      }
+      break;
+    case 'WEDNESDAY_TO':
+      return {
+        monday: { from: state.monday.from, to: state.monday.to },
+        tuesday: { from: state.tuesday.from, to: state.tuesday.to },
+        wednesday: { from: state.wednesday.from, to: action.value },
+        thursday: { from: state.thursday.from, to: state.thursday.to },
+        friday: { from: state.friday.from, to: state.friday.to },
+        saturday: { from: state.saturday.from, to: state.saturday.to },
+        sunday: { from: state.sunday.from, to: state.sunday.to },
+      }
+      break;
+    case 'THURSDAY_FROM':
+      return {
+        monday: { from: state.monday.from, to: state.monday.to },
+        tuesday: { from: state.tuesday.from, to: state.tuesday.to },
+        wednesday: { from: state.wednesday.from, to: state.wednesday.to },
+        thursday: { from: action.value, to: state.thursday.to },
+        friday: { from: state.friday.from, to: state.friday.to },
+        saturday: { from: state.saturday.from, to: state.saturday.to },
+        sunday: { from: state.sunday.from, to: state.sunday.to },
+      }
+      break;
+    case 'THURSDAY_TO':
+      return {
+        monday: { from: state.monday.from, to: state.monday.to },
+        tuesday: { from: state.tuesday.from, to: state.tuesday.to },
+        wednesday: { from: state.wednesday.from, to: state.wednesday.to },
+        thursday: { from: state.thursday.from, to: action.value },
+        friday: { from: state.friday.from, to: state.friday.to },
+        saturday: { from: state.saturday.from, to: state.saturday.to },
+        sunday: { from: state.sunday.from, to: state.sunday.to },
+      }
+      break;
+    case 'FRIDAY_FROM':
+      return {
+        monday: { from: state.monday.from, to: state.monday.to },
+        tuesday: { from: state.tuesday.from, to: state.tuesday.to },
+        wednesday: { from: state.wednesday.from, to: state.wednesday.to },
+        thursday: { from: state.thursday.from, to: state.thursday.to },
+        friday: { from: action.value, to: state.friday.to },
+        saturday: { from: state.saturday.from, to: state.saturday.to },
+        sunday: { from: state.sunday.from, to: state.sunday.to },
+      }
+      break;
+    case 'FRIDAY_TO':
+      return {
+        monday: { from: state.monday.from, to: state.monday.to },
+        tuesday: { from: state.tuesday.from, to: state.tuesday.to },
+        wednesday: { from: state.wednesday.from, to: state.wednesday.to },
+        thursday: { from: state.thursday.from, to: state.thursday.to },
+        friday: { from: state.friday.from, to: action.value },
+        saturday: { from: state.saturday.from, to: state.saturday.to },
+        sunday: { from: state.sunday.from, to: state.sunday.to },
+      }
+      break;
+    case 'SATURDAY_FROM':
+      return {
+        monday: { from: state.monday.from, to: state.monday.to },
+        tuesday: { from: state.tuesday.from, to: state.tuesday.to },
+        wednesday: { from: state.wednesday.from, to: state.wednesday.to },
+        thursday: { from: state.thursday.from, to: state.thursday.to },
+        friday: { from: state.friday.from, to: state.friday.to },
+        saturday: { from: action.value, to: state.saturday.to },
+        sunday: { from: state.sunday.from, to: state.sunday.to },
+      }
+      break;
+    case 'SATURDAY_TO':
+      return {
+        monday: { from: state.monday.from, to: state.monday.to },
+        tuesday: { from: state.tuesday.from, to: state.tuesday.to },
+        wednesday: { from: state.wednesday.from, to: state.wednesday.to },
+        thursday: { from: state.thursday.from, to: state.thursday.to },
+        friday: { from: state.friday.from, to: state.friday.to },
+        saturday: { from: state.saturday.from, to: action.value },
+        sunday: { from: state.sunday.from, to: state.sunday.to },
+      }
+      break;
+    case 'SUNDAY_FROM':
+      return {
+        monday: { from: state.monday.from, to: state.monday.to },
+        tuesday: { from: state.tuesday.from, to: state.tuesday.to },
+        wednesday: { from: state.wednesday.from, to: state.wednesday.to },
+        thursday: { from: state.thursday.from, to: state.thursday.to },
+        friday: { from: state.friday.from, to: state.friday.to },
+        saturday: { from: state.saturday.from, to: state.saturday.to },
+        sunday: { from: action.value, to: state.sunday.to },
+      }
+      break;
+    case 'SUNDAY_TO':
+      return {
+        monday: { from: state.monday.from, to: state.monday.to },
+        tuesday: { from: state.tuesday.from, to: state.tuesday.to },
+        wednesday: { from: state.wednesday.from, to: state.wednesday.to },
+        thursday: { from: state.thursday.from, to: state.thursday.to },
+        friday: { from: state.friday.from, to: state.friday.to },
+        saturday: { from: state.saturday.from, to: state.saturday.to },
+        sunday: { from: state.sunday.from, to: action.value },
+      }
+      break;
+
+    default:
+      break;
+  }
+
+  return {
+    monday: { from: '', to: '' },
+    tuesday: { from: '', to: '' },
+    wednesday: { from: '', to: '' },
+    thursday: { from: '', to: '' },
+    friday: { from: '', to: '' },
+    saturday: { from: '', to: '' },
+    sunday: { from: '', to: '' },
   };
 };
 
@@ -136,6 +310,17 @@ const LocationModal = props => {
     naicsIndustry: location.naicsIndustry,
     nationalIndustry: location.nationalIndustry
   });
+
+  const [hoursState, dispatchHours] = useReducer(hoursReducer, {
+    monday: location.hours && location.hours.monday ? location.hours.monday : { from: '10:00', to: '18:40' },
+    tuesday: location.hours && location.hours.tuesday ? location.hours.tuesday : { from: null, to: null },
+    wednesday: location.hours && location.hours.wednesday ? location.hours.wednesday : { from: null, to: null },
+    thursday: location.hours && location.hours.thursday ? location.hours.thursday : { from: null, to: null },
+    friday: location.hours && location.hours.friday ? location.hours.friday : { from: null, to: null },
+    saturday: location.hours && location.hours.saturday ? location.hours.saturday : { from: null, to: null },
+    sunday: location.hours && location.hours.sunday ? location.hours.sunday : { from: null, to: null },
+  });
+
   console.log(location);
 
   const title = props.modalTitle;
@@ -149,11 +334,18 @@ const LocationModal = props => {
     [props.classicModal],
   );
 
-  const onNaicsChangeHandler = (obj) =>{
+  const onNaicsChangeHandler = (obj) => {
     // dispatchNaics({type: "SECTOR", value: 786});
     console.log(naicsState);
     dispatchNaics(obj);
     console.log(naicsState);
+  }
+
+  const onHoursChangeHandler = (obj) => {
+    // dispatchNaics({type: "MONDAY_FROM", value: "12:12 AM"});
+    console.log(hoursState);
+    dispatchHours(obj);
+    console.log(hoursState);
   }
 
   const classicModalHandler = useCallback((value) => {
@@ -198,6 +390,11 @@ const LocationModal = props => {
         industryGroup: naicsState.industryGroup,
         naicsIndustry: naicsState.naicsIndustry,
         nationalIndustry: naicsState.nationalIndustry
+      };
+    } else if (title == 'hours') {
+      console.log("submit hours" + hoursState);
+      locationUpdateData = {
+        hours: hoursState
       };
     } else {
       if (title == 'phone') {
@@ -283,7 +480,7 @@ const LocationModal = props => {
               <div>
                 {title == "phone" && <AutocompleteCountryPhone defaultCountry={defaultCountry} ref={inputRefAutocomplete} />}
                 {title == "description" && <CKEditorLocation onChange={onChangeCkeditorHandler.bind(this)} value={props.modalValue} />}
-                {(title != "description" && title != "classification") && <CustomInput
+                {(title != "description" && title != "classification" && title != "hours") && <CustomInput
                   labelText={title}
                   variant="outlined"
                   id={`"customInput-"${title}`}
@@ -308,6 +505,18 @@ const LocationModal = props => {
                 }}>
                   {title == "classification" && <LocationClassificationSector sector={props.sector} />}
                 </LocationModalContext.Provider>
+                <LocationModalHoursContext.Provider value={{
+                  monday: hoursState.monday,
+                  tuesday: hoursState.tuesday,
+                  wednesday: hoursState.wednesday,
+                  thursday: hoursState.thursday,
+                  friday: hoursState.friday,
+                  saturday: hoursState.saturday,
+                  sunday: hoursState.sunday,
+                  onHoursChange: onHoursChangeHandler
+                }}>
+                  {title == "hours" && <LocationHoursPicker></LocationHoursPicker>}
+                </LocationModalHoursContext.Provider>
               </div>
             </DialogContent>
             <DialogActions className={classes.modalFooter}>

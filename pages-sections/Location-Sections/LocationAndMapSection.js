@@ -122,6 +122,12 @@ export default function LocationAndMapSection(props) {
                     tableRowValue={location.sector}
                     edit={true}
                   />
+                  <LocationTableRow
+                    locationId={location.id}
+                    tableRowName="hours"
+                    tableRowValue={location.hours}
+                    edit={true}
+                  />
                 </TableBody>
               </Table>
             </TableContainer>

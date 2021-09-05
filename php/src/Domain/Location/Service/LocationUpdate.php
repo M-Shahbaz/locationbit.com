@@ -46,6 +46,30 @@ final class LocationUpdate
             $locationUpdateArray['phone'] = !empty($locationUpdateData->phone) ? $locationUpdateData->phone : null;
         }
 
+        if (isset($locationUpdateData->facebook)) {
+            $locationUpdateArray['facebook'] = !empty($locationUpdateData->facebook) ? $locationUpdateData->facebook : null;
+        }
+
+        if (isset($locationUpdateData->twitter)) {
+            $locationUpdateArray['twitter'] = !empty($locationUpdateData->twitter) ? $locationUpdateData->twitter : null;
+        }
+
+        if (isset($locationUpdateData->instagram)) {
+            $locationUpdateArray['instagram'] = !empty($locationUpdateData->instagram) ? $locationUpdateData->instagram : null;
+        }
+
+        if (isset($locationUpdateData->youtube)) {
+            $locationUpdateArray['youtube'] = !empty($locationUpdateData->youtube) ? $locationUpdateData->youtube : null;
+        }
+
+        if (isset($locationUpdateData->linkedin)) {
+            $locationUpdateArray['linkedin'] = !empty($locationUpdateData->linkedin) ? $locationUpdateData->linkedin : null;
+        }
+
+        if (isset($locationUpdateData->telegram)) {
+            $locationUpdateArray['telegram'] = !empty($locationUpdateData->telegram) ? $locationUpdateData->telegram : null;
+        }
+
         if (isset($locationUpdateData->description)) {
             $locationUpdateArray['description'] = !empty($locationUpdateData->description) ? $locationUpdateData->description : null;
         }

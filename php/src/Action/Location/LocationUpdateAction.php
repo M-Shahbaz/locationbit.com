@@ -41,6 +41,12 @@ final class LocationUpdateAction
         $locationUpdateData->website = $data['website'] ?? null;
         $locationUpdateData->email = $data['email'] ?? null;
         $locationUpdateData->phone = $data['phone'] ?? null;
+        $locationUpdateData->facebook = $data['facebook'] ?? null;
+        $locationUpdateData->twitter = $data['twitter'] ?? null;
+        $locationUpdateData->instagram = $data['instagram'] ?? null;
+        $locationUpdateData->youtube = $data['youtube'] ?? null;
+        $locationUpdateData->linkedin = $data['linkedin'] ?? null;
+        $locationUpdateData->telegram = $data['telegram'] ?? null;
         $locationUpdateData->description = $data['description'] ?? null;
         $locationUpdateData->sector = $data['sector'] ?? null;
         $locationUpdateData->subSector = $data['subSector'] ?? null;

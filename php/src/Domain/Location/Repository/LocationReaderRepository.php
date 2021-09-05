@@ -72,6 +72,12 @@ class LocationReaderRepository
         $locationData->website = isset($row->website) ? $row->website : null;
         $locationData->email = isset($row->email) ? $row->email : null;
         $locationData->phone = isset($row->phone) ? $row->phone : null;
+        $locationData->facebook = isset($row->facebook) ? $row->facebook : null;
+        $locationData->twitter = isset($row->twitter) ? $row->twitter : null;
+        $locationData->instagram = isset($row->instagram) ? $row->instagram : null;
+        $locationData->youtube = isset($row->youtube) ? $row->youtube : null;
+        $locationData->linkedin = isset($row->linkedin) ? $row->linkedin : null;
+        $locationData->telegram = isset($row->telegram) ? $row->telegram : null;
         $locationData->description = isset($row->description) ? $row->description : null;
         $locationData->sector = isset($row->sector) ? $row->sector : null;
         $locationData->subSector = isset($row->subSector) ? $row->subSector : null;

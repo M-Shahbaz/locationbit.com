@@ -72,6 +72,24 @@ final class LocationData
     
     /** @var string (varchar)*/
     public $phone;  
+    
+    /** @var string (varchar)*/
+    public $facebook;  
+    
+    /** @var string (varchar)*/
+    public $twitter;  
+    
+    /** @var string (varchar)*/
+    public $instagram;  
+    
+    /** @var string (varchar)*/
+    public $youtube;  
+    
+    /** @var string (varchar)*/
+    public $linkedin;  
+    
+    /** @var string (varchar)*/
+    public $telegram;  
         
     /** @var int */
 	public $sector;      

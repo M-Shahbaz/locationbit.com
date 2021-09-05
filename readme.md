@@ -18,6 +18,9 @@ H:\xampp\apache\conf\extra
         ProxyPass / http://127.0.0.1:3000/
         ProxyPassReverse / http://127.0.0.1:3000/
 
+[mapping]
+    -hours
+
 [keys]
 # Generating Public and Private Keys
 # Generate the private key with this OpenSSL command (enter a password):

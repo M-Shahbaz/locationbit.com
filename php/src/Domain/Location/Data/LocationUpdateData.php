@@ -2,6 +2,7 @@
 
 namespace App\Domain\Location\Data;
 
+use Respect\Validation\Validator as v;
 use UnexpectedValueException;
 
 final class LocationUpdateData
@@ -26,7 +27,25 @@ final class LocationUpdateData
     
     /** @var string (varchar)*/
     public $phone;      
+        
+    /** @var string (varchar)*/
+    public $facebook;  
     
+    /** @var string (varchar)*/
+    public $twitter;  
+    
+    /** @var string (varchar)*/
+    public $instagram;  
+    
+    /** @var string (varchar)*/
+    public $youtube;  
+    
+    /** @var string (varchar)*/
+    public $linkedin;  
+    
+    /** @var string (varchar)*/
+    public $telegram;  
+        
     /** @var string (varchar)*/
     public $description;
     
@@ -61,6 +80,42 @@ final class LocationUpdateData
             throw new UnexpectedValueException('updatedBy is required');
         }
 
+        $this->validateSocial(
+            "Facebook", 
+            $this->facebook,
+            '/(?:https?:)?\/\/(?:www\.)?(?:facebook|fb)\.com\/(?P<profile>(?![A-z]+\.php)(?!marketplace|gaming|watch|me|messages|help|search|groups)[A-z0-9_\-\.]+)\/?/'
+        );
+
+        $this->validateSocial(
+            "Twitter", 
+            $this->twitter,
+            '/(?:https?:)?\/\/(?:[A-z]+\.)?twitter\.com\/@?(?!home|share|privacy|tos)(?P<username>[A-z0-9_]+)\/?/'
+        );
+
+        $this->validateSocial(
+            "Instagram", 
+            $this->instagram,
+            '/(?:https?:)?\/\/(?:www\.)?(?:instagram\.com|instagr\.am)\/(?P<username>[A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\.(?!\.))){0,28}(?:[A-Za-z0-9_]))?)/'
+        );
+
+        $this->validateSocial(
+            "YouTube",
+            $this->youtube,
+            '/(?:https?:)?\/\/(?:[A-z]+\.)?youtube.com\/channel\/(?P<id>[A-z0-9-\_]+)\/?/'
+        );
+
+        $this->validateSocial(
+            "Linkedin", 
+            $this->linkedin,
+            '/(?:https?:)?\/\/(?:[\w]+\.)?linkedin\.com\/(?P<company_type>(company)|(school))\/(?P<company_permalink>[A-z0-9-À-ÿ\.]+)\/?/'
+        );
+
+        $this->validateSocial(
+            "Telegram", 
+            $this->telegram,
+            '/(?:https?:)?\/\/(?:t(?:elegram)?\.me|telegram\.org)\/(?P<username>[a-z0-9\_]{5,32})\/?/'
+        );
+
         // if all validaions pass
         return true;
         
@@ -78,5 +133,17 @@ final class LocationUpdateData
 				break;
 			return false;
 		}
+    }
+
+    public function validateSocial($social, $link, $regex){
+        
+        if(!empty($link) && v::regex($regex)->validate($link) === false){
+            throw new UnexpectedValueException("{$social} link is not valid!");
+        }
+        
+        if(!empty($link) && v::stringType()->length(null, 255)->validate($link) === false){
+            throw new UnexpectedValueException("{$social} link max length is not valid!");
+        }
+        return true;
     }
 }

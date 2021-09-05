@@ -120,6 +120,42 @@ export default function LocationAndMapSection(props) {
                   />
                   <LocationTableRow
                     locationId={location.id}
+                    tableRowName="facebook"
+                    tableRowValue={location.facebook}
+                    edit={true}
+                  />
+                  <LocationTableRow
+                    locationId={location.id}
+                    tableRowName="twitter"
+                    tableRowValue={location.twitter}
+                    edit={true}
+                  />
+                  <LocationTableRow
+                    locationId={location.id}
+                    tableRowName="instagram"
+                    tableRowValue={location.instagram}
+                    edit={true}
+                  />
+                  <LocationTableRow
+                    locationId={location.id}
+                    tableRowName="youtube"
+                    tableRowValue={location.youtube}
+                    edit={true}
+                  />
+                  <LocationTableRow
+                    locationId={location.id}
+                    tableRowName="linkedin"
+                    tableRowValue={location.linkedin}
+                    edit={true}
+                  />
+                  <LocationTableRow
+                    locationId={location.id}
+                    tableRowName="telegram"
+                    tableRowValue={location.telegram}
+                    edit={true}
+                  />
+                  <LocationTableRow
+                    locationId={location.id}
                     tableRowName="classification"
                     tableRowValue={location.sector}
                     edit={true}

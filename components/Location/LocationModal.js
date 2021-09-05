@@ -434,7 +434,8 @@ const LocationModal = props => {
           setLoadingModal(false);
         }
       }).catch(error => {
-        toast.error("Oops! something went wrong...", {
+        console.log(error);
+        toast.error("Oops! something went wrong..."+ (error.response.data && error.response.data.error && error.response.data.error), {
           position: "bottom-center",
         });
         setLoadingModal(false);

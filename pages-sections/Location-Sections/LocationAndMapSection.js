@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useReducer, useCallback } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import dynamic from 'next/dynamic';
 
@@ -25,10 +25,11 @@ import Chat from "@material-ui/icons/Chat";
 import LocationGridItem from "../../components/Location/LocationGridItem";
 import LocationGridItemWebsite from "../../components/Location/LocationGridItemWebsite";
 import LocationTableRow from "../../components/Location/LocationTableRow";
+import LocationMapContext from './../../store/LocationMapContext'
+import LocationMapEdit from './../../components/Location/LocationMapEdit';
 
-
-const Map = dynamic(
-  () => import('../../components/Map/Map'),
+const MapDraggable = dynamic(
+  () => import('../../components/Map/MapDraggable'),
   { ssr: false }
 );
 
@@ -42,10 +43,54 @@ const rows = [
   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
   createData('Eclair', 262, 16.0, 24, 6.0),
 ];
+
+const mapReducer = (state, action) => {
+  switch (action.type) {
+    case 'DRAGGABLE':
+      return {
+        draggable: action.value,
+        position: state.position
+      }
+      break;
+
+    case 'POSITION':
+      return {
+        draggable: state.draggable,
+        position: action.value
+      }
+      break;
+
+    default:
+      break;
+  }
+
+  return {
+    draggable: false,
+    position: {
+      lat: null,
+      lon: null,
+    }
+  };
+};
+
 export default function LocationAndMapSection(props) {
   const classes = useStyles();
   // const { location } = props;
   const location = useSelector((state) => state.location);
+  const [mapState, dispatchMap] = useReducer(mapReducer, {
+    draggable: false,
+    position: {
+      lat: location.lat,
+      lon: location.lon,
+    }
+  });
+
+  const onMapChangeHandler = (obj) => {
+    // dispatchNaics({type: "DRAGGABLE", value: 786});
+    console.log(mapState);
+    dispatchMap(obj);
+    console.log(mapState);
+  }
 
   return (
     <div className={classes.section}>
@@ -171,11 +216,18 @@ export default function LocationAndMapSection(props) {
             </TableContainer>
           </GridItem>
           <GridItem xs={12} sm={12} md={6}>
-            <Map
-              lat={location.lat}
-              lon={location.lon}
-              popup={props.headTitle}
-            />
+            <LocationMapContext.Provider value={{
+              draggable: mapState.draggable,
+              position: mapState.position,
+              onMapChange: onMapChangeHandler
+            }}>
+              <MapDraggable
+                lat={location.lat}
+                lon={location.lon}
+                popup={props.headTitle}
+              />
+              <LocationMapEdit edit={true} />
+            </LocationMapContext.Provider>
           </GridItem>
         </GridContainer>
       </div >

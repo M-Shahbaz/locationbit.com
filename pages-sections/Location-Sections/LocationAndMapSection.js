@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, useReducer, useCallback } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import dynamic from 'next/dynamic';
+import Router from 'next/router'
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -32,6 +33,12 @@ const MapDraggable = dynamic(
   () => import('../../components/Map/MapDraggable'),
   { ssr: false }
 );
+
+import axios from 'axios';
+import Loading from '../../components/Loading/Loading';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ucfirst } from './../../utility/FunctionsService';
 
 const useStyles = makeStyles(styles);
 function createData(name, calories, fat, carbs, protein) {
@@ -77,6 +84,7 @@ export default function LocationAndMapSection(props) {
   const classes = useStyles();
   // const { location } = props;
   const location = useSelector((state) => state.location);
+  const [loadingModal, setLoadingModal] = React.useState(false);
   const [mapState, dispatchMap] = useReducer(mapReducer, {
     draggable: false,
     position: {
@@ -89,148 +97,191 @@ export default function LocationAndMapSection(props) {
     // dispatchNaics({type: "DRAGGABLE", value: 786});
     console.log(mapState);
     dispatchMap(obj);
-    console.log(mapState);
   }
 
+  const onMapSaveHandler = () => {
+
+    let locationUpdateData;
+    setLoadingModal(true);
+    locationUpdateData = mapState.position;
+    axios.post(`/api/location/${location.id}/update`, locationUpdateData)
+      .then(res => {
+        console.log(res);
+        // console.log(res.data);
+        if (res.data.success === "updated") {
+          toast.success("updated!", {
+            position: "bottom-center",
+          });
+          Router.reload();
+        } else {
+          toast.error("Oops! something went wrong... error message: " + res.data.success, {
+            position: "bottom-center",
+          });
+          setLoadingModal(false);
+        }
+      }).catch(error => {
+        console.log(error);
+        toast.error("Oops! something went wrong..." + (error.response.data && error.response.data.error && error.response.data.error), {
+          position: "bottom-center",
+        });
+        setLoadingModal(false);
+      });
+
+  }
+
+  // useEffect( () => {
+  //   console.log(mapState);
+  //   if (mapState.save) {
+  //     console.log("save: "+mapState.save);
+  //     onMapSaveHandler();
+  //   }
+  // }, [mapState.save])
+
+
   return (
-    <div className={classes.section}>
-      <GridContainer justify="center">
-        <GridItem xs={12} sm={12} md={8}>
-          <h2 className={classes.title}></h2>
-          <h5 className={classes.description}>
-          </h5>
-        </GridItem>
-      </GridContainer>
-      <div>
-        <GridContainer>
-          <GridItem xs={12} sm={12} md={6}>
-            <TableContainer component={Paper}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Name:</TableCell>
-                    <TableCell>{location.name}</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  <LocationTableRow
-                    locationId={location.id}
-                    tableRowName="description"
-                    tableRowValue={location.description}
-                    edit={true}
-                  />
-                  <LocationTableRow
-                    locationId={location.id}
-                    tableRowName="address"
-                    tableRowValue={location.address}
-                  />
-                  <LocationTableRow
-                    locationId={location.id}
-                    tableRowName="city"
-                    tableRowValue={location.city}
-                  />
-                  <LocationTableRow
-                    locationId={location.id}
-                    tableRowName="state"
-                    tableRowValue={location.state}
-                  />
-                  <LocationTableRow
-                    locationId={location.id}
-                    tableRowName="country"
-                    tableRowValue={location.country}
-                  />
-                  <LocationTableRow
-                    locationId={location.id}
-                    tableRowName="postcode"
-                    tableRowValue={location.postcode}
-                    edit={true}
-                  />
-                  <LocationTableRow
-                    locationId={location.id}
-                    tableRowName="website"
-                    tableRowValue={location.website}
-                    edit={true}
-                  />
-                  <LocationTableRow
-                    locationId={location.id}
-                    tableRowName="email"
-                    tableRowValue={location.email}
-                    edit={true}
-                  />
-                  <LocationTableRow
-                    locationId={location.id}
-                    tableRowName="phone"
-                    tableRowValue={location.phone}
-                    edit={true}
-                  />
-                  <LocationTableRow
-                    locationId={location.id}
-                    tableRowName="facebook"
-                    tableRowValue={location.facebook}
-                    edit={true}
-                  />
-                  <LocationTableRow
-                    locationId={location.id}
-                    tableRowName="twitter"
-                    tableRowValue={location.twitter}
-                    edit={true}
-                  />
-                  <LocationTableRow
-                    locationId={location.id}
-                    tableRowName="instagram"
-                    tableRowValue={location.instagram}
-                    edit={true}
-                  />
-                  <LocationTableRow
-                    locationId={location.id}
-                    tableRowName="youtube"
-                    tableRowValue={location.youtube}
-                    edit={true}
-                  />
-                  <LocationTableRow
-                    locationId={location.id}
-                    tableRowName="linkedin"
-                    tableRowValue={location.linkedin}
-                    edit={true}
-                  />
-                  <LocationTableRow
-                    locationId={location.id}
-                    tableRowName="telegram"
-                    tableRowValue={location.telegram}
-                    edit={true}
-                  />
-                  <LocationTableRow
-                    locationId={location.id}
-                    tableRowName="classification"
-                    tableRowValue={location.sector}
-                    edit={true}
-                  />
-                  <LocationTableRow
-                    locationId={location.id}
-                    tableRowName="hours"
-                    tableRowValue={location.hours}
-                    edit={true}
-                  />
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </GridItem>
-          <GridItem xs={12} sm={12} md={6}>
-            <LocationMapContext.Provider value={{
-              draggable: mapState.draggable,
-              position: mapState.position,
-              onMapChange: onMapChangeHandler
-            }}>
-              <MapDraggable
-                lat={location.lat}
-                lon={location.lon}
-                popup={props.headTitle}
-              />
-              <LocationMapEdit edit={true} />
-            </LocationMapContext.Provider>
+    <>
+      <div className={classes.section}>
+        <GridContainer justify="center">
+          <GridItem xs={12} sm={12} md={8}>
+            <h2 className={classes.title}></h2>
+            <h5 className={classes.description}>
+            </h5>
           </GridItem>
         </GridContainer>
+        <div>
+          <GridContainer>
+            <GridItem xs={12} sm={12} md={6}>
+              <TableContainer component={Paper}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Name:</TableCell>
+                      <TableCell>{location.name}</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    <LocationTableRow
+                      locationId={location.id}
+                      tableRowName="description"
+                      tableRowValue={location.description}
+                      edit={true}
+                    />
+                    <LocationTableRow
+                      locationId={location.id}
+                      tableRowName="address"
+                      tableRowValue={location.address}
+                    />
+                    <LocationTableRow
+                      locationId={location.id}
+                      tableRowName="city"
+                      tableRowValue={location.city}
+                    />
+                    <LocationTableRow
+                      locationId={location.id}
+                      tableRowName="state"
+                      tableRowValue={location.state}
+                    />
+                    <LocationTableRow
+                      locationId={location.id}
+                      tableRowName="country"
+                      tableRowValue={location.country}
+                    />
+                    <LocationTableRow
+                      locationId={location.id}
+                      tableRowName="postcode"
+                      tableRowValue={location.postcode}
+                      edit={true}
+                    />
+                    <LocationTableRow
+                      locationId={location.id}
+                      tableRowName="website"
+                      tableRowValue={location.website}
+                      edit={true}
+                    />
+                    <LocationTableRow
+                      locationId={location.id}
+                      tableRowName="email"
+                      tableRowValue={location.email}
+                      edit={true}
+                    />
+                    <LocationTableRow
+                      locationId={location.id}
+                      tableRowName="phone"
+                      tableRowValue={location.phone}
+                      edit={true}
+                    />
+                    <LocationTableRow
+                      locationId={location.id}
+                      tableRowName="facebook"
+                      tableRowValue={location.facebook}
+                      edit={true}
+                    />
+                    <LocationTableRow
+                      locationId={location.id}
+                      tableRowName="twitter"
+                      tableRowValue={location.twitter}
+                      edit={true}
+                    />
+                    <LocationTableRow
+                      locationId={location.id}
+                      tableRowName="instagram"
+                      tableRowValue={location.instagram}
+                      edit={true}
+                    />
+                    <LocationTableRow
+                      locationId={location.id}
+                      tableRowName="youtube"
+                      tableRowValue={location.youtube}
+                      edit={true}
+                    />
+                    <LocationTableRow
+                      locationId={location.id}
+                      tableRowName="linkedin"
+                      tableRowValue={location.linkedin}
+                      edit={true}
+                    />
+                    <LocationTableRow
+                      locationId={location.id}
+                      tableRowName="telegram"
+                      tableRowValue={location.telegram}
+                      edit={true}
+                    />
+                    <LocationTableRow
+                      locationId={location.id}
+                      tableRowName="classification"
+                      tableRowValue={location.sector}
+                      edit={true}
+                    />
+                    <LocationTableRow
+                      locationId={location.id}
+                      tableRowName="hours"
+                      tableRowValue={location.hours}
+                      edit={true}
+                    />
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={6}>
+              <LocationMapContext.Provider value={{
+                draggable: mapState.draggable,
+                position: mapState.position,
+                onMapChange: onMapChangeHandler,
+                onMapSave: onMapSaveHandler
+              }}>
+                <MapDraggable
+                  lat={location.lat}
+                  lon={location.lon}
+                  popup={props.headTitle}
+                />
+                <LocationMapEdit edit={true} />
+              </LocationMapContext.Provider>
+            </GridItem>
+          </GridContainer>
+        </div >
       </div >
-    </div >
+      <ToastContainer />
+      <Loading loadingModal={loadingModal} />
+    </>
   );
 }

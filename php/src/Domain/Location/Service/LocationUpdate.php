@@ -46,6 +46,14 @@ final class LocationUpdate
             $locationUpdateArray['phone'] = !empty($locationUpdateData->phone) ? $locationUpdateData->phone : null;
         }
 
+        if (isset($locationUpdateData->googleMaps)) {
+            $locationUpdateArray['googleMaps'] = !empty($locationUpdateData->googleMaps) ? $locationUpdateData->googleMaps : null;
+        }
+
+        if (isset($locationUpdateData->googleStreetView)) {
+            $locationUpdateArray['googleStreetView'] = !empty($locationUpdateData->googleStreetView) ? $locationUpdateData->googleStreetView : null;
+        }
+
         if (isset($locationUpdateData->facebook)) {
             $locationUpdateArray['facebook'] = !empty($locationUpdateData->facebook) ? $locationUpdateData->facebook : null;
         }

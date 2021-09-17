@@ -21,7 +21,7 @@ import LocationModal from './LocationModal';
 import { ucfirst } from './../../utility/FunctionsService';
 import classesModule from './LocationTableRow.module.css';
 import sanitizeHtml from 'sanitize-html';
-import { time24to12Convert } from './../../utility/FunctionsService';
+import { time24to12Convert, truncate, camelToTitle } from './../../utility/FunctionsService';
 // @ts-ignore
 import naics from "naics";
 
@@ -46,6 +46,8 @@ const LocationTableRow = props => {
 
   const timezones = Country.getCountryByCode(location.countrycode).timezones;
   console.log(timezones);
+
+  const trimmedTableRowValue = props.tableRowValue && truncate(props.tableRowValue, 40);
 
   const classicModalHandler = useCallback((value) => {
     console.log(value);
@@ -74,7 +76,7 @@ const LocationTableRow = props => {
 
   return (
     <TableRow>
-      <TableCell>{ucfirst(props.tableRowName)}:</TableCell>
+      <TableCell>{camelToTitle(props.tableRowName)}:</TableCell>
       <TableCell>
         {<div className={`${props.edit && classes.cursorPointer} ${valueClass} ${classesModule.width100}`}
           onMouseEnter={onMouseEnterHandler}
@@ -246,7 +248,7 @@ const LocationTableRow = props => {
                 </TableBody>
               </Table>
             </TableContainer>}
-          {(props.tableRowName == 'description' || props.tableRowName == 'classification' || props.tableRowName == 'timezones'|| props.tableRowName == 'hours') ? null : props.tableRowValue}
+          {(props.tableRowName == 'description' || props.tableRowName == 'classification' || props.tableRowName == 'timezones'|| props.tableRowName == 'hours') ? null : trimmedTableRowValue}
           {!props.tableRowValue && <a href="#" onClick={preventDefault}>Add {props.tableRowName}</a>}
           <a href="#" onClick={preventDefault} className={editIconClass} >{props.edit && <EditLocationIcon fontSize="inherit" />}</a>
         </div>}

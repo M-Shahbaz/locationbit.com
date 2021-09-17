@@ -31,6 +31,12 @@ final class LocationUpdateData
         
     /** @var string (varchar)*/
     public $facebook;  
+        
+    /** @var string (varchar)*/
+    public $googleMaps;  
+        
+    /** @var string (varchar)*/
+    public $googleStreetView;  
     
     /** @var string (varchar)*/
     public $twitter;  
@@ -131,6 +137,20 @@ final class LocationUpdateData
         );
 
         $this->validateSocial(
+            "Google Maps", 
+            $this->googleMaps,
+            '/(https|http):\/\/(www\.|maps\.|)(google|goo)\.([a-z]|\.[a-z])+\/maps(\/|\?)/',
+            500
+        );
+
+        $this->validateSocial(
+            "Google Street View", 
+            $this->googleStreetView,
+            '/(https|http):\/\/(www\.|maps\.|)(google|goo)\.([a-z]|\.[a-z])+\/maps(\/|\?)/',
+            500
+        );
+
+        $this->validateSocial(
             "Facebook", 
             $this->facebook,
             '/(?:https?:)?\/\/(?:www\.)?(?:facebook|fb)\.com\/(?P<profile>(?![A-z]+\.php)(?!marketplace|gaming|watch|me|messages|help|search|groups)[A-z0-9_\-\.]+)\/?/'
@@ -221,13 +241,13 @@ final class LocationUpdateData
 		}
     }
 
-    public function validateSocial($social, $link, $regex){
+    public function validateSocial($social, $link, $regex, $length = 255){
         
         if(!empty($link) && ( v::url()->validate($link) === false || v::regex($regex)->validate($link) === false )){
             throw new UnexpectedValueException("{$social} link is not valid!");
         }
         
-        if(!empty($link) && v::stringType()->length(null, 255)->validate($link) === false){
+        if(!empty($link) && v::stringType()->length(null, $length)->validate($link) === false){
             throw new UnexpectedValueException("{$social} link max length is not valid!");
         }
         return true;

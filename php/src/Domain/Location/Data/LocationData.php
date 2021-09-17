@@ -74,6 +74,12 @@ final class LocationData
     public $phone;  
     
     /** @var string (varchar)*/
+    public $googleMaps;  
+    
+    /** @var string (varchar)*/
+    public $googleStreetView;  
+    
+    /** @var string (varchar)*/
     public $facebook;  
     
     /** @var string (varchar)*/

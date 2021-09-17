@@ -41,3 +41,12 @@ export const time24to12Convert = (time) => {
     }
     return time.join(''); // return adjusted time or original string
 }
+
+export const truncate = (input, length) => input.length > length ? `${input.substring(0, length)}...` : input;
+
+
+export const camelToTitle = (text) => {
+    const result = text.replace(/([A-Z])/g, " $1");
+    const finalResult = result.charAt(0).toUpperCase() + result.slice(1);
+    return finalResult;
+}

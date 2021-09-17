@@ -212,6 +212,18 @@ export default function LocationAndMapSection(props) {
                     />
                     <LocationTableRow
                       locationId={location.id}
+                      tableRowName="googleMaps"
+                      tableRowValue={location.googleMaps}
+                      edit={true}
+                    />
+                    <LocationTableRow
+                      locationId={location.id}
+                      tableRowName="googleStreetView"
+                      tableRowValue={location.googleStreetView}
+                      edit={true}
+                    />
+                    <LocationTableRow
+                      locationId={location.id}
                       tableRowName="facebook"
                       tableRowValue={location.facebook}
                       edit={true}

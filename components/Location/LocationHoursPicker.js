@@ -31,6 +31,9 @@ const LocationHoursPicker = props => {
     return d;
   }
   const getTimeValue = (date) => {
+    if(!date){
+      return null;
+    }
     let currentHours = date.getHours();
     currentHours = ("0" + currentHours).slice(-2);
     let currentMinutes = date.getMinutes();

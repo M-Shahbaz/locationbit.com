@@ -248,6 +248,11 @@ export default function LocationAndMapSection(props) {
                     />
                     <LocationTableRow
                       locationId={location.id}
+                      tableRowValue="timezones"
+                      tableRowName="timezones"
+                    />
+                    <LocationTableRow
+                      locationId={location.id}
                       tableRowName="classification"
                       tableRowValue={location.sector}
                       edit={true}

@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Country, State, City } from 'country-state-city';
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import EditLocationIcon from '@material-ui/icons/EditLocation';
@@ -43,6 +44,9 @@ const LocationTableRow = props => {
   const naicsIndustryIndustry = naics.Industry.from(location.naicsIndustry);
   const nationalIndustryIndustry = naics.Industry.from(location.nationalIndustry);
 
+  const timezones = Country.getCountryByCode(location.countrycode).timezones;
+  console.log(timezones);
+
   const classicModalHandler = useCallback((value) => {
     console.log(value);
     setClassicModal(value);
@@ -77,6 +81,30 @@ const LocationTableRow = props => {
           onMouseLeave={onMouseLeaveHandler}
           onClick={onClickHandler}>
           {(props.tableRowName == 'description' && props.tableRowValue) && <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(props.tableRowValue).replace(/(<? *script)/gi, 'illegalscript') }} ></div>}
+          {(props.tableRowName == 'timezones') &&
+            <TableContainer component={Paper}>
+              <Table>
+                <TableBody>
+                  {timezones.map((tz) => (
+                    <TableRow key={tz.gmtOffset}>
+                      <TableCell>
+                        {tz.zoneName}
+                      </TableCell>
+                      <TableCell>
+                        {tz.gmtOffsetName}
+                      </TableCell>
+                      <TableCell>
+                        {tz.abbreviation}
+                      </TableCell>
+                      <TableCell>
+                        {tz.tzName}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          }
           {(props.tableRowName == 'classification' && props.tableRowValue) &&
             <TableContainer component={Paper}>
               <Table>
@@ -218,7 +246,7 @@ const LocationTableRow = props => {
                 </TableBody>
               </Table>
             </TableContainer>}
-          {(props.tableRowName == 'description' || props.tableRowName == 'classification' || props.tableRowName == 'hours') ? null : props.tableRowValue}
+          {(props.tableRowName == 'description' || props.tableRowName == 'classification' || props.tableRowName == 'timezones'|| props.tableRowName == 'hours') ? null : props.tableRowValue}
           {!props.tableRowValue && <a href="#" onClick={preventDefault}>Add {props.tableRowName}</a>}
           <a href="#" onClick={preventDefault} className={editIconClass} >{props.edit && <EditLocationIcon fontSize="inherit" />}</a>
         </div>}

@@ -47,7 +47,7 @@ const LocationTableRow = props => {
   const timezones = Country.getCountryByCode(location.countrycode).timezones;
   console.log(timezones);
 
-  const trimmedTableRowValue = props.tableRowValue && truncate(props.tableRowValue, 40);
+  const trimmedTableRowValue = (props.tableRowName != 'address' && props.tableRowValue) ? truncate(props.tableRowValue, 40) : props.tableRowValue;
 
   const classicModalHandler = useCallback((value) => {
     console.log(value);

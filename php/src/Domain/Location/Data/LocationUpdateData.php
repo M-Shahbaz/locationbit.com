@@ -2,6 +2,7 @@
 
 namespace App\Domain\Location\Data;
 
+use App\Utility\PhoneService;
 use Respect\Validation\Validator as v;
 use UnexpectedValueException;
 
@@ -80,6 +81,55 @@ final class LocationUpdateData
             throw new UnexpectedValueException('updatedBy is required');
         }
 
+        $this->validateMaxLength(
+            'postcode', 
+            $this->postcode,
+            50
+        );
+
+        if(!empty($this->postcode) && v::stringType()->length(null, 50)->validate($this->postcode) === false){
+            throw new UnexpectedValueException('postcode max length is not valid!');
+        }
+        
+        // https://stackoverflow.com/a/7780993/1865829
+        if(isset($this->lat) && v::floatType()->between(-90, 90)->validate($this->lat) === false){
+            throw new UnexpectedValueException('lat is not valid!');
+        }
+
+        if(isset($this->lon) && v::floatType()->between(-180, 180)->validate($this->lon) === false){
+            throw new UnexpectedValueException('lon is not valid!');
+        }
+
+        if(!empty($this->website) && v::url()->validate($this->website) === false ){
+            throw new UnexpectedValueException("{$this->website} link is not valid!");
+        }
+        
+        $this->validateMaxLength(
+            'website', 
+            $this->website,
+            255
+        );
+        
+        if(!empty($this->email) && v::email()->validate($this->email) === false ){
+            throw new UnexpectedValueException("{$this->email} is not valid!");
+        }
+
+        $this->validateMaxLength(
+            'email', 
+            $this->email,
+            100
+        );
+
+        if(!empty($this->phone) && v::phone()->validate($this->phone) === false ){
+            throw new UnexpectedValueException("{$this->phone} is not valid!");
+        }
+        
+        $this->validateMaxLength(
+            'phone', 
+            $this->phone,
+            20
+        );
+
         $this->validateSocial(
             "Facebook", 
             $this->facebook,
@@ -116,6 +166,42 @@ final class LocationUpdateData
             '/(?:https?:)?\/\/(?:t(?:elegram)?\.me|telegram\.org)\/(?P<username>[a-z0-9\_]{5,32})\/?/'
         );
 
+        $this->validateMaxLength(
+            'description', 
+            $this->description,
+            2000
+        );
+
+        $this->validateMaxLength(
+            'sector', 
+            $this->sector,
+            10
+        );
+
+        $this->validateMaxLength(
+            'subSector', 
+            $this->subSector,
+            10
+        );
+
+        $this->validateMaxLength(
+            'industryGroup', 
+            $this->industryGroup,
+            10
+        );
+
+        $this->validateMaxLength(
+            'naicsIndustry', 
+            $this->naicsIndustry,
+            10
+        );
+
+        $this->validateMaxLength(
+            'nationalIndustry', 
+            $this->nationalIndustry,
+            10
+        );
+
         // if all validaions pass
         return true;
         
@@ -137,7 +223,7 @@ final class LocationUpdateData
 
     public function validateSocial($social, $link, $regex){
         
-        if(!empty($link) && v::regex($regex)->validate($link) === false){
+        if(!empty($link) && ( v::url()->validate($link) === false || v::regex($regex)->validate($link) === false )){
             throw new UnexpectedValueException("{$social} link is not valid!");
         }
         
@@ -146,4 +232,13 @@ final class LocationUpdateData
         }
         return true;
     }
+
+    public function validateMaxLength($type, $value, $length){
+
+        if(!empty($value) && v::stringType()->length(null, $length)->validate($value) === false){
+            throw new UnexpectedValueException("{$type} max length is not valid!");
+        }
+        return true;
+    }
+    
 }

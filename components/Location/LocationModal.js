@@ -404,6 +404,10 @@ const LocationModal = props => {
             [title]: phoneValidated,
           };
         } else {
+          toast.error("Oops! something went wrong... error message: Phone not valid!", {
+            position: "bottom-center",
+          });
+          return false;
           locationUpdateData = {
             [title]: "",
           };

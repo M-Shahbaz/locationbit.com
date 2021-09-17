@@ -85,28 +85,4 @@ final class PhoneService
         return $country_code;
     }
 
-    public static function callCosts($to, $duration_sec, $plivo_rate, $direction, $foreign_rate_factor = 1.35){
-
-        $plivo_rate = (float)$plivo_rate;
-        $price = (object)array('cost'=>0.00,'rate'=>0.00,'conn_fee'=>0.00);
-        $durationMints = FunctionsService::divide($duration_sec,60);
-
-        if($direction == 'outbound' && substr($to, 0, 2) != PHONE_DEFAULT_COUNTRY_CODE){
-            $price->rate = $plivo_rate < PHONE_RATE_CALL_FOREIGN ? PHONE_RATE_CALL_FOREIGN : ($plivo_rate * $foreign_rate_factor) ;
-            $price->cost = number_format(($price->rate * $durationMints), 2, '.', '');
-            $price->conn_fee = PHONE_RATE_CALL_PRE * $foreign_rate_factor;
-        }
-        else if($direction == 'outbound' && in_array(substr($to, 0, 4), PHONE_MOBILE_NUMBER_PREFIXES)) {
-            $price->rate = $plivo_rate < PHONE_RATE_CALL_MOBILE ? PHONE_RATE_CALL_MOBILE : $plivo_rate;
-            $price->cost = number_format(($price->rate * $durationMints), 2, '.', '');
-            $price->conn_fee = PHONE_RATE_CALL_PRE;
-        }
-        else if($direction == 'outbound' && !in_array(substr($to, 0, 4), PHONE_MOBILE_NUMBER_PREFIXES)) {
-            $price->rate = $plivo_rate < PHONE_RATE_CALL_LANDLINE ? PHONE_RATE_CALL_LANDLINE : $plivo_rate;
-            $price->cost = number_format(($price->rate * $durationMints), 2, '.', '');
-            $price->conn_fee = PHONE_RATE_CALL_PRE;
-        }
-        return  $price;
-    }
-
 }

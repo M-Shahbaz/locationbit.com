@@ -19,6 +19,14 @@ class FunctionsService
     {
         return @json_decode(json_encode($object), true);
     }
+
+	public static function stripTags(&$string = null)
+	{
+		if(!empty($string)){
+			return strip_tags($string);
+		}
+		return $string;
+	}
     
     /**
      * Calculates the great-circle distance between two points, with

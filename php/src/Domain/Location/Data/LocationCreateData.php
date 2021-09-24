@@ -2,6 +2,7 @@
 
 namespace App\Domain\Location\Data;
 
+use App\Utility\FunctionsService;
 use UnexpectedValueException;
 
 final class LocationCreateData
@@ -44,6 +45,15 @@ final class LocationCreateData
 
 	private function validateLocationCreateData()
 	{
+		$this->name = FunctionsService::stripTags($this->name);
+		$this->address = FunctionsService::stripTags($this->address);
+		$this->postcode = FunctionsService::stripTags($this->postcode);
+		$this->country = FunctionsService::stripTags($this->country);
+		$this->countrycode = FunctionsService::stripTags($this->countrycode);
+		$this->state = FunctionsService::stripTags($this->state);
+		$this->statecode = FunctionsService::stripTags($this->statecode);
+		$this->city = FunctionsService::stripTags($this->city);
+		
 		if (empty($this->name)) {
 			throw new UnexpectedValueException('name is required');
 		}
@@ -56,12 +66,20 @@ final class LocationCreateData
 			throw new UnexpectedValueException('postcode is required');
 		}
 
+		if (empty($this->countrycode)) {
+			throw new UnexpectedValueException('countrycode is required');
+		}
+
 		if (empty($this->country)) {
 			throw new UnexpectedValueException('country is required');
 		}
 
 		if (empty($this->state)) {
 			throw new UnexpectedValueException('state is required');
+		}
+
+		if (empty($this->statecode)) {
+			throw new UnexpectedValueException('statecode is required');
 		}
 
 		if (empty($this->city)) {

@@ -19,7 +19,6 @@
                     },
                     "en": {
                         "type": "text",
-                        "index": false,
                         "copy_to": [
                             "collector.en"
                         ]
@@ -46,7 +45,6 @@
                     },
                     "en": {
                         "type": "text",
-                        "index": false,
                         "fields": {
                             "ngrams": {
                                 "type": "text"
@@ -97,7 +95,6 @@
                     },
                     "en": {
                         "type": "text",
-                        "index": false,
                         "copy_to": [
                             "collector.en"
                         ]
@@ -113,8 +110,7 @@
                 }
             },
             "countrycode": {
-                "type": "text",
-                "index": false
+                "type": "text"
             },
             "county": {
                 "properties": {
@@ -131,7 +127,6 @@
                     },
                     "en": {
                         "type": "text",
-                        "index": false,
                         "copy_to": [
                             "collector.en"
                         ]
@@ -161,7 +156,6 @@
                     },
                     "en": {
                         "type": "text",
-                        "index": false,
                         "copy_to": [
                             "collector.en"
                         ]
@@ -200,7 +194,6 @@
                     },
                     "en": {
                         "type": "text",
-                        "index": false,
                         "copy_to": [
                             "collector.en"
                         ]
@@ -254,7 +247,6 @@
                     },
                     "en": {
                         "type": "text",
-                        "index": false,
                         "fields": {
                             "ngrams": {
                                 "type": "text"
@@ -281,7 +273,6 @@
                     },
                     "housename": {
                         "type": "text",
-                        "index": false,
                         "fields": {
                             "raw": {
                                 "type": "text"
@@ -372,7 +363,6 @@
             },
             "postcode": {
                 "type": "text",
-                "index": false,
                 "copy_to": [
                     "collector.default"
                 ]
@@ -392,7 +382,6 @@
                     },
                     "en": {
                         "type": "text",
-                        "index": false,
                         "copy_to": [
                             "collector.en"
                         ]
@@ -422,7 +411,6 @@
                     },
                     "en": {
                         "type": "text",
-                        "index": false,
                         "copy_to": [
                             "collector.en"
                         ]

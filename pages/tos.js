@@ -15,18 +15,18 @@ import Footer from "components/Footer/Footer.js";
 import styles from "styles/jss/nextjs-material-kit/pages/landingPage.js";
 
 // Sections for this page
-import AboutSection from "pages-sections/LandingPage-Sections/AboutSection.js";
+import TermsSection from "pages-sections/LandingPage-Sections/TermsSection.js";
 import HeaderLayout from '../components/Header/HeaderLayout';
 
 const useStyles = makeStyles(styles);
 
 
 
-export default function about(props) {
+export default function domain(props) {
   const [session, loading] = useSession();
   const classes = useStyles();
   const { ...rest } = props;
-  const HeadTitle = "About Us | Locationbit.com";
+  const HeadTitle = "Terms Of Service | Locationbit.com";
 
   // When rendering client side don't display anything until loading is complete
   if (typeof window !== 'undefined' && loading) return <></>;
@@ -40,7 +40,7 @@ export default function about(props) {
       <HeaderLayout/>
       <div className={classNames(classes.main)}>
         <div className={classes.container}>
-          <AboutSection />
+          <TermsSection />
         </div>
       </div>
       <Footer />

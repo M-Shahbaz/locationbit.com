@@ -16,11 +16,14 @@ import Drawer from "@material-ui/core/Drawer";
 import Menu from "@material-ui/icons/Menu";
 // core components
 import styles from "styles/jss/nextjs-material-kit/components/headerStyle.js";
+import navbarsStyle from "styles/jss/nextjs-material-kit/pages/componentsSections/navbarsStyle.js";
 
 const useStyles = makeStyles(styles);
+const useNavbarsStyleStyles = makeStyles(navbarsStyle);
 
 export default function Header(props) {
   const classes = useStyles();
+  const classesNavbars = useNavbarsStyleStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   React.useEffect(() => {
     if (props.changeColorOnScroll) {
@@ -63,7 +66,13 @@ export default function Header(props) {
   });
   const brandComponent = (
     <Link href="/" as="/">
-      <Button className={classes.title}>{brand}</Button>
+      <Button className={classes.title}>
+        <img
+          src="/img/logo.png"
+          alt="Locationbit"
+          className={classesNavbars.img}
+        />
+      </Button>
     </Link>
   );
   return (

@@ -4,6 +4,9 @@ import { makeStyles } from "@material-ui/core/styles";
 
 // @material-ui/icons
 import Chat from "@material-ui/icons/Chat";
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
+import BuildIcon from '@material-ui/icons/Build';
 import VerifiedUser from "@material-ui/icons/VerifiedUser";
 import Fingerprint from "@material-ui/icons/Fingerprint";
 // core components
@@ -21,13 +24,10 @@ export default function ProductSection() {
     <div className={classes.section}>
       <GridContainer justify="center">
         <GridItem xs={12} sm={12} md={8}>
-          <h2 className={classes.title}>Let{"'"}s talk product</h2>
+          <h2 className={classes.title}>Let{"'"}s talk locationbit</h2>
           <h5 className={classes.description}>
-            This is the paragraph where you can write more details about your
-            product. Keep you user engaged by providing meaningful information.
-            Remember that by this time, the user is curious, otherwise he wouldn
-            {"'"}t scroll to get here. Add a button if you want the user to see
-            more.
+            Locationbit is to build the "global decentralized ENCYCLOPEDIA for locations data" on Blockchain e.g: Wikipedia for Locations.
+            With fair compensation to contributors in the form of crypto-currency: Locationbit coin (LBC).
           </h5>
         </GridItem>
       </GridContainer>
@@ -35,27 +35,27 @@ export default function ProductSection() {
         <GridContainer>
           <GridItem xs={12} sm={12} md={4}>
             <InfoArea
-              title="Free Chat"
-              description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
-              icon={Chat}
+              title="Free Location Data"
+              description="Locationbit will have a meaningful data of local businesses and locations on blockchain while any third party get a free way to access the world's location data."
+              icon={LocationOnIcon}
               iconColor="info"
               vertical
             />
           </GridItem>
           <GridItem xs={12} sm={12} md={4}>
             <InfoArea
-              title="Verified Users"
-              description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
-              icon={VerifiedUser}
+              title="Incentivization"
+              description="Users will get incentives through crypto-currency Locationbit coin (LBC) in a fair way for their  contributions."
+              icon={MonetizationOnIcon}
               iconColor="success"
               vertical
             />
           </GridItem>
           <GridItem xs={12} sm={12} md={4}>
             <InfoArea
-              title="Fingerprint"
-              description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
-              icon={Fingerprint}
+              title="Applications"
+              description="Businesses can access data for free and integrate in their services like ride hailing or access data for research purposes."
+              icon={BuildIcon}
               iconColor="danger"
               vertical
             />

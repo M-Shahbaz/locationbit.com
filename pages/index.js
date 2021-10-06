@@ -20,6 +20,7 @@ import styles from "styles/jss/nextjs-material-kit/pages/landingPage.js";
 
 // Sections for this page
 import ProductSection from "pages-sections/LandingPage-Sections/ProductSection.js";
+import TimelineSection from "pages-sections/LandingPage-Sections/TimelineSection.js";
 import TeamSection from "pages-sections/LandingPage-Sections/TeamSection.js";
 import WorkSection from "pages-sections/LandingPage-Sections/WorkSection.js";
 import HeaderLayout from "components/Header/HeaderLayout";
@@ -75,7 +76,7 @@ export default function domain(props) {
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div className={classes.container}>
           <ProductSection />
-          <TeamSection />
+          <TimelineSection />
           <WorkSection />
         </div>
       </div>

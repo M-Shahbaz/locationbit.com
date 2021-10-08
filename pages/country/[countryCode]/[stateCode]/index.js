@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Country, State, City } from 'country-state-city';
 import { useRouter } from 'next/router';
 import { signIn, signOut, useSession, getSession } from 'next-auth/client';
 import { leafletLibrary } from 'utility/Libraries.js';
@@ -32,7 +33,10 @@ const state = (props) => {
   const [session, loading] = useSession();
   const classes = useStyles();
 
-  const headTitle = "Cities | Locationbit.com";
+  const country = Country.getCountryByCode(countryCode);
+  const state = State.getStateByCodeAndCountry(stateCode, countryCode);
+
+  const headTitle = "Cities of "+state.name + ", "+ country.name;
 
   // When rendering client side don't display anything until loading is complete
   if (typeof window !== 'undefined' && loading) return <></>;

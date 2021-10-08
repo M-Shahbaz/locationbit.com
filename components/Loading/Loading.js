@@ -20,7 +20,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 Transition.displayName = "Transition";
 
-const LocationModal = props => {
+const Loading = props => {
 
   const classes = useStyles();
   const [loadingModal, setLoadingModal] = React.useState(false);
@@ -61,4 +61,4 @@ const LocationModal = props => {
   );
 }
 
-export default React.memo(LocationModal);;
+export default React.memo(Loading);

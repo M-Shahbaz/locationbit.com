@@ -16,7 +16,6 @@ import styles from "styles/jss/nextjs-material-kit/pages/landingPage.js";
 
 // Sections for this page
 import LocationAddSection from "pages-sections/LocationAdd-Sections/LocationAddSection.js";
-import WorkSection from "pages-sections/LandingPage-Sections/WorkSection.js";
 import HeaderLayout from 'components/Header/HeaderLayout';
 
 const useStyles = makeStyles(styles);

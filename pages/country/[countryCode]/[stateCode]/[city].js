@@ -32,7 +32,7 @@ const cityPage = (props) => {
   const [session, loading] = useSession();
   const classes = useStyles();
 
-  const headTitle = city + ", " +stateCode +", " + countryCode + " | Locationbit.com";
+  const headTitle = city + ", " +stateCode +", " + countryCode;
 
   // When rendering client side don't display anything until loading is complete
   if (typeof window !== 'undefined' && loading) return <></>;

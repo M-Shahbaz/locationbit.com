@@ -32,7 +32,7 @@ export default function domain(props) {
   const [session, loading] = useSession();
   const classes = useStyles();
   const { ...rest } = props;
-  const HeadTitle = "Location profiles in one place.";
+  const HeadTitle = "Location profiles in one place. + " | Locationbit.com;
 
   // When rendering client side don't display anything until loading is complete
   if (typeof window !== 'undefined' && loading) return <></>;

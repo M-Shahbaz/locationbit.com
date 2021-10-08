@@ -25,7 +25,7 @@ export default function location(props) {
   const [session, loading] = useSession();
   const classes = useStyles();
   const { ...rest } = props;
-  const HeadTitle = "786/92, Add Location";
+  const HeadTitle = "Add Location | Locationbit.com";
 
   // When rendering client side don't display anything until loading is complete
   if (typeof window !== 'undefined' && loading) return <></>;
@@ -40,7 +40,6 @@ export default function location(props) {
       <div className={classNames(classes.main)}>
         <div className={classes.container}>
           <LocationAddSection />
-          <WorkSection />
         </div>
       </div>
       <Footer />

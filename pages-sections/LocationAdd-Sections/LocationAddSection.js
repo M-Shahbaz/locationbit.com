@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
 import VerifiedUser from "@material-ui/icons/VerifiedUser";
 import AddLocationIcon from '@material-ui/icons/AddLocation';
+import RoomIcon from '@material-ui/icons/Room';
 // core components
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
@@ -154,9 +155,9 @@ export default function LocationAddSection() {
           </GridItem>
           <GridItem xs={12} sm={12} md={6}>
             <InfoArea
-              title="Verified Users"
-              description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
-              icon={VerifiedUser}
+              title="Location"
+              description="A location could be any place anywhere in the world."
+              icon={RoomIcon}
               iconColor="success"
               vertical
             />

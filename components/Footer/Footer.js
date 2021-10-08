@@ -55,7 +55,7 @@ export default function Footer(props) {
                 <a
                   className={classes.block}
                 >
-                  Tos
+                  Terms of service
                 </a>
               </Link>
             </ListItem>

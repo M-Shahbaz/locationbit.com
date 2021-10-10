@@ -22,9 +22,8 @@ export default function AboutSection() {
         <GridItem cs={12} sm={12} md={8}>
           <h2 className={classes.title}>About us</h2>
           <h4 className={classes.description}>
-            Inspired by LOCATIONARY which was acquired by Apple Inc. in 2013. 
-            During our under graduation, we were looking online to earn. 
-            Locationary (the original idea behind locationbit.com) was the only platform through which we was able to earn without investing any money or without any advanced skills.
+            Locationbit is inspired by LOCATIONARY which was acquired by Apple Inc. in 2013. 
+            Locationary (the original idea behind locationbit.com) provided the only platform through which we were able to earn money without investing any money or without any advanced skills.
             Locationbit is to build the "global decentralized ENCYCLOPEDIA for locations data" on Blockchain e.g: Wikipedia for Locations.
             With fair compensation to contributors.
           </h4>

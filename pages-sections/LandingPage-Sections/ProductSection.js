@@ -27,7 +27,7 @@ export default function ProductSection() {
           <h2 className={classes.title}>Let{"'"}s talk locationbit</h2>
           <h5 className={classes.description}>
             Locationbit is to build the "global decentralized ENCYCLOPEDIA for locations data" on Blockchain e.g: Wikipedia for Locations.
-            With fair compensation to contributors in the form of crypto-currency: Locationbit coin (LBC).
+            With fair compensation to contributors.
           </h5>
         </GridItem>
       </GridContainer>
@@ -45,7 +45,7 @@ export default function ProductSection() {
           <GridItem xs={12} sm={12} md={4}>
             <InfoArea
               title="Incentivization"
-              description="Users will get incentives through crypto-currency Locationbit coin (LBC) in a fair way for their  contributions."
+              description="Users will get incentives in a fair way for their  contributions."
               icon={MonetizationOnIcon}
               iconColor="success"
               vertical

@@ -14,8 +14,8 @@ const MapMultiple = props => {
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {locations.map((location) => (
-        <Marker position={location.position}>
+      {locations.map((location, index) => (
+        <Marker key={index} position={location.position}>
           <Popup>
             {location.popup}
           </Popup>

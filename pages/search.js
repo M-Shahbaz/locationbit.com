@@ -1,5 +1,6 @@
 import { signIn, signOut, useSession } from 'next-auth/client';
 import Head from "next/head";
+import { useRouter } from 'next/router';
 
 import React from "react";
 // nodejs library that concatenates classes
@@ -15,19 +16,21 @@ import Footer from "components/Footer/Footer.js";
 import styles from "styles/jss/nextjs-material-kit/pages/landingPage.js";
 
 // Sections for this page
-import ProductSection from "pages-sections/LandingPage-Sections/ProductSection.js";
-import WorkSection from "pages-sections/LandingPage-Sections/WorkSection.js";
+import SearchSection from "pages-sections/LandingPage-Sections/SearchSection.js";
 import HeaderLayout from 'components/Header/HeaderLayout';
+import { getLocationSearch } from 'utility/LocationService.js';
 
 const useStyles = makeStyles(styles);
 
 
 
-export default function domain(props) {
+const search = (props) => {
   const [session, loading] = useSession();
   const classes = useStyles();
   const { ...rest } = props;
-  const HeadTitle = "Locationbit";
+  const router = useRouter()
+  const { q } = router.query
+  const HeadTitle = q + " - Locationbit";
 
   // When rendering client side don't display anything until loading is complete
   if (typeof window !== 'undefined' && loading) return <></>;
@@ -41,11 +44,26 @@ export default function domain(props) {
       <HeaderLayout/>
       <div className={classNames(classes.main)}>
         <div className={classes.container}>
-          <ProductSection />
-          <WorkSection />
+          <SearchSection 
+          headTitle={q}
+          locations={props.locations}/>
         </div>
       </div>
       <Footer />
     </>
   );
 }
+
+
+export async function getServerSideProps(context) {
+  const req = context.req;
+  const res = context.res;
+  const { q } = context.query;
+  // fetch data from an api
+  return await getLocationSearch('/api/server/locations/search', q).then( response => {
+    return response;
+  }); 
+
+}
+
+export default search;

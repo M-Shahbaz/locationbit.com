@@ -42,7 +42,7 @@ export default function HeaderSearchBar(props) {
 
   return (
     <SearchField
-      placeholder='Search location'
+      placeholder='Search locations'
       classNames={classes.headerSearchBar}
       onEnter={handleSearchBar}
       onSearchClick={handleSearchBar}

@@ -20,6 +20,9 @@ return function (App $app) {
         $group->group('/location', function (RouteCollectorProxy $group) {
             $group->get('/{id}', \App\Action\Location\LocationReadAction::class);
         });
+        $group->group('/locations', function (RouteCollectorProxy $group) {
+            $group->get('/search', \App\Action\Location\LocationsSearchAction::class);
+        });
     })->add(\App\Middleware\ServerMiddleware::class);
     
     $app->group('/public', function (RouteCollectorProxy $group) {

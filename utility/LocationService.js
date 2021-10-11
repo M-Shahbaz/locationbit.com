@@ -65,6 +65,31 @@ export const getLocationUrl = (url, locationId, locationTitle) => {
     });
 }
 
+export const getLocationSearch = (url, q) => {
+  // console.log(url);
+  return axios.get(url, {
+      data: {
+        q: q
+      }
+    }).then(res => {
+      console.log(res);
+      console.log(res.data);
+
+      return {
+        props: {
+          locations: res.data
+        }
+      };
+
+    }).catch(error => {
+      if (error.response) {
+        return locationNotFound();
+        // console.log(error.response.data.error);
+      }
+    });
+}
+
+
 export const getLocationSlugUrl = (locationId, location) => {
 
   const urlslug = slugify(
@@ -78,7 +103,7 @@ export const getLocationSlugUrl = (locationId, location) => {
     + " " +
     location.country
   );
-  
+
   const url = "/location/" + locationId + "/" + urlslug;
   // console.log(url);
   return url;

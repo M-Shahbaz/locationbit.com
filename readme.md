@@ -10,8 +10,13 @@ H:\xampp\apache\conf
 H:\xampp\apache\conf\extra
     -httpd-proxy.conf
         ProxyRequests On
+        ProxyPass /codeTemplate !
+        ProxyPass /adminer !
+        ProxyPass /phpmyadmin !
         ProxyPass /api/auth http://127.0.0.1:3000/api/auth
         ProxyPassReverse /api/auth http://127.0.0.1:3000/api/auth
+        ProxyPass /api/examples http://127.0.0.1:3000/api/examples
+        ProxyPassReverse /api/examples http://127.0.0.1:3000/api/examples
         ProxyPass /api http://localhost:1212/api
         ProxyPassReverse /api http://localhost:1212/api
         #ProxyPass /api !

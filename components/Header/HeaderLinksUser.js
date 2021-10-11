@@ -24,6 +24,7 @@ import Button from "components/CustomButtons/Button.js";
 
 import styles from "styles/jss/nextjs-material-kit/components/headerLinksStyle.js";
 import navbarsStyle from "styles/jss/nextjs-material-kit/pages/componentsSections/navbarsStyle.js";
+import HeaderSearchBar from './HeaderSearchBar';
 
 const useStyles = makeStyles(styles);
 const useNavbarsStyleStyles = makeStyles(navbarsStyle);
@@ -36,6 +37,9 @@ export default function HeaderLinksUser(props) {
 
   return (
     <List className={classes.list}>
+      <ListItem className={classes.listItem}>
+        <HeaderSearchBar />
+      </ListItem>
       <ListItem className={classes.listItem}>
         <Link href="/location">
           <a className={classes.navLink}><AddLocationIcon /> Add location</a>

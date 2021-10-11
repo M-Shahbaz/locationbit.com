@@ -120,6 +120,9 @@ const headerLinksStyle = (theme) => ({
   marginRight5: {
     marginRight: "5px",
   },
+  headerSearchBar: {
+    marginTop: "10px",
+  },
 });
 
 export default headerLinksStyle;

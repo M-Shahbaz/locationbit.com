@@ -1,6 +1,8 @@
 /*eslint-disable*/
 import React from "react";
 import Link from "next/link";
+import SearchField from 'react-search-field';
+import { useRouter } from 'next/router'
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -8,7 +10,6 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Tooltip from "@material-ui/core/Tooltip";
 import Icon from "@material-ui/core/Icon";
-import AddLocationIcon from '@material-ui/icons/AddLocation';
 
 // @material-ui/icons
 import { Apps, CloudDownload } from "@material-ui/icons";
@@ -23,37 +24,28 @@ import Button from "components/CustomButtons/Button.js";
 import styles from "styles/jss/nextjs-material-kit/components/headerLinksStyle.js";
 
 import { signIn, signOut, useSession } from 'next-auth/client';
-import HeaderSearchBar from "./HeaderSearchBar";
 
 const useStyles = makeStyles(styles);
 
-export default function HeaderLinks(props) {
-  const [ session, loading ] = useSession();
+export default function HeaderSearchBar(props) {
+  const [session, loading] = useSession();
   const classes = useStyles();
+  const router = useRouter()
+  
+  const handleSearchBar = (searchValue) => {
+    console.log(searchValue);
+    if(searchValue){
+      router.push("/search?q="+searchValue);
+    }
+    
+  }
+
   return (
-    <List className={classes.list}>
-      <ListItem className={classes.listItem}>
-        <HeaderSearchBar />
-      </ListItem>
-      <ListItem className={classes.listItem}>
-        <Link href="/location">
-          <a className={classes.navLink}><AddLocationIcon /> Add location</a>
-        </Link>
-      </ListItem>
-      <ListItem className={classes.listItem}>
-        <Button
-          href={`/api/auth/signin`}
-          color="success"
-          target="_blank"
-          className={classes.navLink}
-          onClick={(e) => {
-            e.preventDefault()
-            signIn()
-          }}
-        >
-          <ExitToAppIcon className={classes.icons} /> Sign in
-        </Button>
-      </ListItem>
-    </List>
+    <SearchField
+      placeholder='Search location'
+      classNames={classes.headerSearchBar}
+      onEnter={handleSearchBar}
+      onSearchClick={handleSearchBar}
+    />
   );
 }

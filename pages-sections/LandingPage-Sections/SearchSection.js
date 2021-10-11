@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import dynamic from 'next/dynamic';
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -18,13 +19,34 @@ import CustomInput from "components/CustomInput/CustomInput.js";
 import Button from "components/CustomButtons/Button.js";
 
 import styles from "styles/jss/nextjs-material-kit/pages/landingPageSections/workStyle.js";
-import { getLocationSlugUrl } from 'utility/LocationService.js';
+import { getLocationSlugUrl, getLocationCommaTrimName } from 'utility/LocationService.js';
 
+const MapMultiple = dynamic(
+  () => import('../../components/Map/MapMultiple'),
+  { ssr: false }
+);
 const useStyles = makeStyles(styles);
 
 export default function SearchSection(props) {
   const classes = useStyles();
   const locations = props.locations;
+
+  const mapZoom = 12;
+  let mapLocations = [];
+  let mapCenter = [];
+
+  if (locations && locations.results) {
+    locations.results.forEach(location => {
+      if (location.lat && location.lon) {
+        mapCenter = [location.lat, location.lon];
+        mapLocations.push({
+          position: [location.lat, location.lon],
+          popup: getLocationCommaTrimName([location.name, location.address, location.city, location.state, location.country])
+        });
+      }
+    });
+  }
+
   return (
     <div className={classes.section}>
       <GridContainer justify="center">
@@ -34,25 +56,38 @@ export default function SearchSection(props) {
           </h4>
         </GridItem>
       </GridContainer>
-      <GridContainer justify="flex-start">
-        <GridItem cs={12} sm={12} md={12}>
-          <TableContainer component={Paper}>
-            <Table>
-              <TableBody>
-                {locations.results.map((location) => (
-                  <TableRow key={location.id}>
-                    <TableCell>
-                      <Link href={getLocationSlugUrl(location.id,location)}>
-                        <a>{location.name}, {location.address}, {location.city}, {location.state}, {location.country}</a>
-                      </Link>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+      {locations && locations.results && <GridContainer justify="center">
+        <GridItem xs={12} sm={12} md={12}>
+          <MapMultiple
+            locations={mapLocations}
+            center={mapCenter}
+            zoom={mapZoom}
+            scrollWheelZoom={true}
+          />
         </GridItem>
       </GridContainer>
+      }
+      <div>
+        <GridContainer justify="center">
+          <GridItem cs={12} sm={12} md={12}>
+            <TableContainer component={Paper}>
+              <Table>
+                <TableBody>
+                  {locations && locations.results && locations.results.map((location) => (
+                    <TableRow key={location.id}>
+                      <TableCell>
+                        <Link href={getLocationSlugUrl(location.id, location)}>
+                          <a>{getLocationCommaTrimName([location.name, location.address, location.city, location.state, location.country])}</a>
+                        </Link>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </GridItem>
+        </GridContainer>
+      </div>
     </div>
   );
 }

@@ -8,6 +8,8 @@ import classNames from "classnames";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 
+import { leafletLibrary } from 'utility/Libraries.js';
+
 // @material-ui/icons
 
 // core components
@@ -40,6 +42,8 @@ const search = (props) => {
       <Head>
         <title>{HeadTitle}</title>
         <meta property="og:title" content={HeadTitle} key="title" />
+        <link rel="stylesheet" href={leafletLibrary}
+          crossOrigin="" />
       </Head>
       <HeaderLayout/>
       <div className={classNames(classes.main)}>

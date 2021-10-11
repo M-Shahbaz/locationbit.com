@@ -108,3 +108,12 @@ export const getLocationSlugUrl = (locationId, location) => {
   // console.log(url);
   return url;
 }
+
+export const getLocationCommaTrimName = (arr) => {
+
+  let locationNameCommaTrimmed = arr.filter(x => x);
+  locationNameCommaTrimmed = locationNameCommaTrimmed.join(", ");
+
+  // console.log(locationNameCommaTrimmed);
+  return locationNameCommaTrimmed;
+}

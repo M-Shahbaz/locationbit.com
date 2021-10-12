@@ -21,7 +21,8 @@ import styles from "styles/jss/nextjs-material-kit/pages/landingPage.js";
 
 // Sections for this page
 import HeaderLayout from 'components/Header/HeaderLayout';
-import CitySection from './../../../../pages-sections/Country-Sections/CitySection';
+import CityLocationsSection from './../../../../pages-sections/Country-Sections/CityLocationsSection';
+import { getLocationSearch } from 'utility/LocationService.js';
 
 const useStyles = makeStyles(styles);
 
@@ -29,14 +30,15 @@ const useStyles = makeStyles(styles);
 
 const cityPage = (props) => {
   const router = useRouter()
-  const { countryCode, stateCode, city } = router.query;
+  const { countryCode, stateCode, cityparams } = router.query;
+  const cityPaginationUrl = "/country/"+countryCode+"/"+stateCode+"/"+cityparams[0]+"/";
   const [session, loading] = useSession();
   const classes = useStyles();
-
+  console.log(cityparams);
   const country = Country.getCountryByCode(countryCode);
   const state = State.getStateByCodeAndCountry(stateCode, countryCode);
 
-  const headTitle = city + ", " +state.name +", " + country.name;
+  const headTitle = cityparams[0] + ", " + state.name + ", " + country.name;
 
   // When rendering client side don't display anything until loading is complete
   if (typeof window !== 'undefined' && loading) return <></>;
@@ -54,12 +56,12 @@ const cityPage = (props) => {
       <HeaderLayout />
       <div className={classNames(classes.main)}>
         <div className={classes.container}>
-          <CitySection 
-           headTitle={headTitle}
-           countryCode={countryCode}
-           stateCode={stateCode}
-           city={city}
-           />
+          <CityLocationsSection
+            headTitle={headTitle}
+            locations={props.locations}
+            page={cityparams[1] && cityparams[1]}
+            cityPaginationUrl={cityPaginationUrl}
+          />
         </div>
       </div>
       <Footer />
@@ -69,5 +71,22 @@ const cityPage = (props) => {
 
 };
 
+export async function getServerSideProps(context) {
+  const req = context.req;
+  const res = context.res;
+  const { params } = context;
+  const cityparams = params.cityparams;
+  console.log(cityparams);
+  let urlCity = cityparams[0];
+  if (cityparams[1]) {
+    urlCity = urlCity + "/" + cityparams[1];
+  }
+
+  // fetch data from an api
+  return await getLocationSearch('/api/server/locations/search/city/' + urlCity, '').then(response => {
+    return response;
+  });
+
+}
 
 export default cityPage;

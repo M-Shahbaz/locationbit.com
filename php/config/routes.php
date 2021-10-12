@@ -22,6 +22,7 @@ return function (App $app) {
         });
         $group->group('/locations', function (RouteCollectorProxy $group) {
             $group->get('/search', \App\Action\Location\LocationsSearchAction::class);
+            $group->get('/search/city/{city}[/{page}]', \App\Action\Location\LocationCitiesSearchAction::class);
         });
     })->add(\App\Middleware\ServerMiddleware::class);
     

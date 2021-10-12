@@ -1,40 +1,17 @@
 <?php
 
-namespace App\Domain\Location\Repository;
+namespace App\Utility;
 
 use App\Domain\Location\Data\LocationData;
-use App\Utility\LocationsService;
-use DomainException;
-use Elasticsearch\Client;
 
 /**
- * Repository.
+ * Summary of _functions
  */
-class LocationReaderRepository
+class LocationsService 
 {
-    private $client;
 
-    public function __construct(Client $client)
+    public static function returnLocationData($row): LocationData
     {
-        $this->client = $client;
-    }
-
-    public function getLocationById(string $id): LocationData
-    {
-
-        $params = [
-            'index' => 'locations',
-            'id'    => $id
-        ];
-
-        try {
-            $row = (object)$this->client->getSource($params);
-            $row->id = $id;
-        } catch (\Throwable $th) {
-            throw new DomainException(sprintf('Location not found by id: %s', $id));
-        }
-
-        return LocationsService::returnLocationData($row);
 
         $locationData = new LocationData();
         $locationData->id = isset($row->id) ? (string)$row->id : null;
@@ -62,7 +39,7 @@ class LocationReaderRepository
             isset($row->district['en']) ? $row->district['en'] : ($row->district['default'] ?? null),
             isset($row->county) ? $row->county : null
         ];
-        $locationData->address = implode(", ", array_filter($address));
+        $locationData->address = @implode(", ", @array_filter($address));
 
         // $locationData->createdBy = $row->createdBy ? (int)$row->createdBy : null;
         // $locationData->createdOn = $row->createdOn ? (string)$row->createdOn : null;
@@ -90,6 +67,8 @@ class LocationReaderRepository
         $locationData->nationalIndustry = isset($row->nationalIndustry) ? $row->nationalIndustry : null;
         $locationData->hours = isset($row->hours) ? $row->hours : null;
 
-        return $locationData;
+        return $locationData;   
     }
+
 }
+

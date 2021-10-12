@@ -2,14 +2,14 @@
 
 namespace App\Domain\Location\Repository;
 
-use App\Domain\Location\Data\LocationsSearchData;
+use App\Domain\Location\Data\LocationCitiesSearchData;
 use DomainException;
 use Elasticsearch\Client;
 
 /**
  * Repository.
  */
-class LocationsSearchRepository
+class LocationCitiesSearchRepository
 {
     private $client;
 
@@ -18,22 +18,22 @@ class LocationsSearchRepository
         $this->client = $client;
     }
 
-
-    public function searchLocations(LocationsSearchData $filter): array
+    public function searchLocationCities(LocationCitiesSearchData $filter): array
     {
 
         try {
             $params = [
                 'index' => 'locations',
                 'body'  => [
+                    'from' => $filter->offset,
+                    'size' => $filter->limit,
                     'query' => [
-                        "multi_match" => [
-                            "query" => $filter->q,
+                        "simple_query_string" => [
+                            "query" => $filter->city,
                             "fields" => [
-                                "collector.default",
-                                "collector.en"
+                                "city.en"
                             ],
-                            "type" => "most_fields"
+                            "default_operator" => "and"
                         ]
                     ]
                 ]
@@ -46,5 +46,4 @@ class LocationsSearchRepository
 
         return $results;
     }
-
 }

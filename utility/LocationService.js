@@ -52,6 +52,7 @@ export const getLocationUrl = (url, locationId, locationTitle) => {
       } else {
         return {
           props: {
+            key: res.data.id,
             location: res.data
           }
         };

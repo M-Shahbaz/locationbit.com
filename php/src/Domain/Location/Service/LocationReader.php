@@ -32,16 +32,20 @@ final class LocationReader
 
         $locationData = $this->repository->getLocationById($id);
 
-        
-        $locationsSearchData = new LocationsSearchData();
-        $locationsSearchData->q = $locationData->name. ", ". $locationData->address. ", ".$locationData->city. ", ".$locationData->state. ", ".$locationData->country;
-        $locationData->similarLocations = $this->locationsSearch->searchLocations($locationsSearchData);
+        try {
 
-        $locationNearbySearchData = new LocationNearbySearchData();
-        $locationNearbySearchData->lat = $locationData->lat;
-        $locationNearbySearchData->lon = $locationData->lon;
+            $locationsSearchData = new LocationsSearchData();
+            $locationsSearchData->q = $locationData->name . ", " . $locationData->address . ", " . $locationData->city . ", " . $locationData->state . ", " . $locationData->country;
+            $locationData->similarLocations = $this->locationsSearch->searchLocations($locationsSearchData);
 
-        $locationData->nearbyLocations = $this->locationNearbySearch->searchLocationNearby($locationNearbySearchData);
+            $locationNearbySearchData = new LocationNearbySearchData();
+            $locationNearbySearchData->lat = $locationData->lat;
+            $locationNearbySearchData->lon = $locationData->lon;
+
+            $locationData->nearbyLocations = $this->locationNearbySearch->searchLocationNearby($locationNearbySearchData);
+        } catch (\Throwable $th) {
+            
+        }
 
         return $locationData;
     }

@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState, useReducer, useCallback } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import dynamic from 'next/dynamic';
-import Router from 'next/router'
+import Router from 'next/router';
+import Link from "next/link";
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -39,6 +40,7 @@ import Loading from '../../components/Loading/Loading';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ucfirst } from './../../utility/FunctionsService';
+import { getLocationSlugUrl, getLocationCommaTrimName } from 'utility/LocationService.js';
 
 const useStyles = makeStyles(styles);
 function createData(name, calories, fat, carbs, protein) {
@@ -293,6 +295,50 @@ export default function LocationAndMapSection(props) {
                 />
                 <LocationMapEdit edit={true} />
               </LocationMapContext.Provider>
+              {location.similarLocations && location.similarLocations.results &&
+                <TableContainer component={Paper}>
+                  <Table>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell>
+                          Similar locations:
+                        </TableCell>
+                      </TableRow>
+                      {location.similarLocations.results.map((similarLocation) => (
+                        <TableRow key={similarLocation.id}>
+                          <TableCell>
+                            <Link href={getLocationSlugUrl(similarLocation.id, similarLocation)} >
+                              <a>{getLocationCommaTrimName([similarLocation.name, similarLocation.address, similarLocation.city, similarLocation.state, similarLocation.country])}</a>
+                            </Link>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              }
+              {location.nearbyLocations && location.nearbyLocations.results &&
+                <TableContainer component={Paper}>
+                  <Table>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell>
+                          Nearby locations:
+                        </TableCell>
+                      </TableRow>
+                      {location.nearbyLocations.results.map((nearbyLocation) => (
+                        <TableRow key={nearbyLocation.id}>
+                          <TableCell>
+                            <Link href={getLocationSlugUrl(nearbyLocation.id, nearbyLocation)}>
+                              <a>{getLocationCommaTrimName([nearbyLocation.name, nearbyLocation.address, nearbyLocation.city, nearbyLocation.state, nearbyLocation.country])}</a>
+                            </Link>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              }
             </GridItem>
           </GridContainer>
         </div >

@@ -135,4 +135,10 @@ final class LocationData
 
     /** @var string (datetime)*/
     public $updatedOn;
+
+    /** @var array */
+    public $similarLocations;
+
+    /** @var array */
+    public $nearbyLocations;
 }

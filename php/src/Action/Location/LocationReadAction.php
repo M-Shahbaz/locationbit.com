@@ -74,6 +74,9 @@ final class LocationReadAction
                 'naicsIndustry' => (string)$locationData->naicsIndustry,
                 'nationalIndustry' => (string)$locationData->nationalIndustry,
                 'hours' => $locationData->hours,
+                
+                'similarLocations' => $locationData->similarLocations,
+                'nearbyLocations' => $locationData->nearbyLocations,
             ];
 
             $statusCode = 200;

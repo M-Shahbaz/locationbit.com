@@ -23,14 +23,6 @@ final class LocationsSearchData
 			throw new UnexpectedValueException('q is required');
 		}
 
-		if(empty($this->limit)){
-			throw new UnexpectedValueException('limit is required');
-		}
-
-		if(!isset($this->offset)){
-			throw new UnexpectedValueException('offset is required');
-		}
-
 		// if all validaions pass
         return true;
 

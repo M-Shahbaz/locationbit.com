@@ -301,7 +301,7 @@ export default function LocationAndMapSection(props) {
                     <TableBody>
                       <TableRow>
                         <TableCell>
-                          Similar locations:
+                          <h3>Similar locations:</h3>
                         </TableCell>
                       </TableRow>
                       {location.similarLocations.results.map((similarLocation) => (
@@ -323,7 +323,7 @@ export default function LocationAndMapSection(props) {
                     <TableBody>
                       <TableRow>
                         <TableCell>
-                          Nearby locations:
+                          <h3>Nearby locations:</h3>
                         </TableCell>
                       </TableRow>
                       {location.nearbyLocations.results.map((nearbyLocation) => (

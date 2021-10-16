@@ -6,6 +6,7 @@ use App\Domain\Bing\Service\BingMapsGeocodingReader;
 use App\Domain\Location\Data\LocationCreateData;
 use App\Domain\Location\Data\LocationHistoryCreateData;
 use App\Domain\Location\Data\LocationMysqlCreateData;
+use App\Domain\Location\Data\LocationShareCreateData;
 use App\Domain\Location\Data\LocationTicketCreateData;
 use App\Domain\Location\Repository\LocationCreatorRepository;
 
@@ -18,17 +19,20 @@ final class LocationCreator
     private $bingMapsGeocodingReader;
     private $locationHistoryCreator;
     private $locationTicketCreator;
+    private $locationShareCreator;
 
     public function __construct(
         LocationCreatorRepository $repository,
         BingMapsGeocodingReader $bingMapsGeocodingReader,
         LocationHistoryCreator $locationHistoryCreator,
-        LocationTicketCreator $locationTicketCreator
+        LocationTicketCreator $locationTicketCreator,
+        LocationShareCreator $locationShareCreator
     ) {
         $this->repository = $repository;
         $this->bingMapsGeocodingReader = $bingMapsGeocodingReader;
         $this->locationHistoryCreator = $locationHistoryCreator;
         $this->locationTicketCreator = $locationTicketCreator;
+        $this->locationShareCreator = $locationShareCreator;
     }
 
     public function createLocation(LocationCreateData $locationCreateData): string
@@ -46,47 +50,58 @@ final class LocationCreator
         $newLocationId = $this->repository->insertLocation($locationCreateData);
 
         $tickets = 0;
-
+        $locationShareCreateData = new LocationShareCreateData();
+        $locationShareCreateData->locationId = $newLocationId ?? null;
+        $locationShareCreateData->userId = $locationCreateData->createdBy;
+        $locationShareCreateData->createdBy = $locationCreateData->createdBy;
+        
         $locationMysqlCreateData = new LocationMysqlCreateData();
         $locationMysqlCreateData->locationId = $newLocationId ?? null;
         $locationMysqlCreateData->name = $locationCreateData->name;
         if(!empty($locationMysqlCreateData->name)){
             $tickets += TICKETS;
+            $locationShareCreateData->name = 1;
         }
         $locationMysqlCreateData->nameBy = $locationCreateData->createdBy;
         $locationMysqlCreateData->address = $locationCreateData->address;
         if(!empty($locationMysqlCreateData->address)){
             $tickets += TICKETS;
+            $locationShareCreateData->address = 1;
         }
         $locationMysqlCreateData->addressBy = $locationCreateData->createdBy;
         $locationMysqlCreateData->postcode = $locationCreateData->postcode;
         if(!empty($locationMysqlCreateData->postcode)){
             $tickets += TICKETS;
+            $locationShareCreateData->postcode = 1;
         }
         $locationMysqlCreateData->postcodeBy = $locationCreateData->createdBy;
         $locationMysqlCreateData->country = $locationCreateData->country;
+        if(!empty($locationMysqlCreateData->country)){
+            $tickets += TICKETS;
+            $locationShareCreateData->country = 1;
+        }
         $locationMysqlCreateData->countryBy = $locationCreateData->createdBy;
         $locationMysqlCreateData->countrycode = $locationCreateData->countrycode;
-        if(!empty($locationMysqlCreateData->countrycode)){
-            $tickets += TICKETS;
-        }
         $locationMysqlCreateData->countrycodeBy = $locationCreateData->createdBy;
         $locationMysqlCreateData->state = $locationCreateData->state;
+        if(!empty($locationMysqlCreateData->state)){
+            $tickets += TICKETS;
+            $locationShareCreateData->state = 1;
+        }
         $locationMysqlCreateData->stateBy = $locationCreateData->createdBy;
         $locationMysqlCreateData->statecode = $locationCreateData->statecode;
-        if(!empty($locationMysqlCreateData->statecode)){
-            $tickets += TICKETS;
-        }
         $locationMysqlCreateData->statecodeBy = $locationCreateData->createdBy;
         $locationMysqlCreateData->city = $locationCreateData->city;
         if(!empty($locationMysqlCreateData->city)){
             $tickets += TICKETS;
+            $locationShareCreateData->city = 1;
         }
         $locationMysqlCreateData->cityBy = $locationCreateData->createdBy;
         $locationMysqlCreateData->lat = $locationCreateData->lat;
         $locationMysqlCreateData->lon = $locationCreateData->lon;
         if(isset($locationMysqlCreateData->lat)){
             $tickets += TICKETS;
+            $locationShareCreateData->latlon = 1;
         }
         $locationMysqlCreateData->latlonBy = $locationCreateData->createdBy;
         $locationMysqlCreateData->createdBy = $locationCreateData->createdBy;
@@ -94,6 +109,7 @@ final class LocationCreator
         $locationMysqlCreateData->validate();
 
         $newLocationMysqlId = $this->repository->insertLocationMysql($locationMysqlCreateData);
+        $this->locationShareCreator->createLocationShare($locationShareCreateData);
 
         
         $locationHistoryCreateData = new LocationHistoryCreateData();

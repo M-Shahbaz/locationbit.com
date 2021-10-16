@@ -39,38 +39,38 @@ export default NextAuth({
       clientId: process.env.TWITTER_ID,
       clientSecret: process.env.TWITTER_SECRET,
     }),
-    {
-      id: 'microsoft',
-      name: 'Microsoft',
-      type: 'oauth',
-      version: '2.0',
-      scope: 'https://graph.microsoft.com/user.read',
-      params: { grant_type: 'authorization_code' },
-      accessTokenUrl: 'https://login.microsoftonline.com/common/oauth2/v2.0/token',
-      authorizationUrl: 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize?response_type=code&response_mode=query',
-      profileUrl: 'https://graph.microsoft.com/v1.0/me/',
-      profile: profile => {
-        console.log(profile);
-        return {
-          id: profile.id,
-          name: profile.displayName,
-          last_name: profile.surname,
-          first_name: profile.givenName,
-          email: profile.mail ? profile.mail : profile.userPrincipalName,
-        };
-      },
-      clientId: process.env.MICROSOFT_ID,
-      clientSecret: process.env.MICROSOFT_SECRET,
-    },
+    // {
+    //   id: 'microsoft',
+    //   name: 'Microsoft',
+    //   type: 'oauth',
+    //   version: '2.0',
+    //   scope: 'https://graph.microsoft.com/user.read',
+    //   params: { grant_type: 'authorization_code' },
+    //   accessTokenUrl: 'https://login.microsoftonline.com/common/oauth2/v2.0/token',
+    //   authorizationUrl: 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize?response_type=code&response_mode=query',
+    //   profileUrl: 'https://graph.microsoft.com/v1.0/me/',
+    //   profile: profile => {
+    //     console.log(profile);
+    //     return {
+    //       id: profile.id,
+    //       name: profile.displayName,
+    //       last_name: profile.surname,
+    //       first_name: profile.givenName,
+    //       email: profile.mail ? profile.mail : profile.userPrincipalName,
+    //     };
+    //   },
+    //   clientId: process.env.MICROSOFT_ID,
+    //   clientSecret: process.env.MICROSOFT_SECRET,
+    // },
     Providers.GitHub({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
     }),
-    Providers.Auth0({
-      clientId: process.env.AUTH0_ID,
-      clientSecret: process.env.AUTH0_SECRET,
-      domain: process.env.AUTH0_DOMAIN,
-    }),
+    // Providers.Auth0({
+    //   clientId: process.env.AUTH0_ID,
+    //   clientSecret: process.env.AUTH0_SECRET,
+    //   domain: process.env.AUTH0_DOMAIN,
+    // }),
   ],
   // Database optional. MySQL, Maria DB, Postgres and MongoDB are supported.
   // https://next-auth.js.org/configuration/databases

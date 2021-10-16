@@ -4,6 +4,7 @@ namespace App\Domain\Location\Service;
 
 use App\Domain\Bing\Service\BingMapsGeocodingReader;
 use App\Domain\Location\Data\LocationCreateData;
+use App\Domain\Location\Data\LocationMysqlCreateData;
 use App\Domain\Location\Repository\LocationCreatorRepository;
 
 /**
@@ -35,6 +36,34 @@ final class LocationCreator
             $locationCreateData->lon = $locationCreateData->cityObject['longitude'] ?? null;
         }
         $newLocationId = $this->repository->insertLocation($locationCreateData);
+
+        $locationMysqlCreateData = new LocationMysqlCreateData();
+        $locationMysqlCreateData->locationId = $newLocationId ?? null;
+        $locationMysqlCreateData->name = $locationCreateData->name;
+        $locationMysqlCreateData->nameBy = $locationCreateData->createdBy;
+        $locationMysqlCreateData->address = $locationCreateData->address;
+        $locationMysqlCreateData->addressBy = $locationCreateData->createdBy;
+        $locationMysqlCreateData->postcode = $locationCreateData->postcode;
+        $locationMysqlCreateData->postcodeBy = $locationCreateData->createdBy;
+        $locationMysqlCreateData->country = $locationCreateData->country;
+        $locationMysqlCreateData->countryBy = $locationCreateData->createdBy;
+        $locationMysqlCreateData->countrycode = $locationCreateData->countrycode;
+        $locationMysqlCreateData->countrycodeBy = $locationCreateData->createdBy;
+        $locationMysqlCreateData->state = $locationCreateData->state;
+        $locationMysqlCreateData->stateBy = $locationCreateData->createdBy;
+        $locationMysqlCreateData->statecode = $locationCreateData->statecode;
+        $locationMysqlCreateData->statecodeBy = $locationCreateData->createdBy;
+        $locationMysqlCreateData->city = $locationCreateData->city;
+        $locationMysqlCreateData->cityBy = $locationCreateData->createdBy;
+        $locationMysqlCreateData->lat = $locationCreateData->lat;
+        $locationMysqlCreateData->lon = $locationCreateData->lon;
+        $locationMysqlCreateData->latlonBy = $locationCreateData->createdBy;
+        $locationMysqlCreateData->createdBy = $locationCreateData->createdBy;
+
+        $locationMysqlCreateData->validate();
+
+        $newLocationMysqlId = $this->repository->insertLocationMysql($locationMysqlCreateData);
+
         return $newLocationId;
     }
 }

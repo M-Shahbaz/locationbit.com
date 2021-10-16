@@ -4,6 +4,7 @@ namespace App\Domain\Location\Service;
 
 use App\Domain\Bing\Service\BingMapsGeocodingReader;
 use App\Domain\Location\Data\LocationCreateData;
+use App\Domain\Location\Data\LocationHistoryCreateData;
 use App\Domain\Location\Data\LocationMysqlCreateData;
 use App\Domain\Location\Repository\LocationCreatorRepository;
 
@@ -14,13 +15,16 @@ final class LocationCreator
 {
     private $repository;
     private $bingMapsGeocodingReader;
+    private $locationHistoryCreator;
 
     public function __construct(
         LocationCreatorRepository $repository,
-        BingMapsGeocodingReader $bingMapsGeocodingReader
+        BingMapsGeocodingReader $bingMapsGeocodingReader,
+        LocationHistoryCreator $locationHistoryCreator
     ) {
         $this->repository = $repository;
         $this->bingMapsGeocodingReader = $bingMapsGeocodingReader;
+        $this->locationHistoryCreator = $locationHistoryCreator;
     }
 
     public function createLocation(LocationCreateData $locationCreateData): string
@@ -63,6 +67,20 @@ final class LocationCreator
         $locationMysqlCreateData->validate();
 
         $newLocationMysqlId = $this->repository->insertLocationMysql($locationMysqlCreateData);
+
+        
+        $locationHistoryCreateData = new LocationHistoryCreateData();
+        $locationHistoryCreateData->locationId = $newLocationId ?? null;
+        $locationHistoryCreateData->table = "locations";
+        $locationHistoryCreateData->field = "new";
+        $locationHistoryCreateData->recordId = $newLocationMysqlId;
+        $locationHistoryCreateData->oldValue = null;
+        $locationHistoryCreateData->newValue = $locationCreateData->name;
+        $locationHistoryCreateData->oldUserId = null;
+        $locationHistoryCreateData->newUserId = $locationCreateData->createdBy;
+        $locationHistoryCreateData->createdBy = $locationCreateData->createdBy;
+
+        $this->locationHistoryCreator->createLocationHistory($locationHistoryCreateData);
 
         return $newLocationId;
     }

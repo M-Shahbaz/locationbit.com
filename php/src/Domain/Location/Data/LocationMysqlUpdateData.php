@@ -4,8 +4,11 @@ namespace App\Domain\Location\Data;
 
 use UnexpectedValueException;
 
-final class LocationMysqlCreateData
+final class LocationMysqlUpdateData
 {
+    /** @var int */
+    public $id;      
+    
 	/** @var string (varchar)*/
 	public $locationId;
 
@@ -370,32 +373,37 @@ final class LocationMysqlCreateData
 	public $hoursSundayToBy;
 
 	/** @var string (datetime)*/
-	public $hoursSundayToOn;
-
-	/** @var int */
-	public $createdBy;
-
-	private function validateLocationMysqlCreateData()
+	public $hoursSundayToOn;        
+    
+    /** @var int */
+	public $updatedBy;      
+	
+	private function validateLocationMysqlUpdateData() 
 	{
-		if (empty($this->locationId)) {
-			throw new UnexpectedValueException('locationId is required');
-		}
+		if(empty($this->locationId)){
+            throw new UnexpectedValueException('locationId is required');
+        }
 
-		// if all validaions pass
-		return true;
+        if(empty($this->updatedBy)){
+            throw new UnexpectedValueException('updatedBy is required');
+        }
+
+        // if all validaions pass
+        return true;
+        
 	}
 
-	public function validate(string $type = null)
-	{
+    public function validate(string $type = null)
+    {
 		switch ($type) {
-			case 'validateLocationMysqlCreateData':
-				return $this->validateLocationMysqlCreateData();
+			case 'validateLocationMysqlUpdateData':
+				return $this->validateLocationMysqlUpdateData();
 				break;
-
+			
 			default:
-				return $this->validateLocationMysqlCreateData();
+				return $this->validateLocationMysqlUpdateData();
 				break;
-				return false;
+			return false;
 		}
-	}
+    }
 }

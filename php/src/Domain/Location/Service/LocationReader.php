@@ -3,6 +3,7 @@
 namespace App\Domain\Location\Service;
 
 use App\Domain\Location\Data\LocationData;
+use App\Domain\Location\Data\LocationMysqlData;
 use App\Domain\Location\Data\LocationNearbySearchData;
 use App\Domain\Location\Data\LocationsSearchData;
 use App\Domain\Location\Repository\LocationReaderRepository;
@@ -31,6 +32,13 @@ final class LocationReader
     {
 
         $locationData = $this->repository->getLocationById($id);
+        return $locationData;
+    }
+
+    public function getLocationByIdWithSimilarAndNearByLocations(string $id): LocationData
+    {
+
+        $locationData = $this->getLocationById($id);
 
         try {
 
@@ -48,5 +56,12 @@ final class LocationReader
         }
 
         return $locationData;
+    }
+    
+    public function getLocationMysqlByLocationId(string $id): LocationMysqlData
+    {
+
+        $locationMysqlData = $this->repository->getLocationMysqlByLocationId($id);
+        return $locationMysqlData;
     }
 }

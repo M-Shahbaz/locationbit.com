@@ -29,7 +29,7 @@ final class LocationReadAction
 
         try {
 
-            $locationData = $this->locationReader->getLocationById($locationId);
+            $locationData = $this->locationReader->getLocationByIdWithSimilarAndNearByLocations($locationId);
 
             $result = [
                 'id' => $locationData->id,

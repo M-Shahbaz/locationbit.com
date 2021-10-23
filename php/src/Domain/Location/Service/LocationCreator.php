@@ -63,40 +63,48 @@ final class LocationCreator
             $locationShareCreateData->name = 1;
         }
         $locationMysqlCreateData->nameBy = $locationCreateData->createdBy;
+        $locationMysqlCreateData->nameOn = date('Y-m-d H:i:s');
         $locationMysqlCreateData->address = $locationCreateData->address;
         if(!empty($locationMysqlCreateData->address)){
             $tickets += TICKETS;
             $locationShareCreateData->address = 1;
         }
         $locationMysqlCreateData->addressBy = $locationCreateData->createdBy;
+        $locationMysqlCreateData->addressOn = date('Y-m-d H:i:s');
         $locationMysqlCreateData->postcode = $locationCreateData->postcode;
         if(!empty($locationMysqlCreateData->postcode)){
             $tickets += TICKETS;
             $locationShareCreateData->postcode = 1;
         }
         $locationMysqlCreateData->postcodeBy = $locationCreateData->createdBy;
+        $locationMysqlCreateData->postcodeOn = date('Y-m-d H:i:s');
         $locationMysqlCreateData->country = $locationCreateData->country;
         if(!empty($locationMysqlCreateData->country)){
             $tickets += TICKETS;
             $locationShareCreateData->country = 1;
         }
         $locationMysqlCreateData->countryBy = $locationCreateData->createdBy;
+        $locationMysqlCreateData->countryOn = date('Y-m-d H:i:s');
         $locationMysqlCreateData->countrycode = $locationCreateData->countrycode;
         $locationMysqlCreateData->countrycodeBy = $locationCreateData->createdBy;
+        $locationMysqlCreateData->countrycodeOn = date('Y-m-d H:i:s');
         $locationMysqlCreateData->state = $locationCreateData->state;
         if(!empty($locationMysqlCreateData->state)){
             $tickets += TICKETS;
             $locationShareCreateData->state = 1;
         }
         $locationMysqlCreateData->stateBy = $locationCreateData->createdBy;
+        $locationMysqlCreateData->stateOn = date('Y-m-d H:i:s');
         $locationMysqlCreateData->statecode = $locationCreateData->statecode;
         $locationMysqlCreateData->statecodeBy = $locationCreateData->createdBy;
+        $locationMysqlCreateData->statecodeOn = date('Y-m-d H:i:s');
         $locationMysqlCreateData->city = $locationCreateData->city;
         if(!empty($locationMysqlCreateData->city)){
             $tickets += TICKETS;
             $locationShareCreateData->city = 1;
         }
         $locationMysqlCreateData->cityBy = $locationCreateData->createdBy;
+        $locationMysqlCreateData->cityOn = date('Y-m-d H:i:s');
         $locationMysqlCreateData->lat = $locationCreateData->lat;
         $locationMysqlCreateData->lon = $locationCreateData->lon;
         if(isset($locationMysqlCreateData->lat)){
@@ -104,11 +112,14 @@ final class LocationCreator
             $locationShareCreateData->latlon = 1;
         }
         $locationMysqlCreateData->latlonBy = $locationCreateData->createdBy;
+        $locationMysqlCreateData->latlonOn = date('Y-m-d H:i:s');
         $locationMysqlCreateData->createdBy = $locationCreateData->createdBy;
 
         $locationMysqlCreateData->validate();
 
         $newLocationMysqlId = $this->repository->insertLocationMysql($locationMysqlCreateData);
+        
+        //Shares
         $this->locationShareCreator->createLocationShare($locationShareCreateData);
 
         
@@ -123,6 +134,7 @@ final class LocationCreator
         $locationHistoryCreateData->newUserId = $locationCreateData->createdBy;
         $locationHistoryCreateData->createdBy = $locationCreateData->createdBy;
 
+        //History
         $this->locationHistoryCreator->createLocationHistory($locationHistoryCreateData);
 
         $locationTicketCreateData = new LocationTicketCreateData();
@@ -133,6 +145,7 @@ final class LocationCreator
         $locationTicketCreateData->tickets = $tickets;
         $locationTicketCreateData->createdBy = $locationCreateData->createdBy;
 
+        //Tickets
         $this->locationTicketCreator->createLocationTicket($locationTicketCreateData);
 
         return $newLocationId;

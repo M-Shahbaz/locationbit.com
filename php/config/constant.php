@@ -33,3 +33,5 @@ const TEMPLATES_FOLDER = __DIR__ . '/../templates/';
 const ENV_PATH = __DIR__ . '/../../.env';
 const BING_MAPS_API_URL = "https://dev.virtualearth.net/REST/v1/";
 const TICKETS = 10;
+const DAYS_FOR_ZERO_TICKETS_ON_UPDATE = 30;
+const DAYS_FOR_LOCK_ON_UPDATE = 7;

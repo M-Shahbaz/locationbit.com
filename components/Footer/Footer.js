@@ -33,7 +33,7 @@ export default function Footer(props) {
         <div className={classes.left}>
           <List className={classes.list}>
             <ListItem className={classes.inlineBlock}>
-              <Link href="/country">
+              <Link href="/country" passHref>
                 <a
                   className={classes.block}
                 >
@@ -42,7 +42,7 @@ export default function Footer(props) {
               </Link>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
-              <Link href="/about">
+              <Link href="/about" passHref>
                 <a
                   className={classes.block}
                 >
@@ -51,7 +51,7 @@ export default function Footer(props) {
               </Link>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
-              <Link href="/tos">
+              <Link href="/tos" passHref>
                 <a
                   className={classes.block}
                 >

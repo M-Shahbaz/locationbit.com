@@ -1,5 +1,5 @@
 import { signIn, signOut, useSession } from 'next-auth/client';
-import Head from "next/head";
+import { NextSeo } from 'next-seo';
 
 import React from "react";
 // nodejs library that concatenates classes
@@ -27,18 +27,23 @@ export default function domain(props) {
   const [session, loading] = useSession();
   const classes = useStyles();
   const { ...rest } = props;
-  const HeadTitle = "Locationbit";
+  const headTitle = "Locationbit";
 
   // When rendering client side don't display anything until loading is complete
   if (typeof window !== 'undefined' && loading) return <></>;
 
   return (
     <>
-      <Head>
-        <title>{HeadTitle}</title>
-        <meta property="og:title" content={HeadTitle} key="title" />
-      </Head>
-      <HeaderLayout/>
+      <NextSeo
+        title={headTitle}
+        openGraph={{
+          title: headTitle
+        }}
+        twitter={{
+          handle: '@LocationBit',
+        }}
+      />
+      <HeaderLayout />
       <div className={classNames(classes.main)}>
         <div className={classes.container}>
           <ProductSection />

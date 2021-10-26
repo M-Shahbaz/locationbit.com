@@ -5,6 +5,7 @@ import { signIn, signOut, useSession, getSession } from 'next-auth/client';
 import { leafletLibrary } from 'utility/Libraries.js';
 
 import Head from "next/head";
+import { NextSeo } from 'next-seo';
 
 
 // nodejs library that concatenates classes
@@ -36,7 +37,7 @@ const state = (props) => {
   const country = Country.getCountryByCode(countryCode);
   const state = State.getStateByCodeAndCountry(stateCode, countryCode);
 
-  const headTitle = "Cities of "+state.name + ", "+ country.name;
+  const headTitle = "Cities of " + state.name + ", " + country.name;
 
   // When rendering client side don't display anything until loading is complete
   if (typeof window !== 'undefined' && loading) return <></>;
@@ -46,19 +47,26 @@ const state = (props) => {
   return (
     <>
       <Head>
-        <title>{headTitle}</title>
-        <meta property="og:title" content={headTitle} key="title" />
         <link rel="stylesheet" href={leafletLibrary}
           crossOrigin="" />
       </Head>
+      <NextSeo
+        title={headTitle}
+        openGraph={{
+          title: headTitle
+        }}
+        twitter={{
+          handle: '@LocationBit',
+        }}
+      />
       <HeaderLayout />
       <div className={classNames(classes.main)}>
         <div className={classes.container}>
-          <CitiesSection 
-           headTitle={headTitle}
-           countryCode={countryCode}
-           stateCode={stateCode}
-           />
+          <CitiesSection
+            headTitle={headTitle}
+            countryCode={countryCode}
+            stateCode={stateCode}
+          />
         </div>
       </div>
       <Footer />

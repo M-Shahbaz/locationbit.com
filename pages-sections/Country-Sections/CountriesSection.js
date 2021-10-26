@@ -33,7 +33,7 @@ export default function CountriesSection(props) {
           <GridContainer spacing={3}>
               {countries.map((country) => (
                 <GridItem key={country.isoCode} xs={6} sm={4} md={3}>
-                    <Link href={`/country/${country.isoCode}`}>
+                    <Link href={`/country/${country.isoCode}`} passHref>
                       <a>{country.name}</a>
                     </Link>
                 </GridItem>

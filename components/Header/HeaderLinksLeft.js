@@ -31,7 +31,7 @@ export default function HeaderLinksLeft(props) {
   return (
     <List className={classes.list}>
       <ListItem className={classes.listItem}>
-        <Link href="/">
+        <Link href="/" passHref>
           <a className={classes.navLink}>Locationbit</a>
         </Link>
       </ListItem>

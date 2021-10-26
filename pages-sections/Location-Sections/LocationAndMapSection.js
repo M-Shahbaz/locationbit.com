@@ -307,7 +307,7 @@ export default function LocationAndMapSection(props) {
                       {location.similarLocations.results.map((similarLocation) => (
                         <TableRow key={similarLocation.id}>
                           <TableCell>
-                            <Link href={getLocationSlugUrl(similarLocation.id, similarLocation)} >
+                            <Link href={getLocationSlugUrl(similarLocation.id, similarLocation)} passHref>
                               <a>{getLocationCommaTrimName([similarLocation.name, similarLocation.address, similarLocation.city, similarLocation.state, similarLocation.country])}</a>
                             </Link>
                           </TableCell>
@@ -329,7 +329,7 @@ export default function LocationAndMapSection(props) {
                       {location.nearbyLocations.results.map((nearbyLocation) => (
                         <TableRow key={nearbyLocation.id}>
                           <TableCell>
-                            <Link href={getLocationSlugUrl(nearbyLocation.id, nearbyLocation)}>
+                            <Link href={getLocationSlugUrl(nearbyLocation.id, nearbyLocation)} passHref>
                               <a>{getLocationCommaTrimName([nearbyLocation.name, nearbyLocation.address, nearbyLocation.city, nearbyLocation.state, nearbyLocation.country])}</a>
                             </Link>
                           </TableCell>

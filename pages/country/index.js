@@ -4,7 +4,7 @@ import { signIn, signOut, useSession, getSession } from 'next-auth/client';
 import { leafletLibrary } from 'utility/Libraries.js';
 
 import Head from "next/head";
-
+import { NextSeo } from 'next-seo';
 
 // nodejs library that concatenates classes
 import classNames from "classnames";
@@ -42,17 +42,24 @@ const country = (props) => {
   return (
     <>
       <Head>
-        <title>{headTitle}</title>
-        <meta property="og:title" content={headTitle} key="title" />
         <link rel="stylesheet" href={leafletLibrary}
           crossOrigin="" />
       </Head>
+      <NextSeo
+        title={headTitle}
+        openGraph={{
+          title: headTitle
+        }}
+        twitter={{
+          handle: '@LocationBit',
+        }}
+      />
       <HeaderLayout />
       <div className={classNames(classes.main)}>
         <div className={classes.container}>
-          <CountriesSection 
-           headTitle={headTitle}
-           />
+          <CountriesSection
+            headTitle={headTitle}
+          />
         </div>
       </div>
       <Footer />

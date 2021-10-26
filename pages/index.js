@@ -1,5 +1,5 @@
 import { signIn, signOut, useSession } from 'next-auth/client';
-import Head from "next/head";
+import { NextSeo } from 'next-seo';
 
 import React from "react";
 // nodejs library that concatenates classes
@@ -32,18 +32,26 @@ export default function domain(props) {
   const [session, loading] = useSession();
   const classes = useStyles();
   const { ...rest } = props;
-  const HeadTitle = "Location profiles in one place. | Locationbit.com";
+  const headTitle = "Location profiles in one place. | Locationbit.com";
+  const headDescription = "Locationbit is to build the global ENCYCLOPEDIA for location data e.g: Wikipedia for locations. With a chance of earning money";
 
   // When rendering client side don't display anything until loading is complete
   if (typeof window !== 'undefined' && loading) return <></>;
 
   return (
     <>
-      <Head>
-        <title>{HeadTitle}</title>
-        <meta property="og:title" content={HeadTitle} key="title" />
-      </Head>
-      <HeaderLayout/>
+      <NextSeo
+        title={headTitle}
+        description={headDescription}
+        openGraph={{
+          title: headTitle,
+          description: headDescription
+        }}
+        twitter={{
+          handle: '@LocationBit',
+        }}
+      />
+      <HeaderLayout />
       <Parallax filter responsive image="/img/landing-bg.jpg">
         <div className={classes.container}>
           <GridContainer>
@@ -51,7 +59,7 @@ export default function domain(props) {
               <h1 className={classes.title}>Location profiles in one place.</h1>
               <h4>
                 Locationbit is to build the "global ENCYCLOPEDIA for location data"
-                e.g: Wikipedia for locations. 
+                e.g: Wikipedia for locations.
                 With a chance of earning money
               </h4>
               <br />

@@ -76,7 +76,7 @@ export default function SearchSection(props) {
                   {locations && locations.results && locations.results.map((location) => (
                     <TableRow key={location.id}>
                       <TableCell>
-                        <Link href={getLocationSlugUrl(location.id, location)}>
+                        <Link href={getLocationSlugUrl(location.id, location)} passHref>
                           <a>{getLocationCommaTrimName([location.name, location.address, location.city, location.state, location.country])}</a>
                         </Link>
                       </TableCell>

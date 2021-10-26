@@ -1,5 +1,5 @@
 import { signIn, signOut, useSession } from 'next-auth/client';
-import Head from "next/head";
+import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 
 import React from "react";
@@ -28,18 +28,23 @@ export default function settings(props) {
   const router = useRouter();
   const classes = useStyles();
   const { ...rest } = props;
-  const HeadTitle = "Settings";
+  const headTitle = "Settings";
 
   // When rendering client side don't display anything until loading is complete
   if (typeof window !== 'undefined' && loading) return <></>;
 
   return (
     <>
-      <Head>
-        <title>{HeadTitle}</title>
-        <meta property="og:title" content={HeadTitle} key="title" />
-      </Head>
-      <HeaderLayout/>
+      <NextSeo
+        title={headTitle}
+        openGraph={{
+          title: headTitle
+        }}
+        twitter={{
+          handle: '@LocationBit',
+        }}
+      />
+      <HeaderLayout />
       <div className={classNames(classes.main)}>
         <div className={classes.container}>
           <SettingsSection />

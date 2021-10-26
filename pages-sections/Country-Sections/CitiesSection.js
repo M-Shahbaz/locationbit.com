@@ -64,7 +64,7 @@ export default function CitiesSection(props) {
           <GridContainer spacing={3}>
               {cities.map((city, index) => (
                 <GridItem key={index} xs={6} sm={4} md={3}>
-                    <Link href={`/country/${props.countryCode}/${props.stateCode}/${city.name}`}>
+                    <Link href={`/country/${props.countryCode}/${props.stateCode}/${city.name}`} passHref>
                       <a>{city.name}</a>
                     </Link>
                 </GridItem>

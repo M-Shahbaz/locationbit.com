@@ -32,7 +32,7 @@ const search = (props) => {
   const { ...rest } = props;
   const router = useRouter()
   const { q } = router.query
-  const HeadTitle = q + " - Locationbit";
+  const headTitle = q + " - Locationbit";
 
   // When rendering client side don't display anything until loading is complete
   if (typeof window !== 'undefined' && loading) return <></>;
@@ -40,11 +40,18 @@ const search = (props) => {
   return (
     <>
       <Head>
-        <title>{HeadTitle}</title>
-        <meta property="og:title" content={HeadTitle} key="title" />
         <link rel="stylesheet" href={leafletLibrary}
           crossOrigin="" />
       </Head>
+      <NextSeo
+        title={headTitle}
+        openGraph={{
+          title: headTitle
+        }}
+        twitter={{
+          handle: '@LocationBit',
+        }}
+      />
       <HeaderLayout/>
       <div className={classNames(classes.main)}>
         <div className={classes.container}>

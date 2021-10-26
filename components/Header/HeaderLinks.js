@@ -36,7 +36,7 @@ export default function HeaderLinks(props) {
         <HeaderSearchBar />
       </ListItem>
       <ListItem className={classes.listItem}>
-        <Link href="/location">
+        <Link href="/location" passHref>
           <a className={classes.navLink}><AddLocationIcon /> Add location</a>
         </Link>
       </ListItem>

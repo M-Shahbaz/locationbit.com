@@ -7,7 +7,7 @@ import { leafletLibrary } from 'utility/Libraries.js';
 
 import NoSsr from '@material-ui/core/NoSsr';
 import Head from "next/head";
-
+import { NextSeo } from 'next-seo';
 
 // nodejs library that concatenates classes
 import classNames from "classnames";
@@ -53,17 +53,24 @@ const locationTitle = (props) => {
   return (
     <>
       <Head>
-        <title>{headTitle}</title>
-        <meta property="og:title" content={headTitle} key="title" />
         <link rel="stylesheet" href={leafletLibrary}
           crossOrigin="" />
       </Head>
+      <NextSeo
+        title={headTitle}
+        openGraph={{
+          title: headTitle
+        }}
+        twitter={{
+          handle: '@LocationBit',
+        }}
+      />
       <HeaderLayout />
       <div className={classNames(classes.main)}>
         <div className={classes.container}>
-          <LocationAndMapSection 
-           headTitle={headTitle}
-           />
+          <LocationAndMapSection
+            headTitle={headTitle}
+          />
         </div>
       </div>
       <Footer />
@@ -81,9 +88,9 @@ export async function getServerSideProps(context) {
   const locationId = params.locationId;
   const locationTitle = params.locationTitle;
   // fetch data from an api
-  return await getLocationUrl('/api/server/location/' + locationId, locationId, locationTitle).then( response => {
+  return await getLocationUrl('/api/server/location/' + locationId, locationId, locationTitle).then(response => {
     return response;
-  }); 
+  });
 
 }
 

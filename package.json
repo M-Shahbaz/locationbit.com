@@ -46,6 +46,7 @@
     "next-auth": "latest",
     "next-compose-plugins": "2.2.1",
     "next-images": "1.7.0",
+    "next-seo": "^4.28.1",
     "next-transpile-modules": "^8.0.0",
     "nextjs-redirect": "5.0.2",
     "node-sass": "4.14.1",

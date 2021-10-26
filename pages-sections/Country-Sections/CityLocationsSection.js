@@ -82,7 +82,7 @@ export default function CityLocationsSection(props) {
                   {locations && locations.results && locations.results.map((location) => (
                     <TableRow key={location.id}>
                       <TableCell>
-                        <Link href={getLocationSlugUrl(location.id, location)}>
+                        <Link href={getLocationSlugUrl(location.id, location)} passHref>
                           <a>{getLocationCommaTrimName([location.name, location.address, location.city, location.state, location.country])}</a>
                         </Link>
                       </TableCell>
@@ -96,13 +96,13 @@ export default function CityLocationsSection(props) {
                 <TableBody>
                   <TableRow>
                     <TableCell>
-                      {previousPage > 0 && <Link href={props.cityPaginationUrl + previousPage}>
+                      {previousPage > 0 && <Link href={props.cityPaginationUrl + previousPage} passHref>
                         <a><NavigateBeforeIcon /> Previous page</a>
                       </Link>
                       }
                     </TableCell>
                     <TableCell>
-                      <Link href={props.cityPaginationUrl + nextPage}>
+                      <Link href={props.cityPaginationUrl + nextPage} passHref>
                         <a>Next page <NavigateNextIcon /> </a>
                       </Link>
                     </TableCell>

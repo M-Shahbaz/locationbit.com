@@ -2,6 +2,7 @@
 
 namespace App\Domain\Location\Data;
 
+use App\Utility\FunctionsService;
 use App\Utility\PhoneService;
 use Respect\Validation\Validator as v;
 use UnexpectedValueException;
@@ -79,6 +80,27 @@ final class LocationUpdateData
 	
 	private function validateLocationUpdateData() 
 	{
+        $this->postcode = FunctionsService::stripTags($this->postcode);
+		$this->lat = FunctionsService::stripTags($this->lat);
+		$this->lon = FunctionsService::stripTags($this->lon);
+		$this->website = FunctionsService::stripTags($this->website);
+		$this->email = FunctionsService::stripTags($this->email);
+		$this->phone = FunctionsService::stripTags($this->phone);
+		$this->facebook = FunctionsService::stripTags($this->facebook);
+		$this->googleMaps = FunctionsService::stripTags($this->googleMaps);
+		$this->googleStreetView = FunctionsService::stripTags($this->googleStreetView);
+		$this->twitter = FunctionsService::stripTags($this->twitter);
+		$this->instagram = FunctionsService::stripTags($this->instagram);
+		$this->youtube = FunctionsService::stripTags($this->youtube);
+		$this->linkedin = FunctionsService::stripTags($this->linkedin);
+		$this->telegram = FunctionsService::stripTags($this->telegram);
+		$this->description = FunctionsService::stripTags($this->description);
+		$this->sector = FunctionsService::stripTags($this->sector);
+		$this->subSector = FunctionsService::stripTags($this->subSector);
+		$this->industryGroup = FunctionsService::stripTags($this->industryGroup);
+		$this->naicsIndustry = FunctionsService::stripTags($this->naicsIndustry);
+		$this->nationalIndustry = FunctionsService::stripTags($this->nationalIndustry);
+		
 		if(empty($this->id)){
             throw new UnexpectedValueException('id is required');
         }

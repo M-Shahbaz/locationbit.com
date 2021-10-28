@@ -1,5 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { signIn, signOut, useSession, getSession } from 'next-auth/client';
+
 import { Country, State, City } from 'country-state-city';
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
@@ -31,6 +33,7 @@ const useStyles = makeStyles(styles);
 
 const LocationTableRow = props => {
   const classes = useStyles();
+  const [session, loading] = useSession();
   // const { classes } = props;
   const [inputClass, setInputClass] = useState(classes.hide);
   const [valueClass, setValueClass] = useState(classes.showInlineBlock);
@@ -72,10 +75,17 @@ const LocationTableRow = props => {
     if (props.edit) {
       setClassicModal(true);
     }
-  }, [])
+  }, []);
+
+  let showRow = true;
+  if(!session){
+    showRow = props.tableRowValue ? true : null;
+  }
+  
 
   return (
-    <TableRow>
+    <>
+    {showRow && <TableRow>
       <TableCell>{camelToTitle(props.tableRowName)}:</TableCell>
       <TableCell>
         {<div className={`${props.edit && classes.cursorPointer} ${valueClass} ${classesModule.width100}`}
@@ -261,7 +271,8 @@ const LocationTableRow = props => {
         />
         }
       </TableCell>
-    </TableRow>
+    </TableRow>}
+    </>
   );
 }
 

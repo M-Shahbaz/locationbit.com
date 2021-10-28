@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import dynamic from 'next/dynamic';
 import Router from 'next/router';
 import Link from "next/link";
+import { signIn, signOut, useSession, getSession } from 'next-auth/client';
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -86,6 +87,9 @@ export default function LocationAndMapSection(props) {
   const classes = useStyles();
   // const { location } = props;
   const location = useSelector((state) => state.location);
+  const [session, loading] = useSession();
+  const editTrue = session ? true : false;
+
   const [loadingModal, setLoadingModal] = React.useState(false);
   const [mapState, dispatchMap] = useReducer(mapReducer, {
     draggable: false,
@@ -166,7 +170,7 @@ export default function LocationAndMapSection(props) {
                       locationId={location.id}
                       tableRowName="description"
                       tableRowValue={location.description}
-                      edit={true}
+                      edit={editTrue}
                     />
                     <LocationTableRow
                       locationId={location.id}
@@ -192,73 +196,73 @@ export default function LocationAndMapSection(props) {
                       locationId={location.id}
                       tableRowName="postcode"
                       tableRowValue={location.postcode}
-                      edit={true}
+                      edit={editTrue}
                     />
                     <LocationTableRow
                       locationId={location.id}
                       tableRowName="website"
                       tableRowValue={location.website}
-                      edit={true}
+                      edit={editTrue}
                     />
                     <LocationTableRow
                       locationId={location.id}
                       tableRowName="email"
                       tableRowValue={location.email}
-                      edit={true}
+                      edit={editTrue}
                     />
                     <LocationTableRow
                       locationId={location.id}
                       tableRowName="phone"
                       tableRowValue={location.phone}
-                      edit={true}
+                      edit={editTrue}
                     />
                     <LocationTableRow
                       locationId={location.id}
                       tableRowName="googleMaps"
                       tableRowValue={location.googleMaps}
-                      edit={true}
+                      edit={editTrue}
                     />
                     <LocationTableRow
                       locationId={location.id}
                       tableRowName="googleStreetView"
                       tableRowValue={location.googleStreetView}
-                      edit={true}
+                      edit={editTrue}
                     />
                     <LocationTableRow
                       locationId={location.id}
                       tableRowName="facebook"
                       tableRowValue={location.facebook}
-                      edit={true}
+                      edit={editTrue}
                     />
                     <LocationTableRow
                       locationId={location.id}
                       tableRowName="twitter"
                       tableRowValue={location.twitter}
-                      edit={true}
+                      edit={editTrue}
                     />
                     <LocationTableRow
                       locationId={location.id}
                       tableRowName="instagram"
                       tableRowValue={location.instagram}
-                      edit={true}
+                      edit={editTrue}
                     />
                     <LocationTableRow
                       locationId={location.id}
                       tableRowName="youtube"
                       tableRowValue={location.youtube}
-                      edit={true}
+                      edit={editTrue}
                     />
                     <LocationTableRow
                       locationId={location.id}
                       tableRowName="linkedin"
                       tableRowValue={location.linkedin}
-                      edit={true}
+                      edit={editTrue}
                     />
                     <LocationTableRow
                       locationId={location.id}
                       tableRowName="telegram"
                       tableRowValue={location.telegram}
-                      edit={true}
+                      edit={editTrue}
                     />
                     <LocationTableRow
                       locationId={location.id}
@@ -269,13 +273,13 @@ export default function LocationAndMapSection(props) {
                       locationId={location.id}
                       tableRowName="classification"
                       tableRowValue={location.sector}
-                      edit={true}
+                      edit={editTrue}
                     />
                     <LocationTableRow
                       locationId={location.id}
                       tableRowName="hours"
                       tableRowValue={location.hours}
-                      edit={true}
+                      edit={editTrue}
                     />
                   </TableBody>
                 </Table>

@@ -3,6 +3,7 @@
 namespace App\Domain\Location\Data;
 
 use App\Utility\FunctionsService;
+use Respect\Validation\Validator as v;
 use UnexpectedValueException;
 
 final class LocationCreateData
@@ -70,6 +71,10 @@ final class LocationCreateData
 			throw new UnexpectedValueException('countrycode is required');
 		}
 
+		if(!v::countryCode()->validate($this->countrycode)){
+			throw new UnexpectedValueException('Not a valid countrycode!');
+		}
+
 		if (empty($this->country)) {
 			throw new UnexpectedValueException('country is required');
 		}
@@ -81,7 +86,11 @@ final class LocationCreateData
 		if (empty($this->statecode)) {
 			throw new UnexpectedValueException('statecode is required');
 		}
-
+		
+		if(!v::subdivisionCode($this->countrycode)->validate($this->statecode)){
+			throw new UnexpectedValueException('Not a valid statecode!');
+		}
+		
 		if (empty($this->city)) {
 			throw new UnexpectedValueException('city is required');
 		}

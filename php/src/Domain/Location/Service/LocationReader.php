@@ -62,6 +62,19 @@ final class LocationReader
     {
 
         $locationMysqlData = $this->repository->getLocationMysqlByLocationId($id);
+        $locationMysqlData->hoursMondayFrom = !empty($locationMysqlData->hoursMondayFrom) ? substr($locationMysqlData->hoursMondayFrom, 0,-3) : null;
+        $locationMysqlData->hoursMondayTo = !empty($locationMysqlData->hoursMondayTo) ? substr($locationMysqlData->hoursMondayTo, 0,-3) : null;
+        $locationMysqlData->hoursTuesdayFrom = !empty($locationMysqlData->hoursTuesdayFrom) ? substr($locationMysqlData->hoursTuesdayFrom, 0,-3) : null;
+        $locationMysqlData->hoursTuesdayTo = !empty($locationMysqlData->hoursTuesdayTo) ? substr($locationMysqlData->hoursTuesdayTo, 0,-3) : null;
+        $locationMysqlData->hoursWednesdayFrom = !empty($locationMysqlData->hoursWednesdayFrom) ? substr($locationMysqlData->hoursWednesdayFrom, 0,-3) : null;
+        $locationMysqlData->hoursWednesdayTo = !empty($locationMysqlData->hoursWednesdayTo) ? substr($locationMysqlData->hoursWednesdayTo, 0,-3) : null;
+        $locationMysqlData->hoursThursdayFrom = !empty($locationMysqlData->hoursThursdayFrom) ? substr($locationMysqlData->hoursThursdayFrom, 0,-3) : null;
+        $locationMysqlData->hoursThursdayTo = !empty($locationMysqlData->hoursThursdayTo) ? substr($locationMysqlData->hoursThursdayTo, 0,-3) : null;
+        $locationMysqlData->hoursFridayFrom = !empty($locationMysqlData->hoursFridayFrom) ? substr($locationMysqlData->hoursFridayFrom, 0,-3) : null;
+        $locationMysqlData->hoursFridayTo = !empty($locationMysqlData->hoursFridayTo) ? substr($locationMysqlData->hoursFridayTo, 0,-3) : null;
+        $locationMysqlData->hoursSaturdayFrom = !empty($locationMysqlData->hoursSaturdayFrom) ? substr($locationMysqlData->hoursSaturdayFrom, 0,-3) : null;
+        $locationMysqlData->hoursSaturdayTo = !empty($locationMysqlData->hoursSaturdayTo) ? substr($locationMysqlData->hoursSaturdayTo, 0,-3) : null;
+
         return $locationMysqlData;
     }
 }

@@ -283,6 +283,7 @@ final class LocationUpdate
 
         if (isset($locationUpdateData->hours)) {
             $locationUpdateArray['hours'] = !empty($locationUpdateData->hours) ? (array)$locationUpdateData->hours : null;
+            $this->hours($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, $locationUpdateArray['hours']);
         }
 
         if (!empty($locationUpdateArray)) {
@@ -466,5 +467,67 @@ final class LocationUpdate
         }
 
         $locationMysqlUpdated = $this->repository->updateLocationMysqlByLocationId($locationMysqlUpdateArray, $locationMysqlUpdateData);
+    }
+
+    public function hours(string $locationId, int $userId, LocationMysqlData $locationMysqlData, LocationMysqlUpdateData $locationMysqlUpdateData, ?array $hours)
+    {
+        if(isset($hours)){
+            if(isset($hours['monday'])){
+                if(array_key_exists('from', $hours['monday'])){
+                    $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursMondayFrom', $hours['monday']['from']);
+                }
+                if(array_key_exists('to', $hours['monday'])){
+                    $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursMondayTo', $hours['monday']['to']);
+                }
+            }
+            if(isset($hours['tuesday'])){
+                if(array_key_exists('from', $hours['tuesday'])){
+                    $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursTuesdayFrom', $hours['tuesday']['from']);
+                }
+                if(array_key_exists('to', $hours['tuesday'])){
+                    $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursTuesdayTo', $hours['tuesday']['to']);
+                }
+            }
+            if(isset($hours['wednesday'])){
+                if(array_key_exists('from', $hours['wednesday'])){
+                    $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursWednesdayFrom', $hours['wednesday']['from']);
+                }
+                if(array_key_exists('to', $hours['wednesday'])){
+                    $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursWednesdayTo', $hours['wednesday']['to']);
+                }
+            }
+            if(isset($hours['thursday'])){
+                if(array_key_exists('from', $hours['thursday'])){
+                    $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursThursdayFrom', $hours['thursday']['from']);
+                }
+                if(array_key_exists('to', $hours['thursday'])){
+                    $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursThursdayTo', $hours['thursday']['to']);
+                }
+            }
+            if(isset($hours['friday'])){
+                if(array_key_exists('from', $hours['friday'])){
+                    $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursFridayFrom', $hours['friday']['from']);
+                }
+                if(array_key_exists('to', $hours['friday'])){
+                    $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursFridayTo', $hours['friday']['to']);
+                }
+            }
+            if(isset($hours['saturday'])){
+                if(array_key_exists('from', $hours['saturday'])){
+                    $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursSaturdayFrom', $hours['saturday']['from']);
+                }
+                if(array_key_exists('to', $hours['saturday'])){
+                    $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursSaturdayTo', $hours['saturday']['to']);
+                }
+            }
+            if(isset($hours['sunday'])){
+                if(array_key_exists('from', $hours['sunday'])){
+                    $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursSundayFrom', $hours['sunday']['from']);
+                }
+                if(array_key_exists('to', $hours['sunday'])){
+                    $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursSundayTo', $hours['sunday']['to']);
+                }
+            }
+        }
     }
 }

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import slugify from 'react-slugify'
+import slug from 'slug'
 import { Country, State, City } from 'country-state-city';
 
 const locationNotFound = () => {
@@ -23,7 +23,7 @@ export const getLocationUrl = (url, locationId, locationTitle) => {
       // console.log(res);
       // console.log(res.data);
 
-      const urlslug = slugify(
+      const urlslug = slug(
         res.data.name
         + " " +
         res.data.address
@@ -93,7 +93,7 @@ export const getLocationSearch = (url, q) => {
 
 export const getLocationSlugUrl = (locationId, location) => {
 
-  const urlslug = slugify(
+  const urlslug = slug(
     location.name
     + " " +
     location.address

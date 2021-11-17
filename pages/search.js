@@ -1,6 +1,7 @@
 import { signIn, signOut, useSession } from 'next-auth/client';
 import Head from "next/head";
 import { useRouter } from 'next/router';
+import { NextSeo } from 'next-seo';
 
 import React from "react";
 // nodejs library that concatenates classes

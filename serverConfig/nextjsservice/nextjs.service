@@ -1,0 +1,16 @@
+[Unit]
+Description=locationbit.com app
+
+[Service]
+ExecStart=npm run start
+Restart=always
+User=root
+Group=root
+Environment=PATH=/usr/bin:/usr/local/bin
+Environment=NODE_ENV=production
+WorkingDirectory=/var/www/locationbit.com
+StandardOutput=append:/var/log/www/locationbit.com/common.log
+StandardError=inherit
+
+[Install]
+WantedBy=multi-user.target

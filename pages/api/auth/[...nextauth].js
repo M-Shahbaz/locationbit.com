@@ -62,10 +62,10 @@ export default NextAuth({
     //   clientId: process.env.MICROSOFT_ID,
     //   clientSecret: process.env.MICROSOFT_SECRET,
     // },
-    Providers.GitHub({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
-    }),
+    // Providers.GitHub({
+    //   clientId: process.env.GITHUB_ID,
+    //   clientSecret: process.env.GITHUB_SECRET,
+    // }),
     // Providers.Auth0({
     //   clientId: process.env.AUTH0_ID,
     //   clientSecret: process.env.AUTH0_SECRET,

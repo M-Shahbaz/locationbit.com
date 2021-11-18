@@ -59,6 +59,7 @@ final class LocationUpdateAction
         $locationUpdateData->updatedBy = $jwtUserData->userId;
 
         try {
+            throw new UnexpectedValueException("Under development!");
 
             //Throwing excemption
             $locationUpdateData->validate();

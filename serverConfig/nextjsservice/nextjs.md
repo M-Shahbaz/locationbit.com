@@ -13,3 +13,6 @@ tail -f /var/log/www/locationbit.com/common.log
 cd /var/www/locationbit.com
 git pull origin
 M-Shahbaz
+systemctl stop nextjs
+npm run build
+systemctl start nextjs

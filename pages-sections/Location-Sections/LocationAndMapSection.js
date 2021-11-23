@@ -15,19 +15,14 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-// @material-ui/icons
-import LocationOnIcon from '@material-ui/icons/LocationOn';
 // core components
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 
 import styles from "styles/jss/nextjs-material-kit/pages/landingPageSections/productStyle.js";
 
-import InfoArea from "components/InfoArea/InfoArea.js";
-import Chat from "@material-ui/icons/Chat";
-import LocationGridItem from "../../components/Location/LocationGridItem";
-import LocationGridItemWebsite from "../../components/Location/LocationGridItemWebsite";
-import LocationTableRow from "../../components/Location/LocationTableRow";
+
+import LocationTableRow from "../../components/Location/LocationTableRowSEO";
 import LocationMapContext from './../../store/LocationMapContext'
 import LocationMapEdit from './../../components/Location/LocationMapEdit';
 
@@ -40,7 +35,7 @@ import axios from 'axios';
 import Loading from '../../components/Loading/Loading';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { ucfirst } from './../../utility/FunctionsService';
+
 import { getLocationSlugUrl, getLocationCommaTrimName } from 'utility/LocationService.js';
 
 const useStyles = makeStyles(styles);
@@ -88,7 +83,7 @@ export default function LocationAndMapSection(props) {
   // const { location } = props;
   const location = useSelector((state) => state.location);
   const [session, loading] = useSession();
-  const editTrue = session ? true : false;
+  const editTrue = false; // session ? true : false;
 
   const [loadingModal, setLoadingModal] = React.useState(false);
   const [mapState, dispatchMap] = useReducer(mapReducer, {
@@ -264,11 +259,11 @@ export default function LocationAndMapSection(props) {
                       tableRowValue={location.telegram}
                       edit={editTrue}
                     />
-                    <LocationTableRow
+                    {/* <LocationTableRow
                       locationId={location.id}
                       tableRowValue="timezones"
                       tableRowName="timezones"
-                    />
+                    /> */}
                     <LocationTableRow
                       locationId={location.id}
                       tableRowName="classification"
@@ -297,7 +292,7 @@ export default function LocationAndMapSection(props) {
                   lon={location.lon}
                   popup={props.headTitle}
                 />
-                <LocationMapEdit edit={true} />
+                <LocationMapEdit edit={editTrue} />
               </LocationMapContext.Provider>
               {location.similarLocations && location.similarLocations.results &&
                 <TableContainer component={Paper}>

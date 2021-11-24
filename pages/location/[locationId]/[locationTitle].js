@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import { useRouter } from 'next/router';
 import { signIn, signOut, useSession, getSession } from 'next-auth/client';
-import { getLocationUrl } from 'utility/LocationService.js';
+import { getLocationUrl, getLocationCommaTrimName } from 'utility/LocationService.js';
 import { leafletLibrary } from 'utility/Libraries.js';
 
 import NoSsr from '@material-ui/core/NoSsr';
@@ -43,7 +43,7 @@ const locationTitle = (props) => {
     });
   locationDispatch();
 
-  const headTitle = location.name + ", " + location.address + ", " + location.city + ", " + location.state + ", " + location.country;
+  const headTitle = getLocationCommaTrimName([location.name , location.address , location.city , location.state , location.country]);
 
   // When rendering client side don't display anything until loading is complete
   if (typeof window !== 'undefined' && loading) return <></>;

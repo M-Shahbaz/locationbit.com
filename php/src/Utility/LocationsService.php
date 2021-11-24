@@ -37,7 +37,7 @@ class LocationsService
         $address = [
             isset($row->street['en']) ? $row->street['en'] : ($row->street['default'] ?? null),
             isset($row->district['en']) ? $row->district['en'] : ($row->district['default'] ?? null),
-            isset($row->county) ? $row->county : null
+            isset($row->county['en']) ? $row->county['en'] : ($row->county['default'] ?? null),
         ];
         $locationData->address = @implode(", ", @array_filter($address));
 

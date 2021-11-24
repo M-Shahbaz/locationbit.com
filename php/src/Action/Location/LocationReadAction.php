@@ -33,7 +33,7 @@ final class LocationReadAction
 
             $result = [
                 'id' => $locationData->id,
-                'osm_id' => $locationData->osm_id,
+                // 'osm_id' => $locationData->osm_id,
                 'country' => $locationData->country,
                 'countryDefault' => $locationData->countryDefault,
                 'lat' => $locationData->lat,

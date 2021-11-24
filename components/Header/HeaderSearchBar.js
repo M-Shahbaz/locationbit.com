@@ -33,7 +33,7 @@ export default function HeaderSearchBar(props) {
   const router = useRouter()
   
   const handleSearchBar = (searchValue) => {
-    console.log(searchValue);
+    //console.log(searchValue);
     if(searchValue){
       router.push("/search?q="+searchValue);
     }

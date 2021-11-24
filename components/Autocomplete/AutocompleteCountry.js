@@ -55,7 +55,7 @@ const AutocompleteCountry = props => {
 
   const countryChangeHandler = (event, value) => {
     if(value){
-      console.log(value);
+      //console.log(value);
       props.onChangeCountryHandler(value);
     }else{
       props.onChangeCountryHandler(null);
@@ -67,7 +67,7 @@ const AutocompleteCountry = props => {
   let defaultCountryIndex;
   if(props.defaultCountry){
     defaultCountryIndex = countries.findIndex(c => c.isoCode == props.defaultCountry);
-    console.log(defaultCountryIndex);
+    //console.log(defaultCountryIndex);
     // props.onChangeCountryHandler(countries[defaultCountryIndex]);
   }
 

@@ -107,7 +107,7 @@ export default function LocationAndMapSection(props) {
     locationUpdateData = mapState.position;
     axios.post(`/api/location/${location.id}/update`, locationUpdateData)
       .then(res => {
-        console.log(res);
+        // console.log(res);
         // console.log(res.data);
         if (res.data.success === "updated") {
           toast.success("updated!", {
@@ -121,7 +121,7 @@ export default function LocationAndMapSection(props) {
           setLoadingModal(false);
         }
       }).catch(error => {
-        console.log(error);
+        // console.log(error);
         toast.error("Oops! something went wrong..." + (error.response.data && error.response.data.error && error.response.data.error), {
           position: "bottom-center",
         });

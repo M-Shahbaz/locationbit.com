@@ -57,11 +57,11 @@ const AutocompleteCountryPhone = React.forwardRef((props, ref) => {
   let defaultCountryIndex;
   const findCountry = useCallback((code) => {
     defaultCountryIndex = countries.findIndex(c => c.isoCode == code);
-    console.log("Memo: "+ defaultCountryIndex);
+    //console.log("Memo: "+ defaultCountryIndex);
     return defaultCountryIndex;
   }, []);
   if(props.defaultCountry){
-    console.log("props.defaultCountry"+props.defaultCountry);
+    //console.log("props.defaultCountry"+props.defaultCountry);
     defaultCountryIndex = useMemo(() => findCountry(props.defaultCountry), [props.defaultCountry])
   }
 

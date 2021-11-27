@@ -1,6 +1,5 @@
 import { useSession } from 'next-auth/client';
 import { useRouter } from 'next/router'
-import CookieConsent from "react-cookie-consent";
 
 import React from "react";
 // @material-ui/core components
@@ -47,7 +46,6 @@ export default function HeaderLayout(props) {
         }}
         {...rest}
       />
-      <CookieConsent>This website uses cookies to enhance the user experience.</CookieConsent>
     </>
   );
 }

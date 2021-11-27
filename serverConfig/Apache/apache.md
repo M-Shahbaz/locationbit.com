@@ -32,3 +32,7 @@ nano /etc/apache2/sites-available/locationbit.com.conf
         ProxyPass /api !
         ProxyPass / http://localhost:3000/
         ProxyPassReverse / http://localhost:3000/
+
+
+[server-conf]
+    nano /etc/apache2/mods-available/mpm_prefork.conf

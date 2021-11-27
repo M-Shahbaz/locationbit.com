@@ -8,6 +8,7 @@ import classNames from "classnames";
 // material-ui core components
 import { List, ListItem } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import CookieConsent from "react-cookie-consent";
 
 // @material-ui/icons
 import Favorite from "@material-ui/icons/Favorite";
@@ -28,6 +29,8 @@ export default function Footer(props) {
     [classes.footerWhiteFont]: whiteFont,
   });
   return (
+    <>
+    <CookieConsent>This website uses cookies to enhance the user experience.</CookieConsent>
     <footer className={footerClasses}>
       <div className={classes.container}>
         <div className={classes.left}>
@@ -70,6 +73,7 @@ export default function Footer(props) {
         </div>
       </div>
     </footer>
+    </>
   );
 }
 

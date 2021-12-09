@@ -48,7 +48,7 @@ const LocationTableRow = props => {
   const nationalIndustryIndustry = naics.Industry.from(location.nationalIndustry);
 
   const timezones = Country.getCountryByCode(location.countrycode).timezones;
-  console.log(timezones);
+  // console.log(timezones);
 
   const trimmedTableRowValue = (props.tableRowName != 'address' && props.tableRowValue) ? truncate(props.tableRowValue, 40) : props.tableRowValue;
 

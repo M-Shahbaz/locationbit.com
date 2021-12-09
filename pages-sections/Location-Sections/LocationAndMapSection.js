@@ -22,7 +22,7 @@ import GridItem from "components/Grid/GridItem.js";
 import styles from "styles/jss/nextjs-material-kit/pages/landingPageSections/productStyle.js";
 
 
-import LocationTableRow from "../../components/Location/LocationTableRowSEO";
+import LocationTableRow from "../../components/Location/LocationTableRow";
 import LocationMapContext from './../../store/LocationMapContext'
 import LocationMapEdit from './../../components/Location/LocationMapEdit';
 
@@ -83,7 +83,7 @@ export default function LocationAndMapSection(props) {
   // const { location } = props;
   const location = useSelector((state) => state.location);
   const [session, loading] = useSession();
-  const editTrue = false; // session ? true : false;
+  const editTrue = session ? true : false;
 
   const [loadingModal, setLoadingModal] = React.useState(false);
   const [mapState, dispatchMap] = useReducer(mapReducer, {
@@ -259,11 +259,11 @@ export default function LocationAndMapSection(props) {
                       tableRowValue={location.telegram}
                       edit={editTrue}
                     />
-                    {/* <LocationTableRow
+                    <LocationTableRow
                       locationId={location.id}
                       tableRowValue="timezones"
                       tableRowName="timezones"
-                    /> */}
+                    />
                     <LocationTableRow
                       locationId={location.id}
                       tableRowName="classification"

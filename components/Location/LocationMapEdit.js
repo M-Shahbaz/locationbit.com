@@ -10,7 +10,7 @@ const useStyles = makeStyles(styles);
 const LocationMapEdit = props => {
   const classes = useStyles();
   const ctx = useContext(LocationMapContext);
-  console.log(ctx);
+  // console.log(ctx);
   const [editIconClass, setEditIconClass] = useState(classes.hide);
 
   const preventDefault = useCallback((e) => {

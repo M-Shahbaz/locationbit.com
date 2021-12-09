@@ -14,6 +14,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import RoomIcon from '@material-ui/icons/Room';
 
 // core components
 import GridContainer from "components/Grid/GridContainer.js";
@@ -84,6 +85,7 @@ export default function LocationAndMapSection(props) {
   const location = useSelector((state) => state.location);
   const [session, loading] = useSession();
   const editTrue = session ? true : false;
+  const googleMapsPlaceLink = "https://www.google.com/maps/place/" + location.lat + "," +location.lon;
 
   const [loadingModal, setLoadingModal] = React.useState(false);
   const [mapState, dispatchMap] = useReducer(mapReducer, {
@@ -287,6 +289,9 @@ export default function LocationAndMapSection(props) {
                 onMapChange: onMapChangeHandler,
                 onMapSave: onMapSaveHandler
               }}>
+                <div>
+                  <a href={googleMapsPlaceLink} target="_blank"><RoomIcon />Goto google maps</a>
+                </div>
                 <MapDraggable
                   lat={location.lat}
                   lon={location.lon}

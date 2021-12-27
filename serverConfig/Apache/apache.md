@@ -25,6 +25,8 @@ nano /etc/apache2/sites-available/locationbit.com.conf
 
     <Proxy *>
         Require all granted
+        Require all denied
+        Require ip 127.0.0.1 185.209.229.26 173.245.48.0/20 103.21.244.0/22 103.22.200.0/22 103.31.4.0/22 141.101.64.0/18 108.162.192.0/18 190.93.240.0/20 188.114.96.0/20 197.234.240.0/22 198.41.128.0/17 162.158.0.0/15 104.16.0.0/13 104.24.0.0/14 172.64.0.0/13 131.0.72.0/22
 	</Proxy>
         ProxyRequests On
         ProxyPass /adminer !
@@ -33,6 +35,10 @@ nano /etc/apache2/sites-available/locationbit.com.conf
         ProxyPass / http://localhost:3000/
         ProxyPassReverse / http://localhost:3000/
 
+        <RequireAll>
+            Require all denied
+            Require ip 127.0.0.1 185.209.229.26 173.245.48.0/20 103.21.244.0/22 103.22.200.0/22 103.31.4.0/22 141.101.64.0/18 108.162.192.0/18 190.93.240.0/20 188.114.96.0/20 197.234.240.0/22 198.41.128.0/17 162.158.0.0/15 104.16.0.0/13 104.24.0.0/14 172.64.0.0/13 131.0.72.0/22
+        </RequireAll>
 
 [server-conf]
     nano /etc/apache2/mods-available/mpm_prefork.conf

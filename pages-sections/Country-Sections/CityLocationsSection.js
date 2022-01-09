@@ -91,25 +91,27 @@ export default function CityLocationsSection(props) {
                 </TableBody>
               </Table>
             </TableContainer>
-            <TableContainer component={Paper}>
-              <Table>
-                <TableBody>
-                  <TableRow>
-                    <TableCell>
-                      {previousPage > 0 && <Link href={props.cityPaginationUrl + previousPage} passHref>
-                        <a><NavigateBeforeIcon /> Previous page</a>
-                      </Link>
-                      }
-                    </TableCell>
-                    <TableCell>
-                      <Link href={props.cityPaginationUrl + nextPage} passHref>
-                        <a>Next page <NavigateNextIcon /> </a>
-                      </Link>
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </TableContainer>
+            {locations && locations.results &&
+              <TableContainer component={Paper}>
+                <Table>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>
+                        {previousPage > 0 && <Link href={props.cityPaginationUrl + previousPage} passHref>
+                          <a><NavigateBeforeIcon /> Previous page</a>
+                        </Link>
+                        }
+                      </TableCell>
+                      <TableCell>
+                        <Link href={props.cityPaginationUrl + nextPage} passHref>
+                          <a>Next page <NavigateNextIcon /> </a>
+                        </Link>
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            }
           </GridItem>
         </GridContainer>
       </div>

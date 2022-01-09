@@ -17,7 +17,7 @@ export { locationNotFound };
 
 export const getLocationUrl = (url, locationId, locationTitle) => {
   // console.log(url);
-  return axios.get(url)
+  return axios.get(encodeURI(url))
     .then(res => {
       // console.log(res);
       // console.log(res.data);
@@ -69,13 +69,13 @@ export const getLocationUrl = (url, locationId, locationTitle) => {
 
 export const getLocationSearch = (url, q) => {
   // console.log(url);
-  return axios.get(url, {
+  return axios.get(encodeURI(url), {
     data: {
       q: q
     }
   }).then(res => {
-    // console.log(res);
-    // console.log(res.data);
+    console.log(res);
+    console.log(res.data);
 
     return {
       props: {
@@ -84,6 +84,7 @@ export const getLocationSearch = (url, q) => {
     };
 
   }).catch(error => {
+    // console.log(error);
     if (error.response) {
       return locationNotFound();
       // console.log(error.response.data.error);

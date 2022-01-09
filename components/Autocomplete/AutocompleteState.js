@@ -45,7 +45,7 @@ const AutocompleteState = props => {
 
   const stateChangeHandler = (event, value) => {
     if(value){
-      console.log(value);
+      // console.log(value);
       props.onChangeStateHandler(value);
     }else{
       props.onChangeStateHandler(null);

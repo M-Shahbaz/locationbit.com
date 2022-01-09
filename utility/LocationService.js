@@ -74,8 +74,8 @@ export const getLocationSearch = (url, q) => {
       q: q
     }
   }).then(res => {
-    console.log(res);
-    console.log(res.data);
+    // console.log(res);
+    // console.log(res.data);
 
     return {
       props: {

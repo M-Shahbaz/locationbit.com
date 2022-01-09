@@ -21,7 +21,7 @@ const defaultMaterialTheme = createMuiTheme({
 
 const LocationHoursPicker = props => {
   const ctx = useContext(LocationModalHoursContext);
-  console.log(ctx);
+  // console.log(ctx);
   const getTimeDateFormat = (t) => {
     const time = t;
     const d = new Date();

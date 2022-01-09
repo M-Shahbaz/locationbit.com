@@ -42,20 +42,20 @@ export default function LocationAddSection() {
   // }, selectedCountry);
 
   const countryHandler = (country) => {
-    console.log("786/92");
-    console.log(country);
+    // console.log("786/92");
+    // console.log(country);
     setSelectedCountry(country);
   };
 
   const stateHandler = (state) => {
-    console.log("state");
-    console.log(state);
+    // console.log("state");
+    // console.log(state);
     setSelectedState(state);
   };
 
   const cityHandler = (city) => {
-    console.log("city");
-    console.log(city);
+    // console.log("city");
+    // console.log(city);
     setSelectedCity(city);
   };
 

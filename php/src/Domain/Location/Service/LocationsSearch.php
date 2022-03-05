@@ -39,4 +39,25 @@ final class LocationsSearch
         }
         return $results;
     }
+
+    public function allLocations(LocationsSearchData $locationsSearchData): array
+    {
+        $locationsSearch = $this->repository->allLocations($locationsSearchData);
+
+        $results = [];
+        if (isset($locationsSearch['hits'])) {
+            $results['total'] = $locationsSearch['hits']['total'];
+        }
+
+
+        foreach ((array)$locationsSearch['hits']['hits'] as $key => $r) {
+            $r = (object)$r;
+            
+            $row = (object)$r->_source;
+            $row->id = $r->_id;
+            
+            $results['results'][] = LocationsService::returnLocationData($row);
+        }
+        return $results;
+    }
 }

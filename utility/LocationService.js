@@ -36,8 +36,8 @@ export const getLocationUrl = (url, locationId, locationTitle) => {
         )
       );
       // console.log(locationId);
-      if (locationId == res.data.id && ((locationTitle == null) || (locationTitle != null && locationTitle != urlslug))) {
-        const url = "/location/" + res.data.id + "/" + urlslug;
+      if (locationId == res.data.id && ((locationTitle == null) || (locationTitle != null && locationTitle != res.data.slug))) {
+        const url = "/location/" + res.data.id + "/" + res.data.slug;
 
         // console.log(url);
 
@@ -74,8 +74,8 @@ export const getLocationSearch = (url, q) => {
       q: q
     }
   }).then(res => {
-    console.log(res);
-    console.log(res.data);
+    // console.log(res);
+    // console.log(res.data);
 
     return {
       props: {
@@ -108,6 +108,8 @@ export const getLocationSlugUrl = (locationId, location) => {
       location.country
     )
   );
+
+  const locationSlug = location.slug ?? urlslug;
 
   const url = "/location/" + locationId + "/" + urlslug;
   // console.log(url);

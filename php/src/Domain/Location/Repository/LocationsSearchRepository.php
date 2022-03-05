@@ -47,4 +47,28 @@ class LocationsSearchRepository
         return $results;
     }
 
+
+    public function allLocations(LocationsSearchData $filter): array
+    {
+
+        try {
+            $params = [
+                'index' => 'locations',
+                'body'  => [
+                    'size' => $filter->limit,
+                    'from' => $filter->offset,
+                    'query' => [
+                        "match_all" => (object)[]
+                    ],
+                    'track_total_hits' => true
+                ]
+            ];
+
+            $results = $this->client->search($params);
+        } catch (\Throwable $th) {
+            throw new DomainException($th->getMessage());
+        }
+
+        return $results;
+    }
 }

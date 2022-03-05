@@ -7,7 +7,7 @@ use App\Domain\Location\Data\LocationData;
 /**
  * Summary of _functions
  */
-class LocationsService 
+class LocationsService
 {
 
     public static function returnLocationData($row): LocationData
@@ -67,8 +67,20 @@ class LocationsService
         $locationData->nationalIndustry = isset($row->nationalIndustry) ? $row->nationalIndustry : null;
         $locationData->hours = isset($row->hours) ? $row->hours : null;
 
-        return $locationData;   
+
+
+        $slugRaw  =  ($locationData->name ?? null)
+            . " " .
+            ($locationData->address ?? null)
+            . " " .
+            ($locationData->city ?? null)
+            . " " .
+            ($locationData->state ?? null)
+            . " " .
+            ($locationData->country ?? null);
+
+        $locationData->slug = \Illuminate\Support\Str::slug($slugRaw);
+        
+        return $locationData;
     }
-
 }
-

@@ -141,4 +141,7 @@ final class LocationData
 
     /** @var array */
     public $nearbyLocations;
+
+    /** @var array */
+    public $slug;
 }

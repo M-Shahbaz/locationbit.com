@@ -77,6 +77,7 @@ final class LocationReadAction
                 
                 'similarLocations' => $locationData->similarLocations,
                 'nearbyLocations' => $locationData->nearbyLocations,
+                'slug' => $locationData->slug,
             ];
 
             $statusCode = 200;

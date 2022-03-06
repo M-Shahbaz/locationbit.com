@@ -16,29 +16,7 @@ const locationNotFound = () => {
 export { locationNotFound };
 
 export const getLocationUrl = (url, locationId, locationTitle) => {
-  console.log(url);
-  axios.interceptors.request.use(function (config) {
-    // Do something before request is sent
-   //get parameter encoding
-    if (config.method ==='get' && config.params) {
-      url +='?'
-      let keys = Object .keys(config.params)
-      for (let key of keys) {
-        url += `${key}=${encodeURIComponent(config.params[key])}&`
-      }
-      url = url.substring(0, url.length -1)
-      config.params = {}
-    }
-    config.url = url
-    console.log("config.url");
-    console.log(config.url);
-
-    return config;
-  }, function (error) {
-    // Do something with request error
-    return Promise.reject(error);
-  });
-
+  // console.log(url);
   return axios.get(url)
     .then(res => {
       // console.log(res);
@@ -82,8 +60,9 @@ export const getLocationUrl = (url, locationId, locationTitle) => {
       }
 
     }).catch(error => {
+      // console.log(error);
       if (error.response) {
-        console.log(error.response);
+        // console.log(error.response);
         return locationNotFound();
       }
     });

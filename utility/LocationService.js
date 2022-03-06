@@ -16,7 +16,7 @@ const locationNotFound = () => {
 export { locationNotFound };
 
 export const getLocationUrl = (url, locationId, locationTitle) => {
-  // console.log(url);
+  console.log(url);
   return axios.get(url)
     .then(res => {
       // console.log(res);

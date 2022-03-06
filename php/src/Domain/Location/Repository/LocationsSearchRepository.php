@@ -53,6 +53,7 @@ class LocationsSearchRepository
 
         try {
             $params = [
+                'scroll' => '1m',
                 'index' => 'locations',
                 'body'  => [
                     'size' => $filter->limit,
@@ -65,6 +66,25 @@ class LocationsSearchRepository
             ];
 
             $results = $this->client->search($params);
+        } catch (\Throwable $th) {
+            throw new DomainException($th->getMessage());
+        }
+
+        return $results;
+    }
+
+    public function scroll(string $scroll_id): array
+    {
+
+        try {
+            $params = [
+                'body' => [
+                    'scroll_id' => $scroll_id,
+                    'scroll' => '1m'
+                ]
+            ];
+
+            $results = $this->client->scroll($params);
         } catch (\Throwable $th) {
             throw new DomainException($th->getMessage());
         }

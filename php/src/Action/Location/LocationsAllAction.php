@@ -4,6 +4,7 @@ namespace App\Action\Location;
 
 use App\Domain\Location\Data\LocationsSearchData;
 use App\Domain\Location\Service\LocationsSearch;
+use App\Domain\Sitemap\Service\SitemapCreator;
 use App\Utility\CastService;
 use DomainException;
 use LogicException;
@@ -16,28 +17,32 @@ final class LocationsAllAction
 {
     private $locationsSearch;
     private $loggerInterface;
+    private $sitemapCreator;
 
     public function __construct(
         LocationsSearch $locationsSearch,
-        LoggerInterface $loggerInterface
+        LoggerInterface $loggerInterface,
+        SitemapCreator $sitemapCreator
     ) {
         $this->locationsSearch = $locationsSearch;
         $this->loggerInterface = $loggerInterface;
+        $this->sitemapCreator = $sitemapCreator;
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args = []): ResponseInterface
     {
 
         $locationsSearchData = new LocationsSearchData();
-        $locationsSearchData->limit = 10000;
+        $locationsSearchData->limit = 100;
         $locationsSearchData->offset = 0;
 
 
         try {
 
-            $locationsSearch = $this->locationsSearch->allLocations($locationsSearchData);
-
-            $result = $locationsSearch;
+            // $locationsSearch = $this->locationsSearch->allLocations($locationsSearchData);
+            // $result = $locationsSearch;
+            $this->sitemapCreator->createSitemap();
+            $result = 1;
             $statusCode = 200;
         } catch (UnexpectedValueException $un) {
             $result = [

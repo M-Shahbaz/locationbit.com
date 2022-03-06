@@ -45,6 +45,34 @@ final class LocationsSearch
         $locationsSearch = $this->repository->allLocations($locationsSearchData);
 
         $results = [];
+        if (isset($locationsSearch['_scroll_id'])) {
+            $results['_scroll_id'] = $locationsSearch['_scroll_id'];
+        }
+        if (isset($locationsSearch['hits'])) {
+            $results['total'] = $locationsSearch['hits']['total'];
+        }
+
+
+        foreach ((array)$locationsSearch['hits']['hits'] as $key => $r) {
+            $r = (object)$r;
+            
+            $row = (object)$r->_source;
+            $row->id = $r->_id;
+            
+            $results['results'][] = LocationsService::returnLocationData($row);
+        }
+        return $results;
+    }
+
+    public function scroll(string $scroll_id): array
+    {
+        $locationsSearch = $this->repository->scroll($scroll_id);
+
+        $results = [];
+        if (isset($locationsSearch['_scroll_id'])) {
+            $results['_scroll_id'] = $locationsSearch['_scroll_id'];
+        }
+
         if (isset($locationsSearch['hits'])) {
             $results['total'] = $locationsSearch['hits']['total'];
         }

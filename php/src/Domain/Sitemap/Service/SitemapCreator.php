@@ -4,6 +4,7 @@ namespace App\Domain\Sitemap\Service;
 
 use App\Domain\Location\Data\LocationsSearchData;
 use App\Domain\Location\Service\LocationsSearch;
+use App\Utility\FunctionsService;
 
 /**
  * Service.
@@ -19,6 +20,8 @@ final class SitemapCreator
 
     public function createSitemap()
     {
+
+        // FunctionsService::noTimeAndMemoryLimit();
 
         $yourSiteUrl = 'https://locationbit.com';
         $outputDir = TEMP_FOLDER;
@@ -55,7 +58,11 @@ final class SitemapCreator
         while (isset($locationsSearch['results']) && !empty($locationsSearch['results'])) {
 
             foreach ($locationsSearch['results'] as $key => $row) {
-                $generator->addURL("/location/" . $row->id . "/" . $row->slug);
+                // if (strpos($row->id, '/') !== false) {
+                //     var_dump($row);
+                //     exit;
+                // }                
+                $generator->addURL("/location/" . ($row->id) . "/" . ($row->slug));
             }
 
             $scroll_id = $locationsSearch['_scroll_id'];

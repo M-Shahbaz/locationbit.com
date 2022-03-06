@@ -23,6 +23,7 @@ nano /etc/apache2/sites-available/locationbit.com.conf
         ProxyPass /api http://localhost:1212/api
         ProxyPassReverse /api http://localhost:1212/api
 
+    AllowEncodedSlashes NoDecode
     <Proxy *>
         Require all granted
         Require all denied
@@ -32,8 +33,8 @@ nano /etc/apache2/sites-available/locationbit.com.conf
         ProxyPass /adminer !
         ProxyPass /api/auth http://localhost:3000/api/auth
         ProxyPass /api !
-        ProxyPass / http://localhost:3000/
-        ProxyPassReverse / http://localhost:3000/
+        ProxyPass / http://localhost:3000/ nocanon
+        ProxyPassReverse / http://localhost:3000/ nocanon
 
         <RequireAll>
             Require all denied

@@ -27,6 +27,12 @@ final class LocationReadAction
     {
         $locationId = (string)$args['id'];
 
+        $data = (array)$request->getQueryParams();
+
+        if (!isset($data['id'])) {
+            $locationId = base64_decode($locationId);
+        }
+
         try {
 
             $locationData = $this->locationReader->getLocationByIdWithSimilarAndNearByLocations($locationId);
@@ -74,7 +80,7 @@ final class LocationReadAction
                 'naicsIndustry' => (string)$locationData->naicsIndustry,
                 'nationalIndustry' => (string)$locationData->nationalIndustry,
                 'hours' => $locationData->hours,
-                
+
                 'similarLocations' => $locationData->similarLocations,
                 'nearbyLocations' => $locationData->nearbyLocations,
                 'slug' => $locationData->slug,

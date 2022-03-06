@@ -88,7 +88,7 @@ export async function getServerSideProps(context) {
   const locationId = params.locationId;
   const locationTitle = params.locationTitle;
   // fetch data from an api
-  return await getLocationUrl('/api/server/location/' + Buffer(locationId).toString('base64'), encodeURIComponent(locationId), locationTitle).then(response => {
+  return await getLocationUrl('/api/server/location/' + Buffer.from(locationId).toString('base64'), encodeURIComponent(locationId), locationTitle).then(response => {
     return response;
   });
 

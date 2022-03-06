@@ -17,7 +17,7 @@ export async function getServerSideProps(context) {
   const { params } = context;
   const locationId = params.locationId;
   // fetch data from an api
-  return await getLocationUrl('/api/server/location/' + locationId, locationId, null).then( response => {
+  return await getLocationUrl('/api/server/location/' + encodeURIComponent(locationId), locationId, null).then( response => {
     return response;
   });    
 }

@@ -17,7 +17,11 @@ export { locationNotFound };
 
 export const getLocationUrl = (url, locationId, locationTitle) => {
   console.log(url);
-  return axios.get(url)
+  return axios.get(url, {
+    params: {
+      foo: 'bar'
+    }
+  })
     .then(res => {
       // console.log(res);
       // console.log(res.data);

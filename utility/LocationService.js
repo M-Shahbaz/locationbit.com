@@ -65,8 +65,8 @@ export const getLocationUrl = (url, locationId, locationTitle) => {
 
     }).catch(error => {
       if (error.response) {
+        console.log(error.response);
         return locationNotFound();
-        // console.log(error.response.data.error);
       }
     });
 }

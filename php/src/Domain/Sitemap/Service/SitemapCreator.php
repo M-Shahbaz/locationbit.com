@@ -29,7 +29,7 @@ final class SitemapCreator
         $generator = new \Icamys\SitemapGenerator\SitemapGenerator($yourSiteUrl, $outputDir);
 
         // Create a compressed sitemap
-        $generator->enableCompression();
+        // $generator->enableCompression();
 
         // Determine how many urls should be put into one file;
         // this feature is useful in case if you have too large urls
@@ -39,14 +39,14 @@ final class SitemapCreator
         $generator->setMaxUrlsPerSitemap(50000);
 
         // Set the sitemap file name
-        $generator->setSitemapFileName("sitemap.xml");
+        $generator->setSitemapFileName("sitemap-locations.xml");
 
         // Set the sitemap index file name
-        $generator->setSitemapIndexFileName("sitemap-index.xml");
+        $generator->setSitemapIndexFileName("sitemap-locations-index.xml");
 
-        $generator->addURL("/");
-        $generator->addURL("/country");
-        $generator->addURL("/search?q=Pakistan");
+        // $generator->addURL("/");
+        // $generator->addURL("/country");
+        // $generator->addURL("/search?q=Pakistan");
 
 
         $locationsSearchData = new LocationsSearchData();

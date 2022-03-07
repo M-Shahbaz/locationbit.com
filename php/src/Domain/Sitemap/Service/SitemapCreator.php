@@ -29,7 +29,7 @@ final class SitemapCreator
         $generator = new \Icamys\SitemapGenerator\SitemapGenerator($yourSiteUrl, $outputDir);
 
         // Create a compressed sitemap
-        // $generator->enableCompression();
+        $generator->enableCompression();
 
         // Determine how many urls should be put into one file;
         // this feature is useful in case if you have too large urls

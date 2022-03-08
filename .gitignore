@@ -25,6 +25,8 @@ _init*
 !/php/logs/empty
 
 #public/*
+/public/*.xml
+/public/*.gz
 !public/api
 !/public/.htaccess
 php/src/Action/Home/HomeRoutesAction.php

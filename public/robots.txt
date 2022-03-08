@@ -4,3 +4,5 @@ Disallow: /api
 
 User-agent: *
 Allow: /
+
+Sitemap: https://locationbit.com/sitemap.xml

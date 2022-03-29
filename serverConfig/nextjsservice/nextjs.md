@@ -7,6 +7,7 @@ systemctl start nextjs
 systemctl restart nextjs
 systemctl stop nextjs
 
+echo "" > /var/log/www/locationbit.com/common.log
 tail -f /var/log/www/locationbit.com/common.log
 
 [git]

@@ -197,6 +197,16 @@ export default function LocationAndMapSection(props) {
                     />
                     <LocationTableRow
                       locationId={location.id}
+                      tableRowName="latitude"
+                      tableRowValue={location.lat}
+                    />
+                    <LocationTableRow
+                      locationId={location.id}
+                      tableRowName="longitude"
+                      tableRowValue={location.lon}
+                    />
+                    <LocationTableRow
+                      locationId={location.id}
                       tableRowName="website"
                       tableRowValue={location.website}
                       edit={editTrue}

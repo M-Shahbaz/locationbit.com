@@ -99,10 +99,12 @@ const LocationTableRow = props => {
                   <TableBody>
                     {timezones.map((tz) => (
                       <>
-                        <TableRow key={tz.gmtOffset}>
+                        <TableRow key={tz.zoneName}>
                           <TableCell>
                             {tz.zoneName}
                           </TableCell>
+                        </TableRow>
+                        <TableRow key={tz.gmtOffsetName}>
                           <TableCell>
                             {tz.gmtOffsetName}
                           </TableCell>
@@ -111,6 +113,8 @@ const LocationTableRow = props => {
                           <TableCell>
                             {tz.abbreviation}
                           </TableCell>
+                        </TableRow>
+                        <TableRow key={tz.tzName}>
                           <TableCell>
                             {tz.tzName}
                           </TableCell>

@@ -83,7 +83,7 @@ export async function getServerSideProps(context) {
   const res = context.res;
   const { params } = context;
   const cityparams = params.cityparams;
-  console.log(cityparams);
+  // console.log(cityparams);
   let urlCity = cityparams[0];
   if (cityparams[1]) {
     urlCity = urlCity + "/" + cityparams[1];

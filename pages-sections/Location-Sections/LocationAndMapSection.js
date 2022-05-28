@@ -85,7 +85,7 @@ export default function LocationAndMapSection(props) {
   const location = useSelector((state) => state.location);
   const [session, loading] = useSession();
   const editTrue = session ? true : false;
-  const googleMapsPlaceLink = "https://www.google.com/maps/place/" + location.lat + "," +location.lon;
+  const googleMapsPlaceLink = "https://www.google.com/maps/place/" + location.lat + "," + location.lon;
 
   const [loadingModal, setLoadingModal] = React.useState(false);
   const [mapState, dispatchMap] = useReducer(mapReducer, {
@@ -149,6 +149,18 @@ export default function LocationAndMapSection(props) {
             <h2 className={classes.title}></h2>
             <h5 className={classes.description}>
             </h5>
+            <ins className="widgetsbymahimeta" id="mMTag_News_29474807" data-type="news" data-color="blue" style={{ display: "block", width: "100%" }}>
+              <script
+                dangerouslySetInnerHTML={{
+                  __html: `
+              var cachebuster = Math.round(new Date().getTime() / 1000); 
+              var mMTagScript = document.createElement('script'); 
+              mMTagScript.src = '//mahimeta.com/networks/tag.js?cache='+cachebuster; 
+              document.getElementsByTagName("head")[0].appendChild(mMTagScript);
+                `,
+                }}
+              />
+            </ins>
           </GridItem>
         </GridContainer>
         <div>
@@ -291,6 +303,18 @@ export default function LocationAndMapSection(props) {
                   </TableBody>
                 </Table>
               </TableContainer>
+              <ins className="widgetsbymahimeta" id="mMTag_Currency_99897236" data-type="currency"  data-color="black" style={{ display: "block", width: "100%" }}>
+                <script
+                  dangerouslySetInnerHTML={{
+                    __html: `
+              var cachebuster = Math.round(new Date().getTime() / 1000); 
+              var mMTagScript = document.createElement('script'); 
+              mMTagScript.src = '//mahimeta.com/networks/tag.js?cache='+cachebuster; 
+              document.getElementsByTagName("head")[0].appendChild(mMTagScript);
+                `,
+                  }}
+                />
+              </ins>
             </GridItem>
             <GridItem xs={12} sm={12} md={6}>
               <LocationMapContext.Provider value={{
@@ -308,6 +332,18 @@ export default function LocationAndMapSection(props) {
                   popup={props.headTitle}
                 />
                 <LocationMapEdit edit={editTrue} />
+                <ins className="widgetsbymahimeta" id="mMTag_Weather_19545827" data-type="weather" data-color="green" style={{ display: "block", width: "100%" }}>
+                  <script
+                    dangerouslySetInnerHTML={{
+                      __html: `
+              var cachebuster = Math.round(new Date().getTime() / 1000); 
+              var mMTagScript = document.createElement('script'); 
+              mMTagScript.src = '//mahimeta.com/networks/tag.js?cache='+cachebuster; 
+              document.getElementsByTagName("head")[0].appendChild(mMTagScript);
+                `,
+                    }}
+                  />
+                </ins>
               </LocationMapContext.Provider>
               {location.similarLocations && location.similarLocations.results &&
                 <TableContainer component={Paper}>

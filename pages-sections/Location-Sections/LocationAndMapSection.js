@@ -32,8 +32,28 @@ const MapDraggable = dynamic(
   { ssr: false }
 );
 
-const Ad728x90 = dynamic(
-  () => import('../../components/Ad/Ad728x90'),
+const Ad970x250 = dynamic(
+  () => import('../../components/Ad/Ad970x250'),
+  { ssr: false }
+);
+
+const Ad300x250 = dynamic(
+  () => import('../../components/Ad/Ad300x250'),
+  { ssr: false }
+);
+
+const Ad336x280 = dynamic(
+  () => import('../../components/Ad/Ad336x280'),
+  { ssr: false }
+);
+
+const Ad300x600 = dynamic(
+  () => import('../../components/Ad/Ad300x600'),
+  { ssr: false }
+);
+
+const AdFooterSticky = dynamic(
+  () => import('../../components/Ad/AdFooterSticky'),
   { ssr: false }
 );
 
@@ -154,7 +174,7 @@ export default function LocationAndMapSection(props) {
             <h2 className={classes.title}></h2>
             <h5 className={classes.description}>
             </h5>
-            <Ad728x90 currentPath="Ad728x90" />
+            <Ad970x250 currentPath="Ad970x250" />
           </GridItem>
         </GridContainer>
         <div>
@@ -297,6 +317,7 @@ export default function LocationAndMapSection(props) {
                   </TableBody>
                 </Table>
               </TableContainer>
+              <Ad300x600 currentPath="Ad300x600" />
             </GridItem>
             <GridItem xs={12} sm={12} md={6}>
               <LocationMapContext.Provider value={{
@@ -305,6 +326,7 @@ export default function LocationAndMapSection(props) {
                 onMapChange: onMapChangeHandler,
                 onMapSave: onMapSaveHandler
               }}>
+                <Ad300x250 currentPath="Ad300x250" />
                 <div>
                   <a href={googleMapsPlaceLink} target="_blank"><RoomIcon />Goto google maps</a>
                 </div>
@@ -359,12 +381,14 @@ export default function LocationAndMapSection(props) {
                   </Table>
                 </TableContainer>
               }
+              <Ad336x280 currentPath="Ad336x280" />
             </GridItem>
           </GridContainer>
         </div >
       </div >
       <ToastContainer />
       <Loading loadingModal={loadingModal} />
+      <AdFooterSticky currentPath="AdFooterSticky" />
     </>
   );
 }

@@ -32,8 +32,8 @@ const MapDraggable = dynamic(
   { ssr: false }
 );
 
-const Ad970x250 = dynamic(
-  () => import('../../components/Ad/Ad970x250'),
+const Ad728x90 = dynamic(
+  () => import('../../components/Ad/Ad728x90'),
   { ssr: false }
 );
 
@@ -174,7 +174,7 @@ export default function LocationAndMapSection(props) {
             <h2 className={classes.title}></h2>
             <h5 className={classes.description}>
             </h5>
-            <Ad970x250 currentPath="Ad970x250" />
+            <Ad728x90 currentPath="Ad728x90" />
           </GridItem>
         </GridContainer>
         <div>
@@ -336,6 +336,7 @@ export default function LocationAndMapSection(props) {
                   popup={props.headTitle}
                 />
                 <LocationMapEdit edit={editTrue} />
+                <Ad336x280 currentPath="Ad336x280" />
               </LocationMapContext.Provider>
               {location.similarLocations && location.similarLocations.results &&
                 <TableContainer component={Paper}>
@@ -380,8 +381,7 @@ export default function LocationAndMapSection(props) {
                     </TableBody>
                   </Table>
                 </TableContainer>
-              }
-              <Ad336x280 currentPath="Ad336x280" />
+              }              
             </GridItem>
           </GridContainer>
         </div >

@@ -32,8 +32,8 @@ const MapDraggable = dynamic(
   { ssr: false }
 );
 
-const AdMain = dynamic(
-  () => import('../../components/Ad/AdMain'),
+const Ad728x90 = dynamic(
+  () => import('../../components/Ad/Ad728x90'),
   { ssr: false }
 );
 
@@ -154,7 +154,7 @@ export default function LocationAndMapSection(props) {
             <h2 className={classes.title}></h2>
             <h5 className={classes.description}>
             </h5>
-            <AdMain />
+            <Ad728x90 />
           </GridItem>
         </GridContainer>
         <div>

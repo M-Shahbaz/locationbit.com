@@ -13,7 +13,7 @@ const Adinterstitial = props => {
         <div key={currentPath}>
             <ins class="adsbymahimeta" id="mMTag_Responsive_14714251" data-placement="interstitial" data-size="Responsive">
                 <Script
-                    src={`//mahimeta.com/networks/tag.js?cache=${cachebuster}`}
+                    src={`//mahimeta.com/networks/tag.js?cache=${Math.round(new Date().getTime() / 1000)}`}
                     strategy="beforeInteractive"
                 ></Script>
             </ins>

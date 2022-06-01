@@ -1,6 +1,6 @@
 import Reactl, { useEffect } from 'react';
 
-const AdInterstitial = props => {
+const Adinterstitial = props => {
     const { currentPath } = props;
     useEffect(() => {
         window.mMLoaded = window.mMLoaded || []
@@ -27,4 +27,4 @@ const AdInterstitial = props => {
 
 };
 
-export default AdInterstitial;
+export default Adinterstitial;

@@ -57,8 +57,8 @@ const AdFooterSticky = dynamic(
   { ssr: false }
 );
 
-const AdInterstitial = dynamic(
-  () => import('../../components/Ad/AdInterstitial'),
+const Adinterstitial = dynamic(
+  () => import('../../components/Ad/Adinterstitial'),
   { ssr: false }
 );
 
@@ -394,7 +394,7 @@ export default function LocationAndMapSection(props) {
       <ToastContainer />
       <Loading loadingModal={loadingModal} />
       <AdFooterSticky currentPath="AdFooterSticky" />
-      <AdInterstitial currentPath="AdInterstitial" />
+      <Adinterstitial currentPath="Adinterstitial" />
     </>
   );
 }

@@ -11,6 +11,16 @@ const Ad300x250 = props => {
     return (
         <div key={currentPath}>
             <ins class="adsbymahimeta" id="mMTag_Responsive_89924920" data-size="Responsive" data-desktop="300x250" data-tablet="300x250" data-mobile="300x250" style={{ display: "inline-block" }}>
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `
+                    var cachebuster = Math.round(new Date().getTime() / 1000); 
+                    var mMTagScript = document.createElement('script'); 
+                    mMTagScript.src = '//mahimeta.com/networks/tag.js?cache='+cachebuster; 
+                    document.getElementsByTagName("head")[0].appendChild(mMTagScript);
+                `,
+                    }}
+                />
             </ins>
         </div>
     );

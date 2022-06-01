@@ -43,17 +43,6 @@ class MyDocument extends Document {
           `,
             }}
           />
-          <script
-            async="async"
-            dangerouslySetInnerHTML={{
-              __html: `
-                    var cachebuster = Math.round(new Date().getTime() / 1000); 
-                    var mMTagScript = document.createElement('script'); 
-                    mMTagScript.src = '//mahimeta.com/networks/tag.js?cache='+cachebuster; 
-                    document.getElementsByTagName("head")[0].appendChild(mMTagScript);
-                `,
-            }}
-          />
         </Head>
         <body>
           <div id="page-transition"></div>

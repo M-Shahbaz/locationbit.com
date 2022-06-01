@@ -57,6 +57,11 @@ const AdFooterSticky = dynamic(
   { ssr: false }
 );
 
+const AdInterstitial = dynamic(
+  () => import('../../components/Ad/AdInterstitial'),
+  { ssr: false }
+);
+
 import axios from 'axios';
 import Loading from '../../components/Loading/Loading';
 import { ToastContainer, toast } from 'react-toastify';
@@ -389,6 +394,7 @@ export default function LocationAndMapSection(props) {
       <ToastContainer />
       <Loading loadingModal={loadingModal} />
       <AdFooterSticky currentPath="AdFooterSticky" />
+      <AdInterstitial currentPath="AdInterstitial" />
     </>
   );
 }

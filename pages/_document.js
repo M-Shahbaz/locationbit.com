@@ -2,6 +2,7 @@ import React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheets } from "@material-ui/styles";
 import { fontRobotoCssLibrary, fontawesomeCssLibrary } from 'utility/Libraries.js';
+import Script from 'next/script'
 
 class MyDocument extends Document {
   render() {
@@ -43,6 +44,10 @@ class MyDocument extends Document {
           `,
             }}
           />
+          <Script
+            src={`//mahimeta.com/networks/tag.js?cache=${Math.round(new Date().getTime() / 1000)}`}
+            strategy="afterInteractive"
+          ></Script>
         </Head>
         <body>
           <div id="page-transition"></div>

@@ -42,7 +42,7 @@
     "leaflet": "^1.7.1",
     "moment": "2.29.1",
     "naics": "^1.2.1",
-    "next": "^10.2.3",
+    "next": "^11.1.4",
     "next-auth": "latest",
     "next-compose-plugins": "2.2.1",
     "next-images": "1.7.0",

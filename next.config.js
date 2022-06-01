@@ -4,9 +4,6 @@ const webpack = require("webpack");
 const path = require("path");
 
 module.exports = withPlugins([[withImages]], {
-  future: {
-    webpack5: true,
-  },
   webpack(config, options) {
     config.resolve.modules.push(path.resolve("./"));
     return config;

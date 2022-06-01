@@ -14,7 +14,7 @@ const Ad300x600 = props => {
             <ins class="adsbymahimeta" id="mMTag_Responsive_59675004" data-size="Responsive" data-desktop="300x600" data-tablet="300x250" data-mobile="320x100" style={{ display: "inline-block" }}>
                 <Script
                     src={`//mahimeta.com/networks/tag.js?cache=${Math.round(new Date().getTime() / 1000)}`}
-                    strategy="beforeInteractive"
+                    strategy="afterInteractive"
                 ></Script>
             </ins>
         </div>

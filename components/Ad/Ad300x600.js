@@ -1,4 +1,5 @@
 import Reactl, { useEffect } from 'react';
+import Script from 'next/script'
 
 const Ad300x600 = props => {
     const { currentPath } = props;
@@ -11,16 +12,10 @@ const Ad300x600 = props => {
     return (
         <div key={currentPath}>
             <ins class="adsbymahimeta" id="mMTag_Responsive_59675004" data-size="Responsive" data-desktop="300x600" data-tablet="300x250" data-mobile="320x100" style={{ display: "inline-block" }}>
-                <script
-                    dangerouslySetInnerHTML={{
-                        __html: `
-                    var cachebuster = Math.round(new Date().getTime() / 1000); 
-                    var mMTagScript = document.createElement('script'); 
-                    mMTagScript.src = '//mahimeta.com/networks/tag.js?cache='+cachebuster; 
-                    document.getElementsByTagName("head")[0].appendChild(mMTagScript);
-                `,
-                    }}
-                />
+                <Script
+                    src={`//mahimeta.com/networks/tag.js?cache=${cachebuster}`}
+                    strategy="beforeInteractive"
+                ></Script>
             </ins>
         </div>
     );

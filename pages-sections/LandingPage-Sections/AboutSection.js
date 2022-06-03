@@ -11,6 +11,7 @@ import CustomInput from "components/CustomInput/CustomInput.js";
 import Button from "components/CustomButtons/Button.js";
 
 import styles from "styles/jss/nextjs-material-kit/pages/landingPageSections/workStyle.js";
+import dynamic from 'next/dynamic';
 
 const Ad300x600 = dynamic(
   () => import('../../components/Ad/Ad300x600'),

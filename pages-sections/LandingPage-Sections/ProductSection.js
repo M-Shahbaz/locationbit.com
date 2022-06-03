@@ -13,6 +13,7 @@ import Fingerprint from "@material-ui/icons/Fingerprint";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import InfoArea from "components/InfoArea/InfoArea.js";
+import dynamic from 'next/dynamic';
 
 const Ad728x90 = dynamic(
   () => import('../../components/Ad/Ad728x90'),

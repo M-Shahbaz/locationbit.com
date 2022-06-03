@@ -12,6 +12,11 @@ import Button from "components/CustomButtons/Button.js";
 
 import styles from "styles/jss/nextjs-material-kit/pages/landingPageSections/workStyle.js";
 
+const Ad300x600 = dynamic(
+  () => import('../../components/Ad/Ad300x600'),
+  { ssr: false }
+);
+
 const useStyles = makeStyles(styles);
 
 export default function AboutSection() {
@@ -27,6 +32,7 @@ export default function AboutSection() {
             Locationbit is to build the "global decentralized ENCYCLOPEDIA for locations data" on Blockchain e.g: Wikipedia for Locations.
             With fair compensation to contributors.
           </h4>
+          <Ad300x600 />
         </GridItem>
       </GridContainer>
     </div>

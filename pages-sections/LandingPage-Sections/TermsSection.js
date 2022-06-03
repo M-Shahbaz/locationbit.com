@@ -12,6 +12,11 @@ import Button from "components/CustomButtons/Button.js";
 
 import styles from "styles/jss/nextjs-material-kit/pages/landingPageSections/workStyle.js";
 
+const Ad728x90 = dynamic(
+  () => import('../../components/Ad/Ad728x90'),
+  { ssr: false }
+);
+
 const useStyles = makeStyles(styles);
 
 export default function TermsSection() {
@@ -23,6 +28,7 @@ export default function TermsSection() {
           <h2 className={classes.title}>Locationbit.com terms of service</h2>
           <h4 className={classes.description}>
           </h4>
+          <Ad728x90 />
           <div class="align-left" className={classes.description}>
 
 

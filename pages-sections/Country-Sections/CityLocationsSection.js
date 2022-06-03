@@ -27,6 +27,14 @@ const MapMultiple = dynamic(
   () => import('../../components/Map/MapMultiple'),
   { ssr: false }
 );
+
+
+const Ad728x90 = dynamic(
+  () => import('../../components/Ad/Ad728x90'),
+  { ssr: false }
+);
+
+
 const useStyles = makeStyles(styles);
 
 export default function CityLocationsSection(props) {
@@ -60,6 +68,7 @@ export default function CityLocationsSection(props) {
           <h2 className={classes.title}>{props.headTitle}</h2>
           <h4 className={classes.description}>
           </h4>
+          <Ad728x90 />
         </GridItem>
       </GridContainer>
       {locations && locations.results && <GridContainer justify="center">

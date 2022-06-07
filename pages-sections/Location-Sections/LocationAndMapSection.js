@@ -394,7 +394,6 @@ export default function LocationAndMapSection(props) {
       <ToastContainer />
       <Loading loadingModal={loadingModal} />
       <AdFooterSticky currentPath="AdFooterSticky" />
-      <Adinterstitial currentPath="Adinterstitial" />
     </>
   );
 }

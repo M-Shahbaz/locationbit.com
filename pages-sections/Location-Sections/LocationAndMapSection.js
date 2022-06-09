@@ -42,6 +42,16 @@ const AdsenseBanner = dynamic(
   { ssr: false }
 );
 
+const AdsenseSquare = dynamic(
+  () => import('../../components/Ad/AdsenseSquare'),
+  { ssr: false }
+);
+
+const AdsenseVertical = dynamic(
+  () => import('../../components/Ad/AdsenseVertical'),
+  { ssr: false }
+);
+
 import axios from 'axios';
 import Loading from '../../components/Loading/Loading';
 import { ToastContainer, toast } from 'react-toastify';
@@ -206,6 +216,7 @@ export default function LocationAndMapSection(props) {
                       tableRowValue={location.postcode}
                       edit={editTrue}
                     />
+                    <AdsenseInArticle />
                     <LocationTableRow
                       locationId={location.id}
                       tableRowName="latitude"
@@ -302,6 +313,7 @@ export default function LocationAndMapSection(props) {
                   </TableBody>
                 </Table>
               </TableContainer>
+              <AdsenseVertical />
             </GridItem>
             <GridItem xs={12} sm={12} md={6}>
               <LocationMapContext.Provider value={{
@@ -310,7 +322,7 @@ export default function LocationAndMapSection(props) {
                 onMapChange: onMapChangeHandler,
                 onMapSave: onMapSaveHandler
               }}>
-                <AdsenseInArticle />
+                <AdsenseSquare />
                 <div>
                   <a href={googleMapsPlaceLink} target="_blank"><RoomIcon />Goto google maps</a>
                 </div>
@@ -320,6 +332,7 @@ export default function LocationAndMapSection(props) {
                   popup={props.headTitle}
                 />
                 <LocationMapEdit edit={editTrue} />
+                <AdsenseSquare />
               </LocationMapContext.Provider>
               {location.similarLocations && location.similarLocations.results &&
                 <TableContainer component={Paper}>

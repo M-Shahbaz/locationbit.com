@@ -1,4 +1,5 @@
 mahimeta.com, 26, DIRECT
+google.com, pub-4483485667832613, DIRECT, f08c47fec0942fa0
 google.com, pub-5413329544040947, DIRECT, f08c47fec0942fa0
 google.com, pub-5413329544040947, RESELLER, f08c47fec0942fa0
 google.com, pub-8834194653550774, RESELLER, f08c47fec0942fa0

@@ -30,7 +30,6 @@ export default function ProductSection() {
     <div className={classes.section}>
       <GridContainer justify="center">
         <GridItem xs={12} sm={12} md={8}>
-          <Ad728x90 />
           <h2 className={classes.title}>Let{"'"}s talk locationbit</h2>
           <h5 className={classes.description}>
             Locationbit is to build the "global decentralized ENCYCLOPEDIA for locations data" on Blockchain e.g: Wikipedia for Locations.

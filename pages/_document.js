@@ -48,10 +48,6 @@ class MyDocument extends Document {
           `,
             }}
           />
-          <Script
-            src={`//mahimeta.com/networks/tag.js?cache=${Math.round(new Date().getTime() / 1000)}`}
-            strategy="afterInteractive"
-          ></Script>
         </Head>
         <body>
           <div id="page-transition"></div>

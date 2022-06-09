@@ -68,7 +68,6 @@ export default function CityLocationsSection(props) {
           <h2 className={classes.title}>{props.headTitle}</h2>
           <h4 className={classes.description}>
           </h4>
-          <Ad728x90 />
         </GridItem>
       </GridContainer>
       {locations && locations.results && <GridContainer justify="center">

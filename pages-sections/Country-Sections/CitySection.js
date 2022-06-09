@@ -33,7 +33,6 @@ export default function CitySection(props) {
             <h2 className={classes.title}>{props.headTitle}</h2>
             <h5 className={classes.description}>
             </h5>
-            <Ad728x90 />
           </GridItem>
         </GridContainer>
         <div>

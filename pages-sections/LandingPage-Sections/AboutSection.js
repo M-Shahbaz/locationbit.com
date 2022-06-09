@@ -33,7 +33,6 @@ export default function AboutSection() {
             Locationbit is to build the "global decentralized ENCYCLOPEDIA for locations data" on Blockchain e.g: Wikipedia for Locations.
             With fair compensation to contributors.
           </h4>
-          <Ad300x600 />
         </GridItem>
       </GridContainer>
     </div>

@@ -8,7 +8,7 @@ const AdsenseInFeed = props => {
 
 
     return (
-        <div key={currentPath}>
+        <div>
             <ins class="adsbygoogle"
                 style={{ display: "block" }}
                 data-ad-format="fluid"

@@ -10,15 +10,13 @@ const AdsenseBanner = props => {
     return (
         <div>
             <ins class="adsbygoogle"
+                style={{ display: "block" }}
                 data-ad-client="ca-pub-4483485667832613"
                 data-ad-slot="7782857682"
                 data-ad-format="auto"
                 data-full-width-responsive="true">
-                <Script
-                    src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4483485667832613`}
-                    strategy="afterInteractive"
-                ></Script></ins>
-        </div>
+            </ins>
+        </div >
     );
 
 };

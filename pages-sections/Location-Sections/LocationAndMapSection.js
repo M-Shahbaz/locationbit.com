@@ -384,7 +384,6 @@ export default function LocationAndMapSection(props) {
                 </TableContainer>
               }
             </GridItem>
-            <AdsenseMutiplexHorizontal />
           </GridContainer>
         </div >
       </div >

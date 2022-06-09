@@ -32,38 +32,13 @@ const MapDraggable = dynamic(
   { ssr: false }
 );
 
-const Ad728x90 = dynamic(
-  () => import('../../components/Ad/Ad728x90'),
-  { ssr: false }
-);
-
-const Ad300x250 = dynamic(
-  () => import('../../components/Ad/Ad300x250'),
-  { ssr: false }
-);
-
-const Ad336x280 = dynamic(
-  () => import('../../components/Ad/Ad336x280'),
-  { ssr: false }
-);
-
-const Ad300x600 = dynamic(
-  () => import('../../components/Ad/Ad300x600'),
-  { ssr: false }
-);
-
-const AdFooterSticky = dynamic(
-  () => import('../../components/Ad/AdFooterSticky'),
-  { ssr: false }
-);
-
-const Adinterstitial = dynamic(
-  () => import('../../components/Ad/Adinterstitial'),
-  { ssr: false }
-);
-
 const AdsenseInArticle = dynamic(
   () => import('../../components/Ad/AdsenseInArticle'),
+  { ssr: false }
+);
+
+const AdsenseBanner = dynamic(
+  () => import('../../components/Ad/AdsenseBanner'),
   { ssr: false }
 );
 
@@ -184,6 +159,7 @@ export default function LocationAndMapSection(props) {
             <h2 className={classes.title}></h2>
             <h5 className={classes.description}>
             </h5>
+            <AdsenseBanner />
           </GridItem>
         </GridContainer>
         <div>

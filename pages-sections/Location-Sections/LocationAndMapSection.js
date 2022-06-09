@@ -52,6 +52,11 @@ const AdsenseVertical = dynamic(
   { ssr: false }
 );
 
+const AdsenseMutiplexHorizontal = dynamic(
+  () => import('../../components/Ad/AdsenseMutiplexHorizontal'),
+  { ssr: false }
+);
+
 import axios from 'axios';
 import Loading from '../../components/Loading/Loading';
 import { ToastContainer, toast } from 'react-toastify';
@@ -355,6 +360,7 @@ export default function LocationAndMapSection(props) {
                   </Table>
                 </TableContainer>
               }
+              <AdsenseInArticle />
               {location.nearbyLocations && location.nearbyLocations.results &&
                 <TableContainer component={Paper}>
                   <Table>
@@ -378,6 +384,7 @@ export default function LocationAndMapSection(props) {
                 </TableContainer>
               }
             </GridItem>
+            <AdsenseMutiplexHorizontal />
           </GridContainer>
         </div >
       </div >

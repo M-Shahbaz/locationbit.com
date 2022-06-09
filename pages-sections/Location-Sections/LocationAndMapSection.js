@@ -62,6 +62,11 @@ const Adinterstitial = dynamic(
   { ssr: false }
 );
 
+const AdsenseInArticle = dynamic(
+  () => import('../../components/Ad/AdsenseInArticle'),
+  { ssr: false }
+);
+
 import axios from 'axios';
 import Loading from '../../components/Loading/Loading';
 import { ToastContainer, toast } from 'react-toastify';
@@ -329,6 +334,7 @@ export default function LocationAndMapSection(props) {
                 onMapChange: onMapChangeHandler,
                 onMapSave: onMapSaveHandler
               }}>
+                <AdsenseInArticle />
                 <div>
                   <a href={googleMapsPlaceLink} target="_blank"><RoomIcon />Goto google maps</a>
                 </div>
@@ -382,7 +388,7 @@ export default function LocationAndMapSection(props) {
                     </TableBody>
                   </Table>
                 </TableContainer>
-              }              
+              }
             </GridItem>
           </GridContainer>
         </div >

@@ -159,7 +159,6 @@ export default function LocationAndMapSection(props) {
             <h2 className={classes.title}></h2>
             <h5 className={classes.description}>
             </h5>
-            <AdsenseBanner />
           </GridItem>
         </GridContainer>
         <div>

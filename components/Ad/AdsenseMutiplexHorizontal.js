@@ -10,7 +10,7 @@ const AdsenseMutiplexHorizontal = props => {
     return (
         <div>
             <ins class="adsbygoogle"
-                style={{ display: "block" }}
+                style={{ display: "inline-block", width: "100%" }}
                 data-ad-format="autorelaxed"
                 data-ad-client="ca-pub-4483485667832613"
                 data-ad-slot="8198624801">

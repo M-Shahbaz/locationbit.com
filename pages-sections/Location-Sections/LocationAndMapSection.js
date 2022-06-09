@@ -216,7 +216,6 @@ export default function LocationAndMapSection(props) {
                       tableRowValue={location.postcode}
                       edit={editTrue}
                     />
-                    <AdsenseInArticle />
                     <LocationTableRow
                       locationId={location.id}
                       tableRowName="latitude"

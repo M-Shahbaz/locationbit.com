@@ -33,6 +33,10 @@ class MyDocument extends Document {
             src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
           />
           <script
+            async="async"
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4483485667832613`}
+          />
+          <script
             dangerouslySetInnerHTML={{
               __html: `
             window.dataLayer = window.dataLayer || [];
@@ -43,6 +47,12 @@ class MyDocument extends Document {
             });
           `,
             }}
+          />
+          <Script id="Adsense-id" data-ad-client="ca-pub-4483485667832613"
+            async="true"
+            strategy="afterInteractive"
+            onError={(e) => { console.error('Script failed to load', e) }}
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4483485667832613"
           />
         </Head>
         <body>

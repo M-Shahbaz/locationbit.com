@@ -7,6 +7,7 @@ import ReactDOM from "react-dom";
 import App from "next/app";
 import Head from "next/head";
 import Router from "next/router";
+import Script from 'next/script'
 
 import PageChange from "components/PageChange/PageChange.js";
 import { useStore } from "store/index.js";
@@ -91,6 +92,11 @@ export default class MyApp extends App {
             }}
             session={pageProps.session}
           >
+            <Script id="Adsense-id" data-ad-client="ca-pub-4483485667832613"
+              async strategy="afterInteractive"
+              onError={(e) => { console.error('Script failed to load', e) }}
+              src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4483485667832613"
+            />
             <Component {...pageProps} />
           </Provider>
         </ReduxProvider>

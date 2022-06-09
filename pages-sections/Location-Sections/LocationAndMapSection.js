@@ -42,11 +42,6 @@ const Ad300x250 = dynamic(
   { ssr: false }
 );
 
-const AdsenseInFeed = dynamic(
-  () => import('../../components/Ad/AdsenseInFeed'),
-  { ssr: false }
-);
-
 const Ad336x280 = dynamic(
   () => import('../../components/Ad/Ad336x280'),
   { ssr: false }
@@ -230,7 +225,6 @@ export default function LocationAndMapSection(props) {
                       tableRowValue={location.postcode}
                       edit={editTrue}
                     />
-                    <AdsenseInFeed />
                     <LocationTableRow
                       locationId={location.id}
                       tableRowName="latitude"

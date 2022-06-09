@@ -2,11 +2,9 @@ import Reactl, { useEffect } from 'react';
 import Script from 'next/script'
 
 const AdsenseInFeed = props => {
-    const { currentPath } = props;
     useEffect(() => {
-        window.mMLoaded = window.mMLoaded || []
-        window.mMLoaded.push({})
-    }, [currentPath])
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+    }, [])
 
 
     return (

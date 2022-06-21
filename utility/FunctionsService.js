@@ -1,5 +1,20 @@
 import { phone } from 'phone';
 
+export const reCaptchaSiteKey = () => {
+    var siteKeys = [
+        "6LdcPYogAAAAAA9Mg0S9JwFsXKUy5mu9Ybe4GMcD",
+        "6LfZSYogAAAAAO_6j1TLXVILfLpYFtno05S-_mkZ",
+        "6LdPzIogAAAAAGdQy-9lc98zRHDjh87VskHo2qOf"
+    ];
+    const random = Math.floor(Math.random() * siteKeys.length);
+    console.log(random, siteKeys[random]);
+    var obj = {
+        keyNumber: random,
+        siteKey: siteKeys[random]
+    };
+    return obj;
+}
+
 export const ucfirst = (str) => {
     var firstLetter = str.substr(0, 1);
     return firstLetter.toUpperCase() + str.substr(1);

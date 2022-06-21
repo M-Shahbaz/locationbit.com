@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
+import { useSelector, useDispatch } from 'react-redux';
 
 // @material-ui/icons
 import VerifiedUser from "@material-ui/icons/VerifiedUser";
@@ -37,6 +38,10 @@ export default function LocationAddSection() {
   const nameRef = useRef('');
   const addressRef = useRef('');
   const postcodeRef = useRef('');
+
+  const recaptcha = useSelector((state) => state.recaptcha);
+  // console.log(recaptcha);
+
   // useEffect(() => {
 
   // }, selectedCountry);
@@ -73,6 +78,8 @@ export default function LocationAddSection() {
       statecode: selectedState.isoCode,
       city: selectedCity.name,
       cityObject: selectedCity,
+      keyNumber: recaptcha.keyNumber,
+      recaptchaToken: recaptcha.token
     };
 
     console.log(locationCreateData);

@@ -39,9 +39,9 @@ return function (App $app) {
         $group->post('/jwt', \App\Action\Jwt\JwtTokenReCreateAction::class);
 
         $group->group('/location', function (RouteCollectorProxy $group) {
-            $group->post('/add', \App\Action\Location\LocationCreateAction::class)->add(\App\Middleware\ApiRateLimitMiddleware::class);
+            $group->post('/add', \App\Action\Location\LocationCreateAction::class)->add(\App\Middleware\GoogleReCaptchaMiddleware::class);
              $group->get('/{id}', \App\Action\Location\LocationReadAction::class);
-            $group->post('/{id}/update', \App\Action\Location\LocationUpdateAction::class)->add(\App\Middleware\ApiRateLimitMiddleware::class);
+            $group->post('/{id}/update', \App\Action\Location\LocationUpdateAction::class)->add(\App\Middleware\GoogleReCaptchaMiddleware::class);
         });
 
         /**

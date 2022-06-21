@@ -15,6 +15,10 @@ import "styles/scss/nextjs-material-kit.scss?v=1.2.0";
 
 import { StylesProvider, createGenerateClassName } from '@material-ui/core/styles';
 
+import { reCaptchaSiteKey } from './../utility/FunctionsService';
+import GoogleRecaptchaVerify from './../components/Google/GoogleRecaptchaVerify';
+import {  GoogleReCaptchaProvider,  GoogleReCaptcha} from 'react-google-recaptcha-v3';
+
 const generateClassName = createGenerateClassName({
   productionPrefix: 'cjss',
 });
@@ -65,12 +69,17 @@ export default class MyApp extends App {
     return { pageProps };
   }
   render() {
+
     const { Component, pageProps } = this.props;
     const store = useStore(pageProps.initialReduxState)
-
+    const reCaptchaSiteKeyObj = reCaptchaSiteKey();
+    
     return (
       <StylesProvider generateClassName={generateClassName}>
         <ReduxProvider store={store}>
+          <GoogleReCaptchaProvider reCaptchaKey={reCaptchaSiteKeyObj.siteKey}>
+            <GoogleRecaptchaVerify keyNumber={reCaptchaSiteKeyObj.keyNumber} />
+          </GoogleReCaptchaProvider>
           <Provider
             // Provider options are not required but can be useful in situations where
             // you have a short session maxAge time. Shown here with default values.

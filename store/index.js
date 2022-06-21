@@ -39,6 +39,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         location: action.location,
       }
+    case 'RECAPTCHA':
+      return {
+        ...state,
+        recaptcha: action.recaptcha,
+      }
     default:
       return state
   }

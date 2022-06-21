@@ -110,6 +110,9 @@ export default function LocationAndMapSection(props) {
   const location = useSelector((state) => state.location);
   const [session, loading] = useSession();
   const editTrue = session ? true : false;
+  
+  const recaptcha = useSelector((state) => state.recaptcha);
+  
   const googleMapsPlaceLink = "https://www.google.com/maps/place/" + location.lat + "," + location.lon;
 
   const [loadingModal, setLoadingModal] = React.useState(false);
@@ -132,6 +135,9 @@ export default function LocationAndMapSection(props) {
     let locationUpdateData;
     setLoadingModal(true);
     locationUpdateData = mapState.position;
+    
+    locationUpdateData.keyNumber = recaptcha.keyNumber;
+    locationUpdateData.recaptchaToken = recaptcha.token;
     axios.post(`/api/location/${location.id}/update`, locationUpdateData)
       .then(res => {
         // console.log(res);

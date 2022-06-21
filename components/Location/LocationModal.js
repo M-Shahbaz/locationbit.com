@@ -327,6 +327,8 @@ const LocationModal = props => {
   let modalValue = props.modalValue;
   let defaultCountry = location.countrycode;
 
+  const recaptcha = useSelector((state) => state.recaptcha);
+
   useEffect(
     () => {
       setClassicModal(props.classicModal);
@@ -419,7 +421,8 @@ const LocationModal = props => {
       }
     }
 
-
+    locationUpdateData.keyNumber = recaptcha.keyNumber;
+    locationUpdateData.recaptchaToken = recaptcha.token;
     console.log(locationUpdateData);
     setLoadingModal(true);
     axios.post(`/api/location/${props.locationId}/update`, locationUpdateData)

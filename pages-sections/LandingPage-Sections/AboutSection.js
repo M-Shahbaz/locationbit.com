@@ -30,7 +30,7 @@ export default function AboutSection() {
           <h4 className={classes.description}>
             Locationbit is inspired by LOCATIONARY which was acquired by Apple Inc. in 2013. 
             Locationary (the original idea behind locationbit.com) provided the only platform through which we were able to earn money without investing any money or without any advanced skills.
-            Locationbit is to build the "global decentralized ENCYCLOPEDIA for locations data" on Blockchain e.g: Wikipedia for Locations.
+            Locationbit is to build the "global ENCYCLOPEDIA for locations data" e.g: Wikipedia for Locations.
             With fair compensation to contributors.
           </h4>
         </GridItem>

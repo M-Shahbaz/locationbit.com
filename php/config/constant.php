@@ -1,8 +1,8 @@
 <?php
 const TIME_ZONE = "Asia/Karachi";
 const ADMIN_EMAIL = "locationbit.com@gmail.com";
-const APP_DEV_MODE_IPS = ['::1', '127.0.0.1'];
-const APP_SERVER_IPS = ['::1', '127.0.0.1', '185.209.229.26'];
+const APP_DEV_MODE_IPS = ['::1', '127.0.0.1', '39.42.82.120'];
+const APP_SERVER_IPS = ['::1', '127.0.0.1', '185.209.229.26', '39.42.82.120'];
 const APP_VERSION = 1.0;
 const APP_DEBUG_MODE = true;
 const APP_LOG_ERRORS = true;

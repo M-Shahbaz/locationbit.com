@@ -7,7 +7,7 @@ export const reCaptchaSiteKey = () => {
         "6LdPzIogAAAAAGdQy-9lc98zRHDjh87VskHo2qOf"
     ];
     const random = Math.floor(Math.random() * siteKeys.length);
-    console.log(random, siteKeys[random]);
+    // console.log(random, siteKeys[random]);
     var obj = {
         keyNumber: random,
         siteKey: siteKeys[random]

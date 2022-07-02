@@ -17,7 +17,7 @@ export default function TimelineSection() {
     {
       title: "Vision & Feasibility Analysis",
       cardTitle: "Locationbit's vision & feasibility analysis",
-      cardSubtitle: "To build the global decentralized ENCYCLOPEDIA for locations data on Blockchain e.g: Wikipedia for Locations. With fair compensation to contributors",
+      cardSubtitle: "To build the global ENCYCLOPEDIA for locations data e.g: Wikipedia for Locations. With fair compensation to contributors",
       cardDetailedText: ""
     },
     {

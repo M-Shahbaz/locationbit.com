@@ -358,7 +358,7 @@ const LocationModal = props => {
   if (title == 'description') {
     // setLocationDescription(props.modalValue);
   }
-  if (title == 'phone' && props.modalValue) {
+  if ( (title == 'phone' || title == 'whatsApp') && props.modalValue) {
     modalValue = getPhoneWithoutCountryCode(props.modalValue);
     defaultCountry = getPhoneCountryIso2Code(props.modalValue);
     console.log(defaultCountry);
@@ -399,7 +399,7 @@ const LocationModal = props => {
         hours: hoursState
       };
     } else {
-      if (title == 'phone') {
+      if (title == 'phone' || title == 'whatsApp') {
         const phoneValidated = validatePhoneE164(inputRefAutocomplete.current.value + inputRef.current.value)
         if (phoneValidated) {
           locationUpdateData = {
@@ -487,6 +487,7 @@ const LocationModal = props => {
             >
               <div>
                 {title == "phone" && <AutocompleteCountryPhone defaultCountry={defaultCountry} ref={inputRefAutocomplete} />}
+                {title == "whatsApp" && <AutocompleteCountryPhone defaultCountry={defaultCountry} ref={inputRefAutocomplete} />}
                 {title == "description" && <CKEditorLocation onChange={onChangeCkeditorHandler.bind(this)} value={props.modalValue} />}
                 {(title != "description" && title != "classification" && title != "hours") && <CustomInput
                   labelText={title}

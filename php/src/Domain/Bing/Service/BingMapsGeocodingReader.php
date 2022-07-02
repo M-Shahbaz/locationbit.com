@@ -25,6 +25,7 @@ final class BingMapsGeocodingReader
         $keys = [
             $_ENV['BING_MAPS_API_KEY_1'],
             $_ENV['BING_MAPS_API_KEY_2'],
+            $_ENV['BING_MAPS_API_KEY_3'],
         ];
         $key = $keys[array_rand($keys)];
 

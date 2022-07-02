@@ -35,12 +35,14 @@ final class LocationUpdateAction
 
         $locationUpdateData = new LocationUpdateData();
         $locationUpdateData->id = $locationId;
+        $locationUpdateData->description = $data['description'] ?? null;
         $locationUpdateData->postcode = $data['postcode'] ?? null;
         $locationUpdateData->lat = $data['lat'] ?? null;
         $locationUpdateData->lon = $data['lon'] ?? null;
         $locationUpdateData->website = $data['website'] ?? null;
         $locationUpdateData->email = $data['email'] ?? null;
         $locationUpdateData->phone = $data['phone'] ?? null;
+        $locationUpdateData->whatsApp = $data['whatsApp'] ?? null;
         $locationUpdateData->googleMaps = $data['googleMaps'] ?? null;
         $locationUpdateData->googleStreetView = $data['googleStreetView'] ?? null;
         $locationUpdateData->facebook = $data['facebook'] ?? null;
@@ -49,7 +51,6 @@ final class LocationUpdateAction
         $locationUpdateData->youtube = $data['youtube'] ?? null;
         $locationUpdateData->linkedin = $data['linkedin'] ?? null;
         $locationUpdateData->telegram = $data['telegram'] ?? null;
-        $locationUpdateData->description = $data['description'] ?? null;
         $locationUpdateData->sector = $data['sector'] ?? null;
         $locationUpdateData->subSector = $data['subSector'] ?? null;
         $locationUpdateData->industryGroup = $data['industryGroup'] ?? null;

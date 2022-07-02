@@ -61,7 +61,7 @@ final class LocationUpdate
 
         if (isset($locationUpdateData->postcode)) {
             $locationUpdateArray['postcode'] = !empty($locationUpdateData->postcode) ? $locationUpdateData->postcode : null;
-            $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'postcode', $locationUpdateArray['postcode']);
+            $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'postcode', $locationUpdateArray['postcode']);
 
             /*
             $postcode = !empty($locationUpdateData->postcode) ? $locationUpdateData->postcode : null;
@@ -193,92 +193,97 @@ final class LocationUpdate
             $locationUpdateArray['coordinate']['lat'] = !empty($locationUpdateData->lat) ? $locationUpdateData->lat : null;
             $locationUpdateArray['coordinate']['lon'] = !empty($locationUpdateData->lon) ? $locationUpdateData->lon : null;
 
-            $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'lat', $locationUpdateArray['coordinate']['lat'], $locationUpdateArray['coordinate']['lon']);
+            $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'lat', $locationUpdateArray['coordinate']['lat'], $locationUpdateArray['coordinate']['lon']);
         }
 
         if (isset($locationUpdateData->website)) {
             $locationUpdateArray['website'] = !empty($locationUpdateData->website) ? $locationUpdateData->website : null;
-            $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'website', $locationUpdateArray['website']);
+            $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'website', $locationUpdateArray['website']);
         }
 
         if (isset($locationUpdateData->email)) {
             $locationUpdateArray['email'] = !empty($locationUpdateData->email) ? $locationUpdateData->email : null;
-            $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'email', $locationUpdateArray['email']);
+            $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'email', $locationUpdateArray['email']);
         }
 
         if (isset($locationUpdateData->phone)) {
             $locationUpdateArray['phone'] = !empty($locationUpdateData->phone) ? $locationUpdateData->phone : null;
-            $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'phone', $locationUpdateArray['phone']);
+            $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'phone', $locationUpdateArray['phone']);
+        }
+
+        if (isset($locationUpdateData->whatsApp)) {
+            $locationUpdateArray['whatsApp'] = !empty($locationUpdateData->whatsApp) ? $locationUpdateData->whatsApp : null;
+            $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'whatsApp', $locationUpdateArray['whatsApp']);
         }
 
         if (isset($locationUpdateData->googleMaps)) {
             $locationUpdateArray['googleMaps'] = !empty($locationUpdateData->googleMaps) ? $locationUpdateData->googleMaps : null;
-            $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'googleMaps', $locationUpdateArray['googleMaps']);
+            $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'googleMaps', $locationUpdateArray['googleMaps']);
         }
 
         if (isset($locationUpdateData->googleStreetView)) {
             $locationUpdateArray['googleStreetView'] = !empty($locationUpdateData->googleStreetView) ? $locationUpdateData->googleStreetView : null;
-            $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'googleStreetView', $locationUpdateArray['googleStreetView']);
+            $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'googleStreetView', $locationUpdateArray['googleStreetView']);
         }
 
         if (isset($locationUpdateData->facebook)) {
             $locationUpdateArray['facebook'] = !empty($locationUpdateData->facebook) ? $locationUpdateData->facebook : null;
-            $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'facebook', $locationUpdateArray['facebook']);
+            $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'facebook', $locationUpdateArray['facebook']);
         }
 
         if (isset($locationUpdateData->twitter)) {
             $locationUpdateArray['twitter'] = !empty($locationUpdateData->twitter) ? $locationUpdateData->twitter : null;
-            $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'twitter', $locationUpdateArray['twitter']);
+            $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'twitter', $locationUpdateArray['twitter']);
         }
 
         if (isset($locationUpdateData->instagram)) {
             $locationUpdateArray['instagram'] = !empty($locationUpdateData->instagram) ? $locationUpdateData->instagram : null;
-            $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'instagram', $locationUpdateArray['instagram']);
+            $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'instagram', $locationUpdateArray['instagram']);
         }
 
         if (isset($locationUpdateData->youtube)) {
             $locationUpdateArray['youtube'] = !empty($locationUpdateData->youtube) ? $locationUpdateData->youtube : null;
-            $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'youtube', $locationUpdateArray['youtube']);
+            $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'youtube', $locationUpdateArray['youtube']);
         }
 
         if (isset($locationUpdateData->linkedin)) {
             $locationUpdateArray['linkedin'] = !empty($locationUpdateData->linkedin) ? $locationUpdateData->linkedin : null;
-            $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'linkedin', $locationUpdateArray['linkedin']);
+            $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'linkedin', $locationUpdateArray['linkedin']);
         }
 
         if (isset($locationUpdateData->telegram)) {
             $locationUpdateArray['telegram'] = !empty($locationUpdateData->telegram) ? $locationUpdateData->telegram : null;
-            $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'telegram', $locationUpdateArray['telegram']);
+            $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'telegram', $locationUpdateArray['telegram']);
         }
 
         if (isset($locationUpdateData->description)) {
             $locationUpdateArray['description'] = !empty($locationUpdateData->description) ? $locationUpdateData->description : null;
-            $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'description', $locationUpdateArray['description']);
+            $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'description', $locationUpdateArray['description']);
         }
 
         if (isset($locationUpdateData->sector)) {
             $locationUpdateArray['sector'] = !empty($locationUpdateData->sector) ? (int)$locationUpdateData->sector : null;
-            $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'sector', $locationUpdateArray['sector']);
+            $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'sector', $locationUpdateArray['sector']);
         }
 
         if (isset($locationUpdateData->subSector)) {
             $locationUpdateArray['subSector'] = !empty($locationUpdateData->subSector) ? (int)$locationUpdateData->subSector : null;
-            $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'subSector', $locationUpdateArray['subSector']);
+            $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'subSector', $locationUpdateArray['subSector']);
         }
 
         if (isset($locationUpdateData->industryGroup)) {
             $locationUpdateArray['industryGroup'] = !empty($locationUpdateData->industryGroup) ? (int)$locationUpdateData->industryGroup : null;
-            $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'industryGroup', $locationUpdateArray['industryGroup']);
+            $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'industryGroup', $locationUpdateArray['industryGroup']);
         }
 
         if (isset($locationUpdateData->naicsIndustry)) {
             $locationUpdateArray['naicsIndustry'] = !empty($locationUpdateData->naicsIndustry) ? (int)$locationUpdateData->naicsIndustry : null;
-            $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'naicsIndustry', $locationUpdateArray['naicsIndustry']);
+            $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'naicsIndustry', $locationUpdateArray['naicsIndustry']);
         }
 
         if (isset($locationUpdateData->nationalIndustry)) {
             $locationUpdateArray['nationalIndustry'] = !empty($locationUpdateData->nationalIndustry) ? (int)$locationUpdateData->nationalIndustry : null;
-            $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'nationalIndustry', $locationUpdateArray['nationalIndustry']);
+            $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'nationalIndustry', $locationUpdateArray['nationalIndustry']);
         }
 
         if (isset($locationUpdateData->hours)) {
@@ -294,7 +299,7 @@ final class LocationUpdate
         return null;
     }
 
-    private function ticketAndSharesLogic(string $locationId, int $userId, LocationMysqlData $locationMysqlData, LocationMysqlUpdateData $locationMysqlUpdateData, string $field, ?string $value, ?string $lon = null)
+    private function ticketLogic(string $locationId, int $userId, LocationMysqlData $locationMysqlData, LocationMysqlUpdateData $locationMysqlUpdateData, string $field, ?string $value, ?string $lon = null)
     {
 
         $locationMysqlUpdateArray = [];
@@ -322,14 +327,6 @@ final class LocationUpdate
             $locationMysqlUpdateArray[$fieldBy] = !empty($locationMysqlUpdateArray[$field]) ? $userId : null;
 
             if ((empty($locationMysqlData->{$field}) || $locationMysqlData->{$fieldBy} == $userId)) {
-
-                $locationShareUpdateData = new LocationShareUpdateData();
-                $locationShareUpdateData->locationId = $locationId;
-                $locationShareUpdateData->userId = $userId;
-                $locationShareUpdateData->{$fieldShare} = !empty($locationMysqlUpdateArray[$field]) ? 1 : 0;
-                $locationShareUpdateData->updatedBy = $userId;
-
-                $locationShareUpdated = $this->locationShareUpdate->updateLocationShare($locationShareUpdateData);
 
                 $locationTicketCreateData = new LocationTicketCreateData();
                 $locationTicketCreateData->locationId = $locationId;
@@ -371,14 +368,6 @@ final class LocationUpdate
                     throw new UnexpectedValueException("This field is locked for further editing!");
                 }
 
-                $locationShareUpdateData = new LocationShareUpdateData();
-                $locationShareUpdateData->locationId = $locationId;
-                $locationShareUpdateData->userId = $userId;
-                $locationShareUpdateData->{$fieldShare} = !empty($locationMysqlUpdateArray[$field]) ? 1 : 0;
-                $locationShareUpdateData->updatedBy = $userId;
-
-                $locationShareUpdated = $this->locationShareUpdate->updateLocationShare($locationShareUpdateData);
-
                 $locationTicketCreateData = new LocationTicketCreateData();
                 $locationTicketCreateData->locationId = $locationId;
                 $locationTicketCreateData->userId = $userId;
@@ -392,13 +381,6 @@ final class LocationUpdate
 
                 //oldUser
                 if (!empty($locationMysqlData->{$fieldBy})) {
-                    $locationShareUpdateData = new LocationShareUpdateData();
-                    $locationShareUpdateData->locationId = $locationId;
-                    $locationShareUpdateData->userId = $locationMysqlData->{$fieldBy};
-                    $locationShareUpdateData->{$fieldShare} = 0;
-                    $locationShareUpdateData->updatedBy = $userId;
-
-                    $locationShareUpdated = $this->locationShareUpdate->updateLocationShare($locationShareUpdateData);
 
                     $locationTicketCreateData = new LocationTicketCreateData();
                     $locationTicketCreateData->locationId = $locationId;
@@ -474,58 +456,58 @@ final class LocationUpdate
         if(isset($hours)){
             if(isset($hours['monday'])){
                 if(array_key_exists('from', $hours['monday'])){
-                    $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursMondayFrom', $hours['monday']['from']);
+                    $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursMondayFrom', $hours['monday']['from']);
                 }
                 if(array_key_exists('to', $hours['monday'])){
-                    $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursMondayTo', $hours['monday']['to']);
+                    $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursMondayTo', $hours['monday']['to']);
                 }
             }
             if(isset($hours['tuesday'])){
                 if(array_key_exists('from', $hours['tuesday'])){
-                    $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursTuesdayFrom', $hours['tuesday']['from']);
+                    $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursTuesdayFrom', $hours['tuesday']['from']);
                 }
                 if(array_key_exists('to', $hours['tuesday'])){
-                    $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursTuesdayTo', $hours['tuesday']['to']);
+                    $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursTuesdayTo', $hours['tuesday']['to']);
                 }
             }
             if(isset($hours['wednesday'])){
                 if(array_key_exists('from', $hours['wednesday'])){
-                    $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursWednesdayFrom', $hours['wednesday']['from']);
+                    $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursWednesdayFrom', $hours['wednesday']['from']);
                 }
                 if(array_key_exists('to', $hours['wednesday'])){
-                    $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursWednesdayTo', $hours['wednesday']['to']);
+                    $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursWednesdayTo', $hours['wednesday']['to']);
                 }
             }
             if(isset($hours['thursday'])){
                 if(array_key_exists('from', $hours['thursday'])){
-                    $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursThursdayFrom', $hours['thursday']['from']);
+                    $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursThursdayFrom', $hours['thursday']['from']);
                 }
                 if(array_key_exists('to', $hours['thursday'])){
-                    $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursThursdayTo', $hours['thursday']['to']);
+                    $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursThursdayTo', $hours['thursday']['to']);
                 }
             }
             if(isset($hours['friday'])){
                 if(array_key_exists('from', $hours['friday'])){
-                    $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursFridayFrom', $hours['friday']['from']);
+                    $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursFridayFrom', $hours['friday']['from']);
                 }
                 if(array_key_exists('to', $hours['friday'])){
-                    $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursFridayTo', $hours['friday']['to']);
+                    $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursFridayTo', $hours['friday']['to']);
                 }
             }
             if(isset($hours['saturday'])){
                 if(array_key_exists('from', $hours['saturday'])){
-                    $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursSaturdayFrom', $hours['saturday']['from']);
+                    $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursSaturdayFrom', $hours['saturday']['from']);
                 }
                 if(array_key_exists('to', $hours['saturday'])){
-                    $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursSaturdayTo', $hours['saturday']['to']);
+                    $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursSaturdayTo', $hours['saturday']['to']);
                 }
             }
             if(isset($hours['sunday'])){
                 if(array_key_exists('from', $hours['sunday'])){
-                    $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursSundayFrom', $hours['sunday']['from']);
+                    $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursSundayFrom', $hours['sunday']['from']);
                 }
                 if(array_key_exists('to', $hours['sunday'])){
-                    $this->ticketAndSharesLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursSundayTo', $hours['sunday']['to']);
+                    $this->ticketLogic($locationId, $userId, $locationMysqlData, $locationMysqlUpdateData, 'hoursSundayTo', $hours['sunday']['to']);
                 }
             }
         }

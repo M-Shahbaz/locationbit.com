@@ -257,6 +257,12 @@ export default function LocationAndMapSection(props) {
                     />
                     <LocationTableRow
                       locationId={location.id}
+                      tableRowName="whatsApp"
+                      tableRowValue={location.whatsApp}
+                      edit={editTrue}
+                    />
+                    <LocationTableRow
+                      locationId={location.id}
                       tableRowName="googleMaps"
                       tableRowValue={location.googleMaps}
                       edit={editTrue}

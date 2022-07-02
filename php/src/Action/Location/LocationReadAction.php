@@ -65,6 +65,7 @@ final class LocationReadAction
                 'website' => $locationData->website,
                 'email' => $locationData->email,
                 'phone' => $locationData->phone,
+                'whatsApp' => $locationData->whatsApp,
                 'googleMaps' => $locationData->googleMaps,
                 'googleStreetView' => $locationData->googleStreetView,
                 'facebook' => $locationData->facebook,

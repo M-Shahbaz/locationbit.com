@@ -74,6 +74,9 @@ final class LocationData
     public $phone;  
     
     /** @var string (varchar)*/
+    public $whatsApp;  
+    
+    /** @var string (varchar)*/
     public $googleMaps;  
     
     /** @var string (varchar)*/

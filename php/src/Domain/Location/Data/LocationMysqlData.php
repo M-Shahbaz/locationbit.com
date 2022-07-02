@@ -133,6 +133,15 @@ final class LocationMysqlData
     public $phoneOn;      
     
     /** @var string (varchar)*/
+    public $whatsApp;      
+    
+    /** @var int */
+    public $whatsAppBy;      
+    
+    /** @var string (datetime)*/
+    public $whatsAppOn;      
+    
+    /** @var string (varchar)*/
     public $googleMaps;      
     
     /** @var int */

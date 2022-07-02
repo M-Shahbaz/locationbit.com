@@ -1,5 +1,7 @@
 apachectl configtest
 
+apachectl -k graceful
+
 systemctl restart apache2
 
 nano /etc/apache2/sites-available/locationbit.com.conf

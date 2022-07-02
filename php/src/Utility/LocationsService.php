@@ -51,6 +51,7 @@ class LocationsService
         $locationData->website = isset($row->website) ? $row->website : null;
         $locationData->email = isset($row->email) ? $row->email : null;
         $locationData->phone = isset($row->phone) ? $row->phone : null;
+        $locationData->whatsApp = isset($row->whatsApp) ? $row->whatsApp : null;
         $locationData->googleMaps = isset($row->googleMaps) ? $row->googleMaps : null;
         $locationData->googleStreetView = isset($row->googleStreetView) ? $row->googleStreetView : null;
         $locationData->facebook = isset($row->facebook) ? $row->facebook : null;
